@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.c3e2cb0a.css",
-    "main.js": "/static/js/main.0cff3fa7.js",
-    "index.html": "/index.html",
-    "main.c3e2cb0a.css.map": "/static/css/main.c3e2cb0a.css.map",
-    "main.0cff3fa7.js.map": "/static/js/main.0cff3fa7.js.map"
+    "main.css": "/IDF-Timing-Now/static/css/main.c3e2cb0a.css",
+    "main.js": "/IDF-Timing-Now/static/js/main.054ef7b6.js",
+    "index.html": "/IDF-Timing-Now/index.html",
+    "main.c3e2cb0a.css.map": "/IDF-Timing-Now/static/css/main.c3e2cb0a.css.map",
+    "main.054ef7b6.js.map": "/IDF-Timing-Now/static/js/main.054ef7b6.js.map"
   },
   "entrypoints": [
     "static/css/main.c3e2cb0a.css",
-    "static/js/main.0cff3fa7.js"
+    "static/js/main.054ef7b6.js"
   ]
 }
