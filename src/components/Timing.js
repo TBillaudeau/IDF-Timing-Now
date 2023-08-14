@@ -16,7 +16,7 @@ function TrainInfo({ logo, trainData }) {
         <div className="overflow-y-auto max-h-[27rem]">
           {trainData.map((train, index) => (
             <div key={train.time + index} className="flex items-center bg-white rounded-lg shadow-md p-4 mb-3 max-h-[72px]">
-              <img src={`../images/${logo.replace(/:/g, '_')}.png`} alt={train.shortName} className="h-10 mr-4" />
+              <img src={`/images/${logo.replace(/:/g, '_')}.png`} alt={train.shortName} className="h-10 mr-4" />
               <div className="flex-grow">
                 {/* <h2 className="text-xl font-bold pb-1">{removeGareDePrefix(train.lineDirection)}</h2> */}
                 <h2 className={`font-bold pb-1 ${removeGareDePrefix(train.lineDirection).length >= 30 ? 'text-base' : 'text-xl'}`}>{removeGareDePrefix(train.lineDirection)}</h2>
