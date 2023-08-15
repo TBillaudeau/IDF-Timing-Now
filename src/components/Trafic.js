@@ -63,9 +63,11 @@ export const lineTypes = {
       'line:IDFM:C01409', // N53
     ]
   };
+
+let cachedDisruptions = null;
+let lastCacheTime = null;
   
-  
-export async function fetchAllDisruptions() {
+async function fetchAllDisruptions() {
     try {
       const response = await fetch('https://api-iv.iledefrance-mobilites.fr/disruptions/v2');
       const data = await response.json();
@@ -78,6 +80,13 @@ export async function fetchAllDisruptions() {
   
 
 export async function checkDisruptions() {
+    const currentTimestamp = new Date();
+
+    // Use cached data if available and cache isn't too old
+    if (cachedDisruptions && lastCacheTime && currentTimestamp - lastCacheTime < CACHE_EXPIRATION_TIME) {
+        return cachedDisruptions;
+    }
+
     const data = await fetchAllDisruptions();
 
     if (!data) {
@@ -87,7 +96,6 @@ export async function checkDisruptions() {
         };
     }
 
-    const currentTimestamp = new Date();
     const allDisruptedLines = [];
 
     for (const [lineType, lineIds] of Object.entries(lineTypes)) {
@@ -115,8 +123,15 @@ export async function checkDisruptions() {
         });
         }
 
-    return {
+    // Update cached data
+    cachedDisruptions = {
         loading: false,
         disruptedLines: allDisruptedLines,
     };
+    lastCacheTime = currentTimestamp;
+
+    return cachedDisruptions;
 }
+
+// Set the cache expiration time (in milliseconds)
+const CACHE_EXPIRATION_TIME = 5 * 60 * 1000; // 5 minutes
