@@ -14,7 +14,7 @@ function StationInfo({ transportLogo, lineLogo, stationName }) {
     }, []);
 
     const disrupted = disruptedLines.some(line => line.lineId === lineLogo && line.disrupted === true);
-
+    
     return (
         // <div className="flex items-center bg-slate-700 text-white p-4 mb-4 rounded-lg shadow-md">
         <div className="flex items-center bg-white border-slate-700 border-solid border-2 p-4 mb-4 rounded-lg shadow-md">
@@ -22,10 +22,10 @@ function StationInfo({ transportLogo, lineLogo, stationName }) {
             <img src={process.env.PUBLIC_URL + `/images/${lineLogo.replace(/:/g, '_')}.png`} alt={lineLogo} className="h-10 mr-4" />
             {disrupted && (
                 <span className="relative">
-                <span className="absolute top-[-1.8rem] right-[0.5rem]">
+                <span className="absolute top-[-1.8rem] right-[5.5rem]">
                     <span className="relative flex h-5 w-5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-5 w-5 bg-orange-500"></span>
+                    <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${disruptedLines.find(line => line.lineId === lineLogo)?.disruption.severity === 'BLOQUANTE' ? 'bg-red-600' : 'bg-yellow-400'}`}></span>
+                    <span className={`relative inline-flex rounded-full h-5 w-5 ${disruptedLines.find(line => line.lineId === lineLogo)?.disruption.severity === 'BLOQUANTE' ? 'bg-red-600' : 'bg-yellow-400'}`}></span>
                     </span>
                 </span>
                 </span>

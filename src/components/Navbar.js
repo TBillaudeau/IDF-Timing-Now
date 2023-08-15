@@ -8,9 +8,9 @@ export default function Navbar({ fixed }) {
 
   return (
     <>
-      <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-slate-800 shadow-lg">
+      <nav className="relative flex flex-wrap items-center justify-between mx-auto min-h-[6rem]  px-2 py-3 bg-slate-800 shadow-lg">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-          <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+          <div className="w-full relative flex justify-between xl:w-auto xl:static xl:block xl:justify-start">
             <Link
               className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
               to="/"
@@ -18,7 +18,7 @@ export default function Navbar({ fixed }) {
               <Clock />
             </Link>
             <button
-              className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+              className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block xl:hidden outline-none focus:outline-none"
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
@@ -27,12 +27,12 @@ export default function Navbar({ fixed }) {
           </div>
           <div
             className={
-              "lg:flex flex-grow items-center" +
+              "xl:flex flex-grow items-center" +
               (navbarOpen ? " flex" : " hidden")
             }
             id="example-navbar-danger"
           >
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+            <ul className="flex flex-col xl:flex-row list-none xl:ml-auto">
               <li className="nav-item mr-2">
                 <Link
                   className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/" ? "bg-slate-700 rounded-lg p-2" : ""}`}
