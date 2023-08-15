@@ -1,7 +1,6 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Menu from './components/Menu';
 import Home from './pages/Home';
 import Suresnes from './pages/Suresnes';
 import SaintLazare from './pages/Saint-Lazare';
@@ -16,7 +15,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route exact path="/IDF-Timing-Now" element={<Home />} />
         <Route path="/Suresnes" element={<Suresnes />} />
         <Route path="/Saint-Lazare" element={<SaintLazare />} />
         <Route path="/Gare-Du-Nord" element={<GareNord />} />

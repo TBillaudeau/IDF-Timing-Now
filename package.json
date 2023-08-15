@@ -1,8 +1,8 @@
 {
-  "name": "IDF-Timing-Now",
+  "name": "idf-timing-now",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tbillaudeau.github.io/IDF-Timing-Now/#",
+  "homepage": "https://tbillaudeau.github.io/IDF-Timing-Now",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.2",
     "@testing-library/jest-dom": "^5.17.0",
