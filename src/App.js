@@ -15,7 +15,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route exact path="/IDF-Timing-Now" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
         <Route path="/Suresnes" element={<Suresnes />} />
         <Route path="/Saint-Lazare" element={<SaintLazare />} />
         <Route path="/Gare-Du-Nord" element={<GareNord />} />

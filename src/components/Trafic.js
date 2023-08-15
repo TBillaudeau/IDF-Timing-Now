@@ -134,4 +134,4 @@ export async function checkDisruptions() {
 }
 
 // Set the cache expiration time (in milliseconds)
-const CACHE_EXPIRATION_TIME = 5 * 60 * 1000; // 5 minutes
+const CACHE_EXPIRATION_TIME = 1 * 60 * 1000; // 1 minutes
