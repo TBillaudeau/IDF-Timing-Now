@@ -29,11 +29,11 @@ export default function Home() {
         </div>
       ) : (
         <>
-          <div className="flex flex-col lg:flex-row">
+          <div className="flex flex-col lg:flex-row h-[85vh]">
             <div className="flex flex-col m-2 sm:m-6 p-2 sm:p-6 xl:w-2/3 lg:w-full bg-white rounded-lg">
               {Object.entries(lineTypes).map(([lineType, lineIds]) => (
-                <div key={lineType} className="flex flex-row items-center p-2">
-                  <img src={process.env.PUBLIC_URL + `/images/${lineType.replace(/:/g, '_')}.png`} alt={lineType} className="w-12 h-12 mr-4" />
+                <div key={lineType} className="flex flex-row p-1 xl:p-2">
+                  <img src={process.env.PUBLIC_URL + `/images/${lineType.replace(/:/g, '_')}.png`} alt={lineType} className="h-10 xl:h-12 mt-1 mr-4" />
                   <div className="flex flex-row flex-wrap">
                     {lineIds.map((lineId) => {
                       const disruptedLine = disruptedLines.find(({ lineId: disruptedLineId }) => disruptedLineId === lineId);
@@ -43,7 +43,7 @@ export default function Home() {
                           src={process.env.PUBLIC_URL + `/images/${lineId.replace(/:/g, '_')}.png`}
                           alt={lineId}
                           onClick={() => handleLineClick(disruptedLine)}
-                          className={`h-12 m-1 p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? 'border-red-500 cursor-pointer' : 'border-green-600'}`}
+                          className={`h-10 xl:h-12 m-1 p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? 'border-red-500 cursor-pointer' : 'border-green-600'}`}
                         />
                       );
                     })}
@@ -63,8 +63,8 @@ export default function Home() {
                         alt={selectedDisruption.lineId}
                         className="h-8 mr-2"
                       />
-                      <p className="font-semibold flex grow">{selectedDisruption.disruption.title}</p>
-                      <p className="font-semibold mr-4"> {selectedDisruption.disruption.cause}</p>
+                      <p className="text-sm xl:text-base xl:font-semibold flex grow">{selectedDisruption.disruption.title}</p>
+                      <p className="hidden xl:block font-semibold mr-4"> {selectedDisruption.disruption.cause}</p>
                     </div>
                       <div
                         dangerouslySetInnerHTML={{ __html: selectedDisruption.disruption.message }}
