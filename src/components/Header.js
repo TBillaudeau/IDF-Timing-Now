@@ -22,7 +22,7 @@ function StationInfo({ transportLogo, lineLogo, stationName }) {
             <img src={process.env.PUBLIC_URL + `/images/${lineLogo.replace(/:/g, '_')}.png`} alt={lineLogo} className="h-10 mr-4" />
             {disrupted && (
                 <span className="relative">
-                <span className="absolute top-[-1.8rem] right-[0.6rem]">
+                <span className="absolute top-[-1.8rem] right-[0.5rem]">
                     <span className="relative flex h-5 w-5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-5 w-5 bg-orange-500"></span>
