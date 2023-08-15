@@ -8,7 +8,7 @@ export default function Navbar({ fixed }) {
 
   return (
     <>
-      <nav className="relative flex flex-wrap items-center justify-between mx-auto min-h-[6rem]  px-2 py-3 bg-slate-800 shadow-lg">
+      <nav className="relative flex flex-wrap items-center justify-between mx-auto min-h-[6rem]  px-2 py-3 bg-sky-800 shadow-lg">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between xl:w-auto xl:static xl:block xl:justify-start">
             <Link
@@ -35,7 +35,7 @@ export default function Navbar({ fixed }) {
             <ul className="flex flex-col xl:flex-row list-none xl:ml-auto">
               <li className="nav-item mr-2">
                 <Link
-                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/" ? "bg-slate-700 rounded-lg p-2" : ""}`}
+                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/" ? "bg-sky-700 rounded-lg p-2" : ""}`}
                   to="/"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -44,7 +44,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li className="nav-item mr-2">
                 <Link
-                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Suresnes" ? "bg-slate-700 rounded-lg p-2" : ""}`}
+                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Suresnes" ? "bg-sky-700 rounded-lg p-2" : ""}`}
                   to="/Suresnes"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -53,7 +53,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li className="nav-item mr-2 ">
                 <Link
-                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Saint-Lazare" ? "bg-slate-700 rounded-lg p-2" : ""}`}
+                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Saint-Lazare" ? "bg-sky-700 rounded-lg p-2" : ""}`}
                   to="/Saint-Lazare"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -62,7 +62,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li className="nav-item mr-2">
                 <Link
-                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Gare-Du-Nord" ? "bg-slate-700 rounded-lg p-2" : ""}`}
+                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Gare-Du-Nord" ? "bg-sky-700 rounded-lg p-2" : ""}`}
                   to="/Gare-Du-Nord"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -71,7 +71,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li className="nav-item mr-2">
                 <Link
-                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Clichy-Levallois" ? "bg-slate-700 rounded-lg p-2" : ""}`}
+                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Clichy-Levallois" ? "bg-sky-700 rounded-lg p-2" : ""}`}
                   to="/Clichy-Levallois"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -80,7 +80,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li className="nav-item mr-2">
                 <Link
-                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/La-Defense" ? "bg-slate-700 rounded-lg p-2" : ""}`}
+                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/La-Defense" ? "bg-sky-700 rounded-lg p-2" : ""}`}
                   to="/La-Defense"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -89,7 +89,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li className="nav-item mr-2">
                 <Link
-                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Chatelet" ? "bg-slate-700 rounded-lg p-2" : ""}`}
+                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Chatelet" ? "bg-sky-700 rounded-lg p-2" : ""}`}
                   to="/Chatelet"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -98,7 +98,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li className="nav-item mr-2">
                 <Link
-                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Villejuif" ? "bg-slate-700 rounded-lg p-2" : ""}`}
+                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Villejuif" ? "bg-sky-700 rounded-lg p-2" : ""}`}
                   to="/Villejuif"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -107,7 +107,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li className="nav-item mr-2">
                 <Link
-                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Luxembourg" ? "bg-slate-700 rounded-lg p-2" : ""}`}
+                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Luxembourg" ? "bg-sky-700 rounded-lg p-2" : ""}`}
                   to="/Luxembourg"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -116,7 +116,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li className="nav-item mr-2">
                 <Link
-                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Fosses" ? "bg-slate-700 rounded-lg p-2" : ""}`}
+                  className={`px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 ${location.pathname === "/Fosses" ? "bg-sky-700 rounded-lg p-2" : ""}`}
                   to="/Fosses"
                   onClick={() => setNavbarOpen(false)}
                 >

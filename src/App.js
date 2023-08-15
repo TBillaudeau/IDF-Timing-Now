@@ -1,6 +1,7 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import Suresnes from './pages/Suresnes';
 import SaintLazare from './pages/Saint-Lazare';
@@ -24,6 +25,7 @@ function App() {
         <Route path="/Villejuif" element={<Villejuif />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </>
   );
 }

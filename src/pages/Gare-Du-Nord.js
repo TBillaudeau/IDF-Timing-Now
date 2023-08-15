@@ -33,18 +33,18 @@ function App() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-      <div className="m-6">
+    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="m-2 sm:m-6">
         <StationInfo transportLogo={"RER"} lineLogo={"line:IDFM:C01743"} stationName={"Gare Du Nord"} />
         <TrainInfo logo={"line:IDFM:C01743"} trainData={trainDataA} />
       </div>
 
-      <div className="m-6">
+      <div className="m-2 sm:m-6">
         <StationInfo transportLogo={"RER"} lineLogo={"line:IDFM:C01728"} stationName={"Paris Nord"} />
         <TrainInfo logo={"line:IDFM:C01728"} trainData={trainDataB} />
       </div>
 
-      <div className="m-6">
+      <div className="m-2 sm:m-6">
         <StationInfo transportLogo={"RER"} lineLogo={"line:IDFM:C01729"} stationName={"Magenta"} />
         <TrainInfo logo={"line:IDFM:C01729"} trainData={trainDataC} />
       </div>

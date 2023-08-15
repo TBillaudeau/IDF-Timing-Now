@@ -9,21 +9,21 @@ function TrainInfo({ logo, trainData }) {
     };
     
     if (trainData.length === 0) {
-      return <div className="flex items-center justify-center bg-white rounded-lg shadow-md p-4 mb-3 h-[72px] animate-pulse">Pas de prochains passages dans l'heure      </div>;
+      return <div className="flex items-center justify-center text-center text-xs xl:text-base bg-white rounded-lg shadow-md p-4 mb-3 h-[72px] animate-pulse">Pas de prochains passages dans l'heure      </div>;
     }
 
     return (
         <div className="overflow-y-auto max-h-[27rem]">
           {trainData.map((train, index) => (
             <div key={train.time + index} className="flex items-center bg-white rounded-lg shadow-md p-4 mb-3 max-h-[72px]">
-              <img src={process.env.PUBLIC_URL + `/images/${logo.replace(/:/g, '_')}.png`} alt={train.shortName} className="h-10 mr-4" />
+              <img src={process.env.PUBLIC_URL + `/images/${logo.replace(/:/g, '_')}.png`} alt={train.shortName} className="h-5 xl:h-10 mr-4" />
               <div className="flex-grow">
                 {/* <h2 className="text-xl font-bold pb-1">{removeGareDePrefix(train.lineDirection)}</h2> */}
-                <h2 className={`font-bold pb-1 ${removeGareDePrefix(train.lineDirection).length >= 30 ? 'text-base' : 'text-xl'}`}>{removeGareDePrefix(train.lineDirection)}</h2>
+                <h2 className='font-bold pb-1 text-xs xl:text-base'>{removeGareDePrefix(train.lineDirection)}</h2>
               </div>
               <div className="ml-5 min-w-max">
                 {train.time < 60 ? (
-                  <p className={`text-2xl font-bold pb-1 pr-2 text-green-600 ${train.time === '0' ? 'animate-pulse' : ''}`}>{train.time}ᵐⁱⁿ</p>
+                  <p className={`text-sm xl:text-2xl font-bold pb-1 pr-2 text-green-600 ${train.time === '0' ? 'animate-pulse' : ''}`}>{train.time}ᵐⁱⁿ</p>
                 ) : (
                   <div>
                     <p className="text-2xl font-bold pr-2 text-green-600">
