@@ -12,9 +12,6 @@ function TrainInfo({ logo, trainData }) {
       return <div className="flex items-center justify-center bg-white rounded-lg shadow-md p-4 mb-3 h-[72px] animate-pulse">Pas de prochains passages dans l'heure      </div>;
     }
 
-    // log current path of files in this component
-    // console.log('TrainInfo.js: ', __filename);
-
     return (
         <div className="overflow-y-auto max-h-[27rem]">
           {trainData.map((train, index) => (

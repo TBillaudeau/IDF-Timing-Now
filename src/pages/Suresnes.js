@@ -18,11 +18,11 @@ function App() {
   useEffect(() => {
     const fetchData = (url, setData) => {
       fetch(url)
-        .then(response => response.json())
-        .then(data => setData(data.nextDepartures.data))
-        .catch(error => console.error(error));
+      .then(response => response.status === 404 ? null : response.json())
+      .then(data => setData(data.nextDepartures.data))
+      .catch(error => console.error(error));
     };
-    
+
     fetchData(urlA, setTrainDataA);
     fetchData(urlB, setTrainDataB);
     fetchData(urlC, setTrainDataC);

@@ -10,7 +10,6 @@ function App() {
   const [trainDataE, setTrainDataE] = useState([]); // METRO 1
   const [trainDataF, setTrainDataF] = useState([]); // METRO 4
 
-
   const urlA = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01742/stops/stop_area:IDFM:474151/realtime'
   const urlB = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01743/stops/stop_area:IDFM:474151/realtime'
   const urlC = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01728/stops/stop_area:IDFM:474151/realtime'
@@ -18,15 +17,13 @@ function App() {
   const urlE = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01371/stops/stop_area:IDFM:71517/realtime'
   const urlF = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01374/stops/stop_area:IDFM:73794/realtime'
 
-
   useEffect(() => {
     const fetchData = (url, setData) => {
         fetch(url)
-        .then(response => response.json())
+        .then(response => response.status === 404 ? null : response.json())
         .then(data => setData(data.nextDepartures.data))
         .catch(error => console.error(error));
     };
-    
     
     fetchData(urlA, setTrainDataA);
     fetchData(urlB, setTrainDataB);
