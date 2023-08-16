@@ -88,12 +88,12 @@ function App() {
 
       <div className="m-2 sm:m-6">
         <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01239"} stationName={"Suresnes de Gaulle"} />
-        <TrainInfo logo={"line:IDFM:C01196"} trainData={trainDataG} />
+        <TrainInfo logo={"line:IDFM:C01239"} trainData={trainDataG} />
       </div>
 
       <div className="m-2 sm:m-6">
         <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01240"} stationName={"Suresnes de Gaulle"} />
-        <TrainInfo logo={"line:IDFM:C01196"} trainData={trainDataH} />
+        <TrainInfo logo={"line:IDFM:C01240"} trainData={trainDataH} />
       </div>
 
     </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { parse } from 'date-fns';
+import ReactImageZoom from 'react-image-zoom';
 import { lineTypes, checkDisruptions } from '../components/Trafic'
 
 export default function Home() {
@@ -24,8 +25,48 @@ export default function Home() {
   return (
     <>
       {loading ? (
-        <div className="flex justify-center items-center h-96">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-slate-700"></div>
+        <div className="flex justify-center items-center min-h-screen">
+          {/* <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-slate-700"></div> */}
+          
+          <div role="status" class="max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
+              <div class="flex items-center justify-between">
+                  <div>
+                      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
+                  <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+              </div>
+              <div class="flex items-center justify-between pt-4">
+                  <div>
+                      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
+                  <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+              </div>
+              <div class="flex items-center justify-between pt-4">
+                  <div>
+                      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
+                  <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+              </div>
+              <div class="flex items-center justify-between pt-4">
+                  <div>
+                      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
+                  <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+              </div>
+              <div class="flex items-center justify-between pt-4">
+                  <div>
+                      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
+                  <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+              </div>
+              <span class="sr-only">Loading...</span>
+          </div>
+
         </div>
       ) : (
         <>
@@ -66,6 +107,14 @@ export default function Home() {
                       <p className="text-sm xl:text-base xl:font-semibold flex grow">{selectedDisruption.disruption.title}</p>
                       <p className="hidden xl:block font-semibold mr-4"> {selectedDisruption.disruption.cause}</p>
                     </div>
+                    <a href={`https://me-deplacer.iledefrance-mobilites.fr/stif_static/assets_vianavigo/img/linesPlans/HD/${selectedDisruption.lineId.split(':').pop().replace(/:/g, '_')}.png`} target="_blank" rel="noopener noreferrer">
+                      <img
+                        src={`https://me-deplacer.iledefrance-mobilites.fr/stif_static/assets_vianavigo/img/linesPlans/HD/${selectedDisruption.lineId.split(':').pop().replace(/:/g, '_')}.png`}
+                        alt={selectedDisruption.lineId}
+                        className="w-full border p-2 border-gray-300"
+                      />
+                    </a>
+                    
                       <div
                         dangerouslySetInnerHTML={{ __html: selectedDisruption.disruption.message }}
                         className="border border-gray-300 p-4 rounded-lg mt-2 overflow-y-auto	max-h-[25rem]"
