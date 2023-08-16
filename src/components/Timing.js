@@ -9,18 +9,18 @@ function TrainInfo({ logo, trainData }) {
     };
     
     if (trainData.length === 0) {
-      return <div className="flex items-center justify-center text-center text-xs xl:text-base bg-white rounded-lg shadow-md p-4 mb-3 h-[72px] animate-pulse">Pas de prochains passages dans l'heure      </div>;
+      return <div className="flex items-center justify-center text-center text-xs xl:text-base bg-white rounded-lg shadow-md p-4 mb-3 h-[72px] animate-pulse">Information momentanément indisponible      </div>;
     }
 
     return (
         <div className="overflow-y-auto max-h-[27rem]">
           {trainData.map((train, index) => (
             <div key={train.time + index} className="flex items-center bg-white rounded-lg shadow-md p-1 xl:p-4 mb-3 min-h-[52px] max-h-[72px]">
-              <img src={process.env.PUBLIC_URL + `/images/${logo.replace(/:/g, '_')}.png`} alt={train.shortName} className="h-5 xl:h-10 ml-2 xl:ml-0 mr-2 xl:mr-4" />
+              <img src={process.env.PUBLIC_URL + `/images/${logo.replace(/:/g, '_')}.png`} alt={train.shortName} className="h-4 xl:h-10 ml-1 xl:ml-0 mr-2 xl:mr-4" />
               <div className="flex-grow">
-                <h2 className='xl:font-bold pb-1 text-xs xl:text-xl'>{removeGareDePrefix(train.lineDirection)}</h2>
+                <h2 className='font-bold pb-1 text-[10px] xl:text-xl line-clamp-2'>{removeGareDePrefix(train.lineDirection)}</h2>
               </div>
-              <div className="ml-5 min-w-max pr-2">
+              <div className="ml-1 xl:ml-5 min-w-max pr-2">
                 {/* {train.time < 60 ? (
                   <p className={`text-sm xl:text-2xl font-bold pr-1 xl:pr-2 text-green-600 ${train.time === '0' ? 'animate-pulse' : ''}`}>{train.time}ᵐⁱⁿ</p>
                 ) : (

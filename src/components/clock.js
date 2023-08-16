@@ -15,7 +15,7 @@ function Clock() {
 
   return (
     <div>
-      <h2 className="bg-slate-700 text-white rounded-lg p-2 text-xl">{time.toLocaleTimeString()}</h2>
+      <h2 className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{time.toLocaleTimeString()}</h2>
     </div>
   );
 }

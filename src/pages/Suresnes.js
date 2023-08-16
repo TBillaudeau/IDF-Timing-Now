@@ -8,12 +8,19 @@ function App() {
   const [trainDataC, setTrainDataC] = useState([]); // TRAIN U
   const [trainDataD, setTrainDataD] = useState([]); // BUS 70
   const [trainDataE, setTrainDataE] = useState([]); // BUS 175
+  const [trainDataF, setTrainDataF] = useState([]); // BUS 93
+  const [trainDataG, setTrainDataG] = useState([]); // BUS 241
+  const [trainDataH, setTrainDataH] = useState([]); // BUS 244
+
 
   const urlA = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01740/stops/stop_area:IDFM:70829/realtime'
   const urlB = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01390/stops/stop_area:IDFM:70845/realtime'
   const urlC = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01741/stops/stop_area:IDFM:70829/realtime'
-  const urlD = 'https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:C01106/stops/stop_area:IDFM:70822/realtime'
-  const urlE = 'https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:C01196/stops/stop_area:IDFM:70822/realtime'
+  const urlD = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01106/stops/stop_area:IDFM:70823/realtime'
+  const urlE = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01196/stops/stop_area:IDFM:70822/realtime'
+  const urlF = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01124/stops/stop_area:IDFM:70822/realtime'
+  const urlG = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01239/stops/stop_area:IDFM:70823/realtime'
+  const urlH = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01240/stops/stop_area:IDFM:70823/realtime'
 
   useEffect(() => {
     const fetchData = (url, setData) => {
@@ -28,6 +35,9 @@ function App() {
     fetchData(urlC, setTrainDataC);
     fetchData(urlD, setTrainDataD);
     fetchData(urlD, setTrainDataE);
+    fetchData(urlF, setTrainDataF);
+    fetchData(urlG, setTrainDataG);
+    fetchData(urlH, setTrainDataH);
 
 
     const intervalId = setInterval(() => {
@@ -36,15 +46,16 @@ function App() {
       fetchData(urlC, setTrainDataC);
       fetchData(urlD, setTrainDataD);
       fetchData(urlE, setTrainDataE);
-
+      fetchData(urlF, setTrainDataF);
+      fetchData(urlG, setTrainDataG);
+      fetchData(urlH, setTrainDataH);
     }, 2000);
 
     return () => clearInterval(intervalId);
   }, []);
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 ">
-
+    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 max-w-screen-xl flex-wrap justify-between mx-auto">
       <div className="m-2 sm:m-6">
         <StationInfo transportLogo={"TRAIN"} lineLogo={"line:IDFM:C01740"} stationName={"Suresnes Mont-Valérien"} />
         <TrainInfo logo={"line:IDFM:C01740"} trainData={trainDataA} />
@@ -61,13 +72,28 @@ function App() {
       </div>
 
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01106"} stationName={"XXX"} />
+        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01106"} stationName={"Mairie de Suresnes"} />
         <TrainInfo logo={"line:IDFM:C01106"} trainData={trainDataD} />
       </div>
 
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01196"} stationName={"XXX"} />
+        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01196"} stationName={"Nieuport"} />
         <TrainInfo logo={"line:IDFM:C01196"} trainData={trainDataE} />
+      </div>
+
+      <div className="m-2 sm:m-6">
+        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01124"} stationName={"Berty Albrecht"} />
+        <TrainInfo logo={"line:IDFM:C01124"} trainData={trainDataF} />
+      </div>
+
+      <div className="m-2 sm:m-6">
+        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01239"} stationName={"Suresnes de Gaulle"} />
+        <TrainInfo logo={"line:IDFM:C01196"} trainData={trainDataG} />
+      </div>
+
+      <div className="m-2 sm:m-6">
+        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01240"} stationName={"Suresnes de Gaulle"} />
+        <TrainInfo logo={"line:IDFM:C01196"} trainData={trainDataH} />
       </div>
 
     </div>
