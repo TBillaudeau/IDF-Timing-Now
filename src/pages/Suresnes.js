@@ -44,6 +44,7 @@ function App() {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 ">
+
       <div className="m-2 sm:m-6">
         <StationInfo transportLogo={"TRAIN"} lineLogo={"line:IDFM:C01740"} stationName={"Suresnes Mont-Valérien"} />
         <TrainInfo logo={"line:IDFM:C01740"} trainData={trainDataA} />
