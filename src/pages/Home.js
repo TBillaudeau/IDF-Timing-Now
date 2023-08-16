@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { parse } from 'date-fns';
-import ReactImageZoom from 'react-image-zoom';
 import { lineTypes, checkDisruptions } from '../components/Trafic'
 
 export default function Home() {

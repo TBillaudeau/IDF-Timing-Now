@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Clock from '../components/clock';
+import DarkMode from '../components/darkmode';
 
 export default function Navbar({ fixed }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -233,6 +234,7 @@ export default function Navbar({ fixed }) {
                 </Link>
               </li>
           </ul>
+          <DarkMode />
         </div>
       </div>
     </nav>

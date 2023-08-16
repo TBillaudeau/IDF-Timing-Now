@@ -37,7 +37,7 @@ function App() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-screen-xl flex-wrap justify-between mx-auto">
       <div className="m-6">
         <StationInfo transportLogo={"METRO"} lineLogo={"line:IDFM:C01377"} stationName={"Villejuif - Louis Aragon"} />
         <TrainInfo logo={"line:IDFM:C01377"} trainData={trainDataA} />
