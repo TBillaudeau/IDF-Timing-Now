@@ -1,99 +1,83 @@
-import React, { useState, useEffect } from 'react';
-import { lineTypes } from '../components/Trafic'; // Import your lineTypes constant here
+import React, { useState } from 'react';
+import Autosuggest from 'react-autosuggest';
+import stationsData from '../emplacement-des-gares-idf.json';
+import { useNavigate } from 'react-router-dom'; // Import useHistory
 
-const API_URL = 'https://data.iledefrance-mobilites.fr/explore/embed/dataset/arrets-lignes/table/';
-
-const DeparturesPage = () => {
-  const [selectedLine, setSelectedLine] = useState('');
-  const [selectedStops, setSelectedStops] = useState([]);
-  const [departures, setDepartures] = useState([]);
-
-  const handleLineChange = (event) => {
-    const selectedLine = event.target.value;
-    setSelectedLine(selectedLine);
-    setSelectedStops([]);
-    setDepartures([]);
+// Helper function to remove accents from a string
+const removeAccents = (str) => {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   };
-
-  const handleStopChange = async (event) => {
-    const selectedStop = event.target.value;
-
-    try {
-      const response = await fetch(`${API_URL}`);
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        const departuresData = processDeparturesResponse(data);
-        setDepartures(departuresData);
-      } else {
-        console.error('Error fetching departures');
-      }
-    } catch (error) {
-      console.error('Error fetching departures:', error);
-    }
+  
+  // Helper function to get suggestions based on user input
+  const getSuggestions = (value) => {
+    const inputValue = removeAccents(value.trim().toLowerCase());
+    const inputLength = inputValue.length;
+  
+    return inputLength === 0
+      ? []
+      : stationsData.filter(
+          (station) =>
+            station.fields.nom_zdl &&
+            removeAccents(station.fields.nom_zdl.toLowerCase()).includes(
+              inputValue
+            )
+        );
   };
+  
+  
+  const TrainDepartureDisplay = () => {
+    const [value, setValue] = useState('');
+    const [suggestions, setSuggestions] = useState([]);
+    const navigate = useNavigate(); // Get history from React Router
 
-  const processDeparturesResponse = (data) => {
-    // Process the response to extract departure information
-    // Modify this function according to the structure of the API response
-    return data.map((entry) => ({
-      departure_time: entry.departure_time,
-      // Extract other relevant departure information
-    }));
-  };
+    const onChange = (_, { newValue }) => {
+      setValue(newValue);
+    };
+  
+    const onSuggestionsFetchRequested = ({ value }) => {
+      setSuggestions(getSuggestions(value));
+    };
+  
+    const onSuggestionsClearRequested = () => {
+      setSuggestions([]);
+    };
+  
+    const getSuggestionValue = (suggestion) => suggestion.fields.nom_zdl;
+  
+    const renderSuggestion = (suggestion) => (
+    <div className="border p-2">
+        <div className="text-lg font-semibold">{suggestion.fields.nom_zdl}</div>
+        <div className="text-gray-500">Mode: {suggestion.fields.res_com}</div>
+    </div>      
+    );
+  
+    const onSuggestionSelected = async (_, { suggestion }) => {
+        const { id_ref_lda, idrefligc } = suggestion.fields;
 
-  useEffect(() => {
-    if (selectedLine) {
-      // Find the stops associated with the selected line
-      const lineType = selectedLine.split(':')[2]; // Extracting the line type from the selectedLine
-      const associatedStops = lineTypes[lineType] || [];
-      setSelectedStops(associatedStops);
-    }
-  }, [selectedLine]);
+        navigate(`/line/${idrefligc}/${id_ref_lda}`);
 
-  return (
-    <div>
-      <h1>Train Departures</h1>
-      <div>
-        <label>Select Line: </label>
-        <select value={selectedLine} onChange={handleStopChange}>
-          <option value="">Select a line</option>
-          {Object.keys(lineTypes).map((lineType) => (
-            <optgroup key={lineType} label={lineType}>
-              {lineTypes[lineType].map((line) => (
-                <option key={line} value={line}>
-                  {line}
-                </option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
+      };
+  
+    const inputProps = {
+      placeholder: 'Enter station name',
+      value,
+      onChange,
+    };
+  
+    return (
+        <div className="max-w-md mx-auto mt-8 p-4 border rounded-lg shadow-md">
+        <h2 className="text-xl font-semibold mb-4">Next Train Departure</h2>
+        <Autosuggest
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={onSuggestionsClearRequested}
+          getSuggestionValue={getSuggestionValue}
+          renderSuggestion={renderSuggestion}
+          onSuggestionSelected={onSuggestionSelected}
+          inputProps={inputProps}
+        />
       </div>
-      {selectedLine && (
-        <div>
-          <label>Select Stop: </label>
-          <select onChange={handleStopChange}>
-            <option value="">Select a stop</option>
-            {selectedStops.map((stop) => (
-              <option key={stop} value={stop}>
-                {stop}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-      {departures.length > 0 && (
-        <div>
-          <h2>Departures</h2>
-          <ul>
-            {departures.map((departure, index) => (
-              <li key={index}>{departure.departure_time}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default DeparturesPage;
+    );
+  };
+  
+  export default TrainDepartureDisplay;

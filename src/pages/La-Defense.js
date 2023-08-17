@@ -43,28 +43,28 @@ function App() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-screen-xl flex-wrap justify-between mx-auto">
       <div className="m-6">
-        <StationInfo transportLogo={"RER"} lineLogo={"line:IDFM:C01742"} stationName={"La Défense"} />
-        <TrainInfo logo={"line:IDFM:C01742"} trainData={trainDataA} />
+        <StationInfo transportLogo={"RER"} lineLogo={"C01742"} stationName={"La Défense"} />
+        <TrainInfo logo={"C01742"} trainData={trainDataA} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"TRAIN"} lineLogo={"line:IDFM:C01740"} stationName={"La Défense"} />
-        <TrainInfo logo={"line:IDFM:C01740"} trainData={trainDataB} />
+        <StationInfo transportLogo={"TRAIN"} lineLogo={"C01740"} stationName={"La Défense"} />
+        <TrainInfo logo={"C01740"} trainData={trainDataB} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"TRAM"} lineLogo={"line:IDFM:C01390"} stationName={"La Défense"} />
-        <TrainInfo logo={"line:IDFM:C01390"} trainData={trainDataC} />
+        <StationInfo transportLogo={"TRAM"} lineLogo={"C01390"} stationName={"La Défense"} />
+        <TrainInfo logo={"C01390"} trainData={trainDataC} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"TRAIN"} lineLogo={"line:IDFM:C01741"} stationName={"La Défense"} />
-        <TrainInfo logo={"line:IDFM:C01741"} trainData={trainDataD} />
+        <StationInfo transportLogo={"TRAIN"} lineLogo={"C01741"} stationName={"La Défense"} />
+        <TrainInfo logo={"C01741"} trainData={trainDataD} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"METRO"} lineLogo={"line:IDFM:C01371"} stationName={"La Défense"} />
-        <TrainInfo logo={"line:IDFM:C01371"} trainData={trainDataE} />
+        <StationInfo transportLogo={"METRO"} lineLogo={"C01371"} stationName={"La Défense"} />
+        <TrainInfo logo={"C01371"} trainData={trainDataE} />
       </div>
 
     </div>

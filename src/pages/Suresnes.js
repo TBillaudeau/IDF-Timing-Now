@@ -57,43 +57,43 @@ function App() {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"TRAIN"} lineLogo={"line:IDFM:C01740"} stationName={"Suresnes Mont-Valérien"} />
-        <TrainInfo logo={"line:IDFM:C01740"} trainData={trainDataA} />
+        <StationInfo transportLogo={"TRAIN"} lineLogo={"C01740"} stationName={"Suresnes Mont-Valérien"} />
+        <TrainInfo logo={"C01740"} trainData={trainDataA} />
       </div>
 
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"TRAM"} lineLogo={"line:IDFM:C01390"} stationName={"Belvédère"} />
-        <TrainInfo logo={"line:IDFM:C01390"} trainData={trainDataB} />
+        <StationInfo transportLogo={"TRAM"} lineLogo={"C01390"} stationName={"Belvédère"} />
+        <TrainInfo logo={"C01390"} trainData={trainDataB} />
       </div>
 
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"TRAIN"} lineLogo={"line:IDFM:C01741"} stationName={"Suresnes Mont-Valérien"} />
-        <TrainInfo logo={"line:IDFM:C01741"} trainData={trainDataC} />
+        <StationInfo transportLogo={"TRAIN"} lineLogo={"C01741"} stationName={"Suresnes Mont-Valérien"} />
+        <TrainInfo logo={"C01741"} trainData={trainDataC} />
       </div>
 
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01106"} stationName={"Mairie de Suresnes"} />
-        <TrainInfo logo={"line:IDFM:C01106"} trainData={trainDataD} />
+        <StationInfo transportLogo={"BUS"} lineLogo={"C01106"} stationName={"Mairie de Suresnes"} />
+        <TrainInfo logo={"C01106"} trainData={trainDataD} />
       </div>
 
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01196"} stationName={"Nieuport"} />
-        <TrainInfo logo={"line:IDFM:C01196"} trainData={trainDataE} />
+        <StationInfo transportLogo={"BUS"} lineLogo={"C01196"} stationName={"Nieuport"} />
+        <TrainInfo logo={"C01196"} trainData={trainDataE} />
       </div>
 
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01124"} stationName={"Berty Albrecht"} />
-        <TrainInfo logo={"line:IDFM:C01124"} trainData={trainDataF} />
+        <StationInfo transportLogo={"BUS"} lineLogo={"C01124"} stationName={"Berty Albrecht"} />
+        <TrainInfo logo={"C01124"} trainData={trainDataF} />
       </div>
 
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01239"} stationName={"Suresnes de Gaulle"} />
-        <TrainInfo logo={"line:IDFM:C01239"} trainData={trainDataG} />
+        <StationInfo transportLogo={"BUS"} lineLogo={"C01239"} stationName={"Suresnes de Gaulle"} />
+        <TrainInfo logo={"C01239"} trainData={trainDataG} />
       </div>
 
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01240"} stationName={"Suresnes de Gaulle"} />
-        <TrainInfo logo={"line:IDFM:C01240"} trainData={trainDataH} />
+        <StationInfo transportLogo={"BUS"} lineLogo={"C01240"} stationName={"Suresnes de Gaulle"} />
+        <TrainInfo logo={"C01240"} trainData={trainDataH} />
       </div>
 
     </div>

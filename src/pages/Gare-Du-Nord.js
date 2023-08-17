@@ -35,18 +35,18 @@ function App() {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 max-w-screen-xl flex-wrap justify-between mx-auto">
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"RER"} lineLogo={"line:IDFM:C01743"} stationName={"Gare Du Nord"} />
-        <TrainInfo logo={"line:IDFM:C01743"} trainData={trainDataA} />
+        <StationInfo transportLogo={"RER"} lineLogo={"C01743"} stationName={"Gare Du Nord"} />
+        <TrainInfo logo={"C01743"} trainData={trainDataA} />
       </div>
 
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"RER"} lineLogo={"line:IDFM:C01728"} stationName={"Paris Nord"} />
-        <TrainInfo logo={"line:IDFM:C01728"} trainData={trainDataB} />
+        <StationInfo transportLogo={"RER"} lineLogo={"C01728"} stationName={"Paris Nord"} />
+        <TrainInfo logo={"C01728"} trainData={trainDataB} />
       </div>
 
       <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"RER"} lineLogo={"line:IDFM:C01729"} stationName={"Magenta"} />
-        <TrainInfo logo={"line:IDFM:C01729"} trainData={trainDataC} />
+        <StationInfo transportLogo={"RER"} lineLogo={"C01729"} stationName={"Magenta"} />
+        <TrainInfo logo={"C01729"} trainData={trainDataC} />
       </div>
 
     </div>

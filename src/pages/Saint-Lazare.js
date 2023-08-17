@@ -31,13 +31,13 @@ function App() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 max-w-screen-xl flex-wrap justify-between mx-auto">
       <div className="m-6">
-        <StationInfo transportLogo={"TRAIN"} lineLogo={"line:IDFM:C01740"} stationName={"Paris Saint-Lazare"} />
-        <TrainInfo logo={"line:IDFM:C01740"} trainData={trainDataA} />
+        <StationInfo transportLogo={"TRAIN"} lineLogo={"C01740"} stationName={"Paris Saint-Lazare"} />
+        <TrainInfo logo={"C01740"} trainData={trainDataA} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"RER"} lineLogo={"line:IDFM:C01729"} stationName={"Haussmann Saint-Lazare"} />
-        <TrainInfo logo={"line:IDFM:C01729"} trainData={trainDataB} />
+        <StationInfo transportLogo={"RER"} lineLogo={"C01729"} stationName={"Haussmann Saint-Lazare"} />
+        <TrainInfo logo={"C01729"} trainData={trainDataB} />
       </div>
 
     </div>

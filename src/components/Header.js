@@ -39,8 +39,8 @@ function StationInfo({ transportLogo, lineLogo, stationName }) {
                 </span>
                 </span>
             )}
-            <img src={process.env.PUBLIC_URL + `/images/${transportLogo.replace(/:/g, '_')}.png`} alt={transportLogo} className="h-5 xl:h-10 mr-1" />
-            <img src={process.env.PUBLIC_URL + `/images/${lineLogo.replace(/:/g, '_')}.png`} alt={lineLogo} className="h-5 xl:h-10 mr-2 xl:mr-4" />
+            <img src={process.env.PUBLIC_URL + `/images/${transportLogo}.svg`} alt={transportLogo} className="h-5 xl:h-10 mr-1" />
+            <img src={process.env.PUBLIC_URL + `/images/${lineLogo}.svg`} alt={lineLogo} className="h-5 xl:h-10 mr-2 xl:mr-4" />
             <p className='text-xs xl:text-base font-medium flex-grow'>{stationName}</p>
             <p className='hidden xl:block text-slate-400 text-xs font-bold pr-3'>Attente</p>
         </div>

@@ -39,23 +39,23 @@ function App() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-screen-xl flex-wrap justify-between mx-auto">
       <div className="m-6">
-        <StationInfo transportLogo={"METRO"} lineLogo={"line:IDFM:C01377"} stationName={"Villejuif - Louis Aragon"} />
-        <TrainInfo logo={"line:IDFM:C01377"} trainData={trainDataA} />
+        <StationInfo transportLogo={"METRO"} lineLogo={"C01377"} stationName={"Villejuif - Louis Aragon"} />
+        <TrainInfo logo={"C01377"} trainData={trainDataA} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01201"} stationName={"Villejuif - Louis Aragon"} />
-        <TrainInfo logo={"line:IDFM:C01201"} trainData={trainDataB} />
+        <StationInfo transportLogo={"BUS"} lineLogo={"C01201"} stationName={"Villejuif - Louis Aragon"} />
+        <TrainInfo logo={"C01201"} trainData={trainDataB} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"BUS"} lineLogo={"line:IDFM:C01193"} stationName={"Villejuif - Louis Aragon"} />
-        <TrainInfo logo={"line:IDFM:C01193"} trainData={trainDataC} />
+        <StationInfo transportLogo={"BUS"} lineLogo={"C01193"} stationName={"Villejuif - Louis Aragon"} />
+        <TrainInfo logo={"C01193"} trainData={trainDataC} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"TRAM"} lineLogo={"line:IDFM:C01774"} stationName={"Villejuif - Louis Aragon"} />
-        <TrainInfo logo={"line:IDFM:C01774"} trainData={trainDataD} />
+        <StationInfo transportLogo={"TRAM"} lineLogo={"C01774"} stationName={"Villejuif - Louis Aragon"} />
+        <TrainInfo logo={"C01774"} trainData={trainDataD} />
       </div>
 
     </div>

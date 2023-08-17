@@ -47,33 +47,33 @@ function App() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-screen-xl flex-wrap justify-between mx-auto">
       <div className="m-6">
-        <StationInfo transportLogo={"RER"} lineLogo={"line:IDFM:C01742"} stationName={"Châtelet-Les Halles"} />
-        <TrainInfo logo={"line:IDFM:C01742"} trainData={trainDataA} />
+        <StationInfo transportLogo={"RER"} lineLogo={"C01742"} stationName={"Châtelet-Les Halles"} />
+        <TrainInfo logo={"C01742"} trainData={trainDataA} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"RER"} lineLogo={"line:IDFM:C01743"} stationName={"Châtelet-Les Halles"} />
-        <TrainInfo logo={"line:IDFM:C01743"} trainData={trainDataB} />
+        <StationInfo transportLogo={"RER"} lineLogo={"C01743"} stationName={"Châtelet-Les Halles"} />
+        <TrainInfo logo={"C01743"} trainData={trainDataB} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"RER"} lineLogo={"line:IDFM:C01728"} stationName={"Châtelet-Les Halles"} />
-        <TrainInfo logo={"line:IDFM:C01728"} trainData={trainDataC} />
+        <StationInfo transportLogo={"RER"} lineLogo={"C01728"} stationName={"Châtelet-Les Halles"} />
+        <TrainInfo logo={"C01728"} trainData={trainDataC} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"METRO"} lineLogo={"line:IDFM:C01377"} stationName={"Châtelet"} />
-        <TrainInfo logo={"line:IDFM:C01377"} trainData={trainDataD} />
+        <StationInfo transportLogo={"METRO"} lineLogo={"C01377"} stationName={"Châtelet"} />
+        <TrainInfo logo={"C01377"} trainData={trainDataD} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"METRO"} lineLogo={"line:IDFM:C01371"} stationName={"Châtelet"} />
-        <TrainInfo logo={"line:IDFM:C01371"} trainData={trainDataE} />
+        <StationInfo transportLogo={"METRO"} lineLogo={"C01371"} stationName={"Châtelet"} />
+        <TrainInfo logo={"C01371"} trainData={trainDataE} />
       </div>
 
       <div className="m-6">
-        <StationInfo transportLogo={"METRO"} lineLogo={"line:IDFM:C01374"} stationName={"Les Halles"} />
-        <TrainInfo logo={"line:IDFM:C01374"} trainData={trainDataF} />
+        <StationInfo transportLogo={"METRO"} lineLogo={"C01374"} stationName={"Les Halles"} />
+        <TrainInfo logo={"C01374"} trainData={trainDataF} />
       </div>
 
     </div>

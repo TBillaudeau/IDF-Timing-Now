@@ -16,7 +16,7 @@ function TrainInfo({ logo, trainData }) {
         <div className="overflow-y-auto max-h-[27rem]">
           {trainData.map((train, index) => (
             <div key={train.time + index} className="flex items-center bg-white rounded-lg shadow-md p-1 xl:p-4 mb-1 xl:mb-3">
-              <img src={process.env.PUBLIC_URL + `/images/${logo.replace(/:/g, '_')}.png`} alt={train.shortName} className="h-4 xl:h-10 ml-1 xl:ml-0 mr-2 xl:mr-4" />
+              <img src={process.env.PUBLIC_URL + `/images/${logo}.svg`} alt={train.shortName} className="h-4 xl:h-10 ml-1 xl:ml-0 mr-2 xl:mr-4" />
               <div className="flex-grow">
                 <h2 className='font-bold text-[11px] xl:text-xl line-clamp-2'>{removeGareDePrefix(train.lineDirection)}</h2>
               </div>
@@ -34,7 +34,7 @@ function TrainInfo({ logo, trainData }) {
                     </p>
                   </div>
                 )} */}
-                  <p className={`text-sm xl:text-2xl font-bold text-green-600 ${train.time === '0' ? 'animate-pulse' : ''}`}>{train.time}ᵐⁱⁿ</p> {/*ᵐⁱⁿ*/}
+                  <p className={`text-sm xl:text-2xl font-bold text-green-600 ${train.time === '0' ? 'animate-pulse' : ''}`}>{train.time}<span className="text-xs xl:text-lg">ᵐⁱⁿ</span></p> {/*ᵐⁱⁿ*/}
                   <p className="text-xs xl:text-sm text-right text-gray-400">{new Date(Date.now() + train.time * 60000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</p>
               </div>
             </div>
