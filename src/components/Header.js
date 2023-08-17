@@ -14,7 +14,7 @@ function StationInfo({ transportLogo, lineLogo, stationName }) {
         fetchData();
     }, []);
 
-    const disrupted = disruptedLines.some(line => line.lineId === lineLogo && line.disrupted === true);
+    const disrupted = disruptedLines.some(line => line.lineId === 'line:IDFM:'+lineLogo && line.disrupted === true);
     
     return (
         // <div className="flex items-center bg-slate-700 text-white p-4 mb-4 rounded-lg shadow-md">
@@ -27,11 +27,11 @@ function StationInfo({ transportLogo, lineLogo, stationName }) {
                             <h3 className="font-semibold text-gray-900 dark:text-white">{disruptedLines.find(line => line.lineId === lineLogo)?.disruption.cause}</h3>
                         </div>
                         <div className="px-3 py-2">
-                            <p>{disruptedLines.find(line => line.lineId === lineLogo)?.disruption.title}</p>
+                            <p>{disruptedLines.find(line => line.lineId === 'line:IDFM:'+lineLogo)?.disruption.title}</p>
                         </div>
                     </div>
                 )}
-                <span className="absolute top-[-1.1rem] right-[-3.1rem] xl:top-[-1.8rem] xl:right-[-5.9rem]">
+                <span className="absolute top-[-1rem] right-[-0.4rem] xl:top-[-1.8rem] xl:right-[-0.7rem]">
                     <span className="relative flex h-3 w-3 xl:h-5 xl:w-5">
                     <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${disruptedLines.find(line => line.lineId === lineLogo)?.disruption.severity === 'BLOQUANTE' ? 'bg-red-600' : 'bg-yellow-400'}`}></span>
                     <span className={`relative inline-flex rounded-full h-3 w-3 xl:h-5 xl:w-5 ${disruptedLines.find(line => line.lineId === lineLogo)?.disruption.severity === 'BLOQUANTE' ? 'bg-red-600' : 'bg-yellow-400'}`}></span>

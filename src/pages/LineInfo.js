@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import TrainInfo from '../components/Timing';
 import StationInfo from '../components/Header';
+import stationsData from '../emplacement-des-gares-idf.json';
 
 function App() {
   const [trainDataA, setTrainDataA] = useState([]);
