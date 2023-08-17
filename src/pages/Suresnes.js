@@ -60,7 +60,7 @@ function App() {
         <StationInfo transportLogo={"TRAIN"} lineLogo={"C01740"} stationName={"Suresnes Mont-Valérien"} />
         <TrainInfo logo={"C01740"} trainData={trainDataA} />
       </div>
-
+      
       <div className="m-2 sm:m-6">
         <StationInfo transportLogo={"TRAM"} lineLogo={"C01390"} stationName={"Belvédère"} />
         <TrainInfo logo={"C01390"} trainData={trainDataB} />

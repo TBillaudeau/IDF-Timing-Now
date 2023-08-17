@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 max-w-screen-xl flex-wrap justify-between mx-auto">
+    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2">
       <div className="m-6">
         <StationInfo transportLogo={"TRAIN"} lineLogo={"C01740"} stationName={"Paris Saint-Lazare"} />
         <TrainInfo logo={"C01740"} trainData={trainDataA} />

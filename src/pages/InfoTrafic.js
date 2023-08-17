@@ -72,7 +72,7 @@ export default function Home() {
             <div className="flex flex-col m-2 sm:m-6 p-2 sm:p-6 xl:w-2/3 lg:w-full bg-white rounded-lg">
               {Object.entries(lineTypes).map(([lineType, lineIds]) => (
                 <div key={lineType} className="flex flex-row p-1 xl:p-2">
-                  <img src={process.env.PUBLIC_URL + `/images/${lineType}.svg`} alt={lineType} className="h-[2.3rem] xl:h-12 mt-1 lg:mr-4" />
+                  <img src={process.env.PUBLIC_URL + `/images/${lineType}.svg`} alt={lineType} className="h-8 xl:h-12 mt-1 mr-1 lg:mr-4" />
                   <div className="flex flex-row flex-wrap">
                     {lineIds.map((lineId) => {
                       const disruptedLine = disruptedLines.find(({ lineId: disruptedLineId }) => disruptedLineId === lineId);
@@ -82,7 +82,7 @@ export default function Home() {
                           src={process.env.PUBLIC_URL + `/images/${lineId.split(':').pop()}.svg`}
                           alt={lineId}
                           onClick={() => handleLineClick(disruptedLine)}
-                          className={`h-[2.3rem] xl:h-12 m-1 p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? 'border-red-500 cursor-pointer' : 'border-green-600'}`}
+                          className={`h-9 xl:h-12 m-0.5 p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? 'border-red-500 cursor-pointer' : 'border-green-600'}`}
                         />
                       );
                     })}
