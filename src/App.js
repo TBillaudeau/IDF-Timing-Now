@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-import Search from './pages/Search';
+import Search from './pages/SearchResult';
 import InfoTrafic from './pages/InfoTrafic';
 import LineInfo from './pages/LineInfo';
 
@@ -28,6 +28,7 @@ function App() {
           <Route path="/line/:line" element={<LineInfo />} />
           <Route path="/line/:line/:stop_area" element={<Search />} />
 
+          <Route exact path="/infos-trafic" element={<InfoTrafic />} />
           <Route path="/Suresnes" element={<Suresnes />} />
           <Route path="/Saint-Lazare" element={<SaintLazare />} />
           <Route path="/Gare-Du-Nord" element={<GareNord />} />

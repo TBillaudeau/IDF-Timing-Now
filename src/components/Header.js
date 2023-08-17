@@ -2,20 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { checkDisruptions } from '../components/Trafic';
 
 function StationInfo({ transportLogo, lineLogo, stationName }) {
+
+    // Fetch & check disruptions
     const [disruptedLines, setDisruptedLines] = useState([]);
     const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchDisruptions = async () => {
         const { disruptedLines } = await checkDisruptions();
         setDisruptedLines(disruptedLines);
         };
 
-        fetchData();
+        fetchDisruptions();
     }, []);
 
     const disrupted = disruptedLines.some(line => line.lineId === 'line:IDFM:'+lineLogo && line.disrupted === true);
     
+    // Display station header
     return (
         // <div className="flex items-center bg-slate-700 text-white p-4 mb-4 rounded-lg shadow-md">
         <div className="flex items-center bg-white border-slate-700 border-solid border-2 p-2 xl:p-4 mb-4 rounded-lg shadow-md min-h-[52px]" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>

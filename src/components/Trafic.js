@@ -61,6 +61,11 @@ export const lineTypes = {
       'line:IDFM:C01239', // 241
       'line:IDFM:C01240', // 244
       'line:IDFM:C01409', // N53
+
+      'line:IDFM:C01417', // N15
+      'line:IDFM:C01392', // N24
+      'line:IDFM:C02600', // N146
+      'line:IDFM:C01422', // N153
     ]
   };
 

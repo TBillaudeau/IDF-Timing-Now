@@ -1,52 +1,23 @@
-import React, { useState, useEffect } from 'react';
 import TrainInfo from '../components/Timing';
 import StationInfo from '../components/Header';
 
 function App() {
-  const [trainDataA, setTrainDataA] = useState([]); // RER B
-  const [trainDataB, setTrainDataB] = useState([]); // RER D
-  const [trainDataC, setTrainDataC] = useState([]); // RER E
-
-  const urlA = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01743/stops/stop_area:IDFM:71410/realtime'
-  const urlB = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01728/stops/stop_area:IDFM:71410/realtime'
-  const urlC = 'https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:C01729/stops/stop_area:IDFM:478733/realtime'
-
-  useEffect(() => {
-    const fetchData = (url, setData) => {
-      fetch(url)
-      .then(response => response.status === 404 ? null : response.json())
-      .then(data => setData(data.nextDepartures.data))
-      .catch(error => console.error(error));
-    };
-    
-    fetchData(urlA, setTrainDataA);
-    fetchData(urlB, setTrainDataB);
-    fetchData(urlC, setTrainDataC);
-
-    const intervalId = setInterval(() => {
-      fetchData(urlA, setTrainDataA);
-      fetchData(urlB, setTrainDataB);
-      fetchData(urlC, setTrainDataC);
-    }, 2000);
-
-    return () => clearInterval(intervalId);
-  }, []);
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
       <div className="m-2 sm:m-6">
         <StationInfo transportLogo={"RER"} lineLogo={"C01743"} stationName={"Gare Du Nord"} />
-        <TrainInfo logo={"C01743"} trainData={trainDataA} />
+        <TrainInfo lineID={"C01743"} stationName={"71410"} />
       </div>
 
       <div className="m-2 sm:m-6">
         <StationInfo transportLogo={"RER"} lineLogo={"C01728"} stationName={"Paris Nord"} />
-        <TrainInfo logo={"C01728"} trainData={trainDataB} />
+        <TrainInfo lineID={"C01728"} stationName={"71410"} />
       </div>
 
       <div className="m-2 sm:m-6">
         <StationInfo transportLogo={"RER"} lineLogo={"C01729"} stationName={"Magenta"} />
-        <TrainInfo logo={"C01729"} trainData={trainDataC} />
+        <TrainInfo lineID={"C01729"} stationName={"478733"} />
       </div>
 
     </div>

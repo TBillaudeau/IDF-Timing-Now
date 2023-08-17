@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import DisruptionInfo from '../components/DisruptionInfo';
+import TrainDepartureDisplay from '../components/Search'
 import { lineTypes, checkDisruptions } from '../components/Trafic'
 
 export default function Home() {
@@ -23,7 +25,7 @@ export default function Home() {
   return (
     <>
       {loading ? (
-        <div className="flex justify-center items-center min-h-screen">
+        <div className="flex justify-center items-center">
           {/* <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-slate-700"></div> */}
           
           <div role="status" class="max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
@@ -82,7 +84,7 @@ export default function Home() {
                           src={process.env.PUBLIC_URL + `/images/${lineId.split(':').pop()}.svg`}
                           alt={lineId}
                           onClick={() => handleLineClick(disruptedLine)}
-                          className={`h-9 xl:h-12 m-0.5 p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? 'border-red-500 cursor-pointer' : 'border-green-600'}`}
+                          className={`h-9 xl:h-12 m-[3px] p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? 'border-red-500 cursor-pointer' : 'border-green-600'}`}
                         />
                       );
                     })}
@@ -91,42 +93,10 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="flex flex-col m-6 p-6 xl:w-2/3 lg:w-full bg-white rounded-lg">
-              {selectedDisruption ? (
-                <div>
-                  {selectedDisruption.disruption ? (
-                    <>
-                    <div className="flex items-center mb-6">
-                      <img
-                        src={process.env.PUBLIC_URL + `/images/${selectedDisruption.lineId.split(':').pop()}.svg`}
-                        alt={selectedDisruption.lineId}
-                        className="h-8 mr-2"
-                      />
-                      <p className="text-sm xl:text-base xl:font-semibold flex grow">{selectedDisruption.disruption.title}</p>
-                      <p className="hidden xl:block font-semibold mr-4"> {selectedDisruption.disruption.cause}</p>
-                    </div>
-                    <a href={`https://me-deplacer.iledefrance-mobilites.fr/stif_static/assets_vianavigo/img/linesPlans/HD/${selectedDisruption.lineId.split(':').pop().replace(/:/g, '_')}.png`} target="_blank" rel="noopener noreferrer">
-                      <img
-                        src={`https://me-deplacer.iledefrance-mobilites.fr/stif_static/assets_vianavigo/img/linesPlans/HD/${selectedDisruption.lineId.split(':').pop().replace(/:/g, '_')}.png`}
-                        alt={selectedDisruption.lineId}
-                        className="w-full border p-2 border-gray-300"
-                      />
-                    </a>
-                    
-                      <div
-                        dangerouslySetInnerHTML={{ __html: selectedDisruption.disruption.message }}
-                        className="border border-gray-300 p-4 rounded-lg mt-2 overflow-y-auto	max-h-[25rem]"
-                      />
-                    </>
-                  ) : (
-                    <p>No disruption details available for this line.</p>
-                  )}
-                </div>
-              ) : (
-                <p className="text-gray-500">Click on a train line to view disruption details.</p>
-              )}
-            </div>
+            <DisruptionInfo selectedDisruption={selectedDisruption} />
+
           </div>
+          <TrainDepartureDisplay />
         </>
       )}
     </>

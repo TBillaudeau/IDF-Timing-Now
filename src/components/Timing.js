@@ -1,4 +1,29 @@
-function TrainInfo({ logo, trainData }) {
+import React, { useEffect, useState } from 'react';
+
+function TrainInfo({ lineID, stationName }) {
+
+  // Fetch train departure every 2 seconds
+  const [trainData, setTrainData] = useState([]);
+  const url = `https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:${lineID}/stops/stop_area:IDFM:${stationName}/realtime`;
+  useEffect(() => {
+    const fetchData = (url, setData) => {
+      fetch(url)
+      .then(response => response.status === 404 ? null : response.json())
+      .then(data => setData(data.nextDepartures.data))
+      .catch(error => console.error(error));
+    };
+
+    fetchData(url, setTrainData);
+
+    const intervalId = setInterval(() => {
+      fetchData(url, setTrainData);
+    }, 2000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+
+    // Remove "Gare de" or "Gare " from lineDirection
     const removeGareDePrefix = (lineDirection) => {
       try {
         const withoutGarePrefix = lineDirection.replace(/^(Gare de |Gare )/i, ''); // Removes "Gare de" or "Gare " (case-insensitive)
@@ -7,16 +32,18 @@ function TrainInfo({ logo, trainData }) {
         return lineDirection;
       }
     };
-    
+
+    // Display loading animation if no data available
     if (trainData.length === 0) {
       return <div className="flex items-center justify-center text-center text-xs xl:text-base bg-white rounded-lg shadow-md p-4 mb-3 h-[72px] animate-pulse">Information momentanément indisponible      </div>;
     }
-
+    
+    // Display train departure
     return (
         <div className="overflow-y-auto max-h-[27rem]">
           {trainData.map((train, index) => (
             <div key={train.time + index} className="flex items-center bg-white rounded-lg shadow-md p-1 xl:p-4 mb-1 xl:mb-3">
-              <img src={process.env.PUBLIC_URL + `/images/${logo}.svg`} alt={train.shortName} className="h-4 xl:h-10 ml-1 xl:ml-0 mr-2 xl:mr-4" />
+              <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={train.shortName} className="h-4 xl:h-10 ml-1 xl:ml-0 mr-2 xl:mr-4" />
               <div className="flex-grow">
                 <h2 className='font-bold text-[11px] xl:text-xl line-clamp-2'>{removeGareDePrefix(train.lineDirection)}</h2>
               </div>
