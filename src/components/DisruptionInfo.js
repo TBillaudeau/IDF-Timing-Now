@@ -1,7 +1,7 @@
 function info(selectedDisruption) {
     selectedDisruption = selectedDisruption.selectedDisruption
     return (
-        <div className="flex flex-col m-6 p-6 xl:w-2/3 lg:w-full bg-white rounded-lg">
+        <div className="bg-white rounded-lg m-2 sm:m-6 p-4 lg:p-6">
             {selectedDisruption ? (
                 <div>
                     {selectedDisruption.disruption ? (

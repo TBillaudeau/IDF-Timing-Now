@@ -61,8 +61,8 @@ const TrainDepartureDisplay = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-4 border rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Next Train Departure</h2>
+    <div className="bg-white rounded-lg m-2 sm:m-6 p-4 lg:p-6">
+      <h2 className="text-xl font-semibold mb-4 border-1">Search Staion</h2>
       <Autosuggest
         multiSection={true}
         suggestions={suggestions}
