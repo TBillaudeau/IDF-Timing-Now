@@ -70,33 +70,37 @@ export default function Home() {
         </div>
       ) : (
         <>
-          <div className="flex flex-col lg:flex-row h-screen">
-            <div className="flex flex-col m-2 sm:m-6 p-2 sm:p-6 xl:w-2/3 lg:w-full bg-white rounded-lg">
-              {Object.entries(lineTypes).map(([lineType, lineIds]) => (
-                <div key={lineType} className="flex flex-row p-1 xl:p-2">
-                  <img src={process.env.PUBLIC_URL + `/images/${lineType}.svg`} alt={lineType} className="h-8 xl:h-12 mt-1 mr-1 lg:mr-4" />
-                  <div className="flex flex-row flex-wrap">
-                    {lineIds.map((lineId) => {
-                      const disruptedLine = disruptedLines.find(({ lineId: disruptedLineId }) => disruptedLineId === lineId);
-                      return (
-                        <img
-                          key={lineId}
-                          src={process.env.PUBLIC_URL + `/images/${lineId.split(':').pop()}.svg`}
-                          alt={lineId}
-                          onClick={() => handleLineClick(disruptedLine)}
-                          className={`h-9 xl:h-12 m-[3px] p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? 'border-red-500 cursor-pointer' : 'border-green-600'}`}
-                        />
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-screen">
+  <div className="bg-white rounded-lg p-4 lg:p-6">
+    {Object.entries(lineTypes).map(([lineType, lineIds]) => (
+      <div key={lineType} className="flex flex-row p-1 xl:p-2">
+        <img src={process.env.PUBLIC_URL + `/images/${lineType}.svg`} alt={lineType} className="h-8 xl:h-12 mt-1 mr-1 lg:mr-4" />
+        <div className="flex flex-row flex-wrap">
+          {lineIds.map((lineId) => {
+            const disruptedLine = disruptedLines.find(({ lineId: disruptedLineId }) => disruptedLineId === lineId);
+            return (
+              <img
+                key={lineId}
+                src={process.env.PUBLIC_URL + `/images/${lineId.split(':').pop()}.svg`}
+                alt={lineId}
+                onClick={() => handleLineClick(disruptedLine)}
+                className={`h-9 xl:h-12 m-[3px] p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? 'border-red-500 cursor-pointer' : 'border-green-600'}`}
+              />
+            );
+          })}
+        </div>
+      </div>
+    ))}
+  </div>
 
-            <DisruptionInfo selectedDisruption={selectedDisruption} />
+  <div className="order-3 lg:order-2">
+    <TrainDepartureDisplay />
+  </div>
 
-          </div>
-          <TrainDepartureDisplay />
+  <div className="order-2 lg:order-1">
+    <DisruptionInfo selectedDisruption={selectedDisruption} />
+  </div>
+</div>
         </>
       )}
     </>

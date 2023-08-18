@@ -14,6 +14,7 @@ import GareNord from './pages/Gare-Du-Nord';
 import LaDefense from './pages/La-Defense';
 import Chatelet from './pages/Chatelet';
 import Villejuif from './pages/Villejuif';
+import Fosses from './pages/Fosses';
 
 import About from './pages/About';
 import NotFound from './pages/NotFound';
@@ -36,6 +37,7 @@ function App() {
           <Route path="/La-Defense" element={<LaDefense />} />
           <Route path="/Chatelet" element={<Chatelet />} />
           <Route path="/Villejuif" element={<Villejuif />} />
+          <Route path="/Fosses" element={<Fosses />} />
     
           <Route path="/About" element={<About />} />
           <Route path="*" element={<NotFound />} />
