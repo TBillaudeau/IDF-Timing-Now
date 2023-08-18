@@ -1,35 +1,49 @@
-import TrainInfo from '../components/Timing';
 import StationInfo from '../components/Header';
+import TrainInfo from '../components/Timing';
+
+const stations = [
+  {
+    transportLogo: "RER",
+    lineID: "C01742", // RER A
+    stationCode: "71517", // La Défense
+    stationName: "La Défense"
+  },
+  {
+    transportLogo: "TRAIN",
+    lineID: "C01740", // LIGNE L
+    stationCode: "71517", // La Défense
+    stationName: "La Défense"
+  },
+  {
+    transportLogo: "TRAM",
+    lineID: "C01390", // T2
+    stationCode: "71517", // La Défense
+    stationName: "La Défense"
+  },
+  {
+    transportLogo: "TRAIN",
+    lineID: "C01741", // LIGNE U
+    stationCode: "71517", // La Défense
+    stationName: "La Défense"
+  },
+  {
+    transportLogo: "METRO",
+    lineID: "C01371", // LIGNE 1
+    stationCode: "71517", // La Défense
+    stationName: "La Défense"
+  }
+];
 
 function App() {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
-      <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"RER"} lineLogo={"C01742"} stationName={"La Défense"} />
-        <TrainInfo lineID={"C01742"} stationName={"71517"} />
-      </div>
-
-      <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"TRAIN"} lineLogo={"C01740"} stationName={"La Défense"} />
-        <TrainInfo lineID={"C01740"} stationName={"71517"} />
-      </div>
-
-      <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"TRAM"} lineLogo={"C01390"} stationName={"La Défense"} />
-        <TrainInfo lineID={"C01390"} stationName={"71517"} />
-      </div>
-
-      <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"TRAIN"} lineLogo={"C01741"} stationName={"La Défense"} />
-        <TrainInfo lineID={"C01741"} stationName={"71517"} />
-      </div>
-
-      <div className="m-2 sm:m-6">
-        <StationInfo transportLogo={"METRO"} lineLogo={"C01371"} stationName={"La Défense"} />
-        <TrainInfo lineID={"C01371"} stationName={"71517"} />
-      </div>
-
+      {stations.map((station, index) => (
+        <div key={index} className="m-2 sm:m-6">
+          <StationInfo transportLogo={station.transportLogo} lineLogo={station.lineID} stationName={station.stationName}/>
+          <TrainInfo lineID={station.lineID} stationName={station.stationCode} />
+        </div>
+      ))}
     </div>
   );
 }
