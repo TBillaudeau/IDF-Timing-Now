@@ -12,7 +12,7 @@ export default function Home() {
     const fetchData = async () => {
       const { loading, disruptedLines } = await checkDisruptions();
       setDisruptedLines(disruptedLines);
-      setLoading(loading);
+      // setLoading(loading);
     };
   
     fetchData();
@@ -23,86 +23,58 @@ export default function Home() {
   };
 
   return (
-    <>
-      {loading ? (
-        <div className="flex justify-center items-center">
-          {/* <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-slate-700"></div> */}
-          
-          <div role="status" class="max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
-              <div class="flex items-center justify-between">
-                  <div>
-                      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </div>
-                  <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-              </div>
-              <div class="flex items-center justify-between pt-4">
-                  <div>
-                      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </div>
-                  <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-              </div>
-              <div class="flex items-center justify-between pt-4">
-                  <div>
-                      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </div>
-                  <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-              </div>
-              <div class="flex items-center justify-between pt-4">
-                  <div>
-                      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </div>
-                  <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-              </div>
-              <div class="flex items-center justify-between pt-4">
-                  <div>
-                      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </div>
-                  <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-              </div>
-              <span class="sr-only">Loading...</span>
+
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-screen">
+      <div className="bg-white rounded-lg p-4 lg:p-6">
+        {Object.entries(lineTypes).map(([lineType, lineIds]) => (
+          <div key={lineType} className="flex flex-row p-1 xl:p-2">
+            <>
+              {loading ? (
+                <div role="status" class="shrink-0 flex items-center justify-center w-8 lg:w-12 h-8 lg:h-12 mt-1 mr-1 lg:mr-4 p-1 border-4 bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700">
+                  <svg class="w-5 h-5 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                      <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
+                  </svg>
+                </div>
+              ) : (
+                <img src={process.env.PUBLIC_URL + `/images/${lineType}.svg`} alt={lineType} className="h-8 xl:h-12 mt-1 mr-1 lg:mr-4" />
+              )}
+            </>
+            <div className="flex flex-row flex-wrap">
+              {lineIds.map((lineId) => {
+                const disruptedLine = disruptedLines.find(({ lineId: disruptedLineId }) => disruptedLineId === lineId);
+                return (
+                  <>
+                    {loading ? (
+                      <div role="status" class="flex items-center justify-center w-9 xl:w-12 h-9 xl:h-12 m-[3px] p-1 border-4 bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700">
+                        <svg class="w-5 h-5 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                            <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
+                        </svg>
+                      </div>
+                    ) : (
+                      <img
+                        key={lineId}
+                        src={process.env.PUBLIC_URL + `/images/${lineId.split(':').pop()}.svg`}
+                        alt={lineId}
+                        onClick={() => handleLineClick(disruptedLine)}
+                        className={`h-9 xl:h-12 m-[3px] p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? 'border-red-500 cursor-pointer' : 'border-green-600'}`}
+                      />
+                    )}
+                  </>
+                );
+              })}
+            </div>
           </div>
-
-        </div>
-      ) : (
-        <>
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-screen">
-  <div className="bg-white rounded-lg p-4 lg:p-6">
-    {Object.entries(lineTypes).map(([lineType, lineIds]) => (
-      <div key={lineType} className="flex flex-row p-1 xl:p-2">
-        <img src={process.env.PUBLIC_URL + `/images/${lineType}.svg`} alt={lineType} className="h-8 xl:h-12 mt-1 mr-1 lg:mr-4" />
-        <div className="flex flex-row flex-wrap">
-          {lineIds.map((lineId) => {
-            const disruptedLine = disruptedLines.find(({ lineId: disruptedLineId }) => disruptedLineId === lineId);
-            return (
-              <img
-                key={lineId}
-                src={process.env.PUBLIC_URL + `/images/${lineId.split(':').pop()}.svg`}
-                alt={lineId}
-                onClick={() => handleLineClick(disruptedLine)}
-                className={`h-9 xl:h-12 m-[3px] p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? 'border-red-500 cursor-pointer' : 'border-green-600'}`}
-              />
-            );
-          })}
-        </div>
+        ))}
       </div>
-    ))}
-  </div>
 
-  <div className="order-3 lg:order-2">
-    <TrainDepartureDisplay />
-  </div>
+      <div className="order-3 lg:order-2">
+        <TrainDepartureDisplay />
+      </div>
 
-  <div className="order-2 lg:order-1">
-    <DisruptionInfo selectedDisruption={selectedDisruption} />
-  </div>
-</div>
-        </>
-      )}
-    </>
+      <div className="order-2 lg:order-1">
+        <DisruptionInfo selectedDisruption={selectedDisruption} />
+      </div>
+    </div>
+  
   );
 }
