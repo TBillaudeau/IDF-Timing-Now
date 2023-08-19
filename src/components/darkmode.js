@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function DarkModeToggle() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  // localStorage.setItem('color-theme', 'dark');
+  console.log(isDarkMode);
 
   useEffect(() => {
     if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {

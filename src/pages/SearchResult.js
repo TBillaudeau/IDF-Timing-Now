@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className="max-w-screen-sm mx-auto">
-      <div className="m-6">
+      <div className="m-2 sm:m-6">
         <StationInfo transportLogo={stationsData.find(station => station.fields.idrefligc == line).fields.res_com.split(' ')[0]} lineLogo={line} stationName={stationName} />
         <TrainInfo lineID={line} stationName={stop_area} />        
       </div>

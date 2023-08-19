@@ -24,8 +24,11 @@ export default function Home() {
 
   return (
 
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-screen">
-      <div className="bg-white rounded-lg m-2 sm:m-6 p-4 lg:p-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 m-2 sm:m-6">
+      <div className="xl:col-span-2">
+        <TrainDepartureDisplay />
+      </div>
+      <div className="bg-white rounded-lg p-4 lg:p-6">
         {Object.entries(lineTypes).map(([lineType, lineIds]) => (
           <div key={lineType} className="flex flex-row p-1 xl:p-2">
             <>
@@ -67,11 +70,7 @@ export default function Home() {
         ))}
       </div>
 
-      <div className="order-3 lg:order-1">
-        <TrainDepartureDisplay />
-      </div>
-
-      <div className="order-2 lg:order-2">
+      <div className="">
         <DisruptionInfo selectedDisruption={selectedDisruption} />
       </div>
     </div>

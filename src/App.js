@@ -4,9 +4,9 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import Search from './pages/SearchResult';
-import InfoTrafic from './pages/InfoTrafic';
 import LineInfo from './pages/LineInfo';
 
+import InfoTrafic from './pages/InfoTrafic';
 import Suresnes from './pages/Suresnes';
 import SaintLazare from './pages/Saint-Lazare';
 import ClichyLevallois from './pages/Clichy-Levallois';
@@ -23,26 +23,26 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className='max-w-screen-xl flex-wrap justify-between mx-auto'>
+      <main className='max-w-screen-xl flex-wrap justify-between mx-auto'>
         <Routes>
           <Route exact path="/" element={<InfoTrafic />} />
           <Route path="/line/:line" element={<LineInfo />} />
           <Route path="/line/:line/:stop_area" element={<Search />} />
 
           <Route exact path="/infos-trafic" element={<InfoTrafic />} />
-          <Route path="/Suresnes" element={<Suresnes />} />
-          <Route path="/Saint-Lazare" element={<SaintLazare />} />
-          <Route path="/Gare-Du-Nord" element={<GareNord />} />
-          <Route path="/Clichy-Levallois" element={<ClichyLevallois />} />
-          <Route path="/La-Defense" element={<LaDefense />} />
-          <Route path="/Chatelet" element={<Chatelet />} />
-          <Route path="/Villejuif" element={<Villejuif />} />
-          <Route path="/Fosses" element={<Fosses />} />
+          <Route path="/suresnes" element={<Suresnes />} />
+          <Route path="/saint-lazare" element={<SaintLazare />} />
+          <Route path="/gare-du-nord" element={<GareNord />} />
+          <Route path="/clichy-levallois" element={<ClichyLevallois />} />
+          <Route path="/la-defense" element={<LaDefense />} />
+          <Route path="/chatelet" element={<Chatelet />} />
+          <Route path="/villejuif" element={<Villejuif />} />
+          <Route path="/fosses" element={<Fosses />} />
     
-          <Route path="/About" element={<About />} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </div>
+      </main>
       <Footer />
     </>
   );
