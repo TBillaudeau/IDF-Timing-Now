@@ -66,7 +66,7 @@ const removeAccents = (str) => {
   
     return (
       <div className="bg-white rounded-lg p-6 flex items-center">
-        <h2 className="text-xl font-semibold border-1 mr-4">Search Station :</h2>
+        <h2 className="text-lg xl:text-xl font-semibold border-1 mr-4">Search Station :</h2>
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={onSuggestionsFetchRequested}

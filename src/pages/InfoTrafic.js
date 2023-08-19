@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
 
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 m-2 sm:m-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 m-2 sm:m-6">
       <div className="xl:col-span-2">
         <TrainDepartureDisplay />
       </div>

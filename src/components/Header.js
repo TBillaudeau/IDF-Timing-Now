@@ -35,12 +35,12 @@ function StationInfo({ transportLogo, lineLogo, stationName }) {
                     <div data-popover id="popover-top" role="tooltip" className="absolute z-10 inline-block w-40 lg:w-80 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-100 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
                         <div className="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700 flex flex-row">
                             <h3 className="flex-grow font-semibold text-gray-900 dark:text-white">{disruptedLines.find(line => line.lineId === 'line:IDFM:'+lineLogo)?.disruption.cause}</h3>
-                                <button type="button" class="bg-gray-200 hover:bg-gray-300 font-medium rounded-lg text-xs px-3 text-center inline-flex items-center" onClick={handleNavigate}>
+                                <a class="bg-gray-200 hover:bg-gray-300 font-medium rounded-lg text-xs px-3 text-center inline-flex items-center cursor-pointer" onClick={handleNavigate}>
                                 <svg class="-ml-0.5 mr-2 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
                                     <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
                                 </svg>
-                                En savoir plus
-                            </button>
+                                +
+                                </a>
                         </div>
                         <div className="px-3 py-2">
                             <p>{disruptedLines.find(line => line.lineId === 'line:IDFM:'+lineLogo)?.disruption.title}</p>

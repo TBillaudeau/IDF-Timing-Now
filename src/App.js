@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 
 import Search from './pages/SearchResult';
 import LineInfo from './pages/LineInfo';
+import fav from './pages/Favorites';
 
 import InfoTrafic from './pages/InfoTrafic';
 import Suresnes from './pages/Suresnes';
@@ -38,7 +39,9 @@ function App() {
           <Route path="/chatelet" element={<Chatelet />} />
           <Route path="/villejuif" element={<Villejuif />} />
           <Route path="/fosses" element={<Fosses />} />
-    
+
+          <Route path="/fav" element={<fav />} />
+
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
