@@ -28,13 +28,13 @@ const stations = [
   }
 ];
 
-function App() {
+function Villejuif() {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
       {stations.map((station, index) => (
         <div key={index} className="m-2 sm:m-6">
-          <StationInfo transportLogo={station.transportLogo} lineLogo={station.lineID} stationName={station.stationName}/>
+          <StationInfo transportLogo={station.transportLogo} lineLogo={station.lineID} stationName={station.stationName} />
           <TrainInfo lineID={station.lineID} stationName={station.stationCode} />
         </div>
       ))}
@@ -43,4 +43,4 @@ function App() {
 
 }
 
-export default App;
+export default Villejuif;

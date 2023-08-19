@@ -5,14 +5,13 @@ import Footer from './components/Footer';
 
 import Search from './pages/SearchResult';
 import LineInfo from './pages/LineInfo';
-import fav from './pages/Favorites';
 
 import InfoTrafic from './pages/InfoTrafic';
 import Suresnes from './pages/Suresnes';
-import SaintLazare from './pages/Saint-Lazare';
-import ClichyLevallois from './pages/Clichy-Levallois';
-import GareNord from './pages/Gare-Du-Nord';
-import LaDefense from './pages/La-Defense';
+import SaintLazare from './pages/SaintLazare';
+import ClichyLevallois from './pages/ClichyLevallois';
+import GareNord from './pages/GareDuNord';
+import LaDefense from './pages/LaDefense';
 import Chatelet from './pages/Chatelet';
 import Villejuif from './pages/Villejuif';
 import Fosses from './pages/Fosses';
@@ -39,8 +38,6 @@ function App() {
           <Route path="/chatelet" element={<Chatelet />} />
           <Route path="/villejuif" element={<Villejuif />} />
           <Route path="/fosses" element={<Fosses />} />
-
-          <Route path="/fav" element={<fav />} />
 
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />

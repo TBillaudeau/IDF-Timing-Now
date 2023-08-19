@@ -22,7 +22,7 @@ const stations = [
   },
   {
     transportLogo: "METRO",
-    lineID: "C01377", // LIGNE 4
+    lineID: "C01377", // LIGNE 7
     stationCode: "71264", // Châtelet
     stationName: "Châtelet"
   },
@@ -34,13 +34,13 @@ const stations = [
   },
   {
     transportLogo: "METRO",
-    lineID: "C01374", // LIGNE 7
+    lineID: "C01374", // LIGNE 4
     stationCode: "73794", // Les Halles
     stationName: "Les Halles"
   }
 ];
 
-function App() {
+function Chatelet() {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -52,7 +52,7 @@ function App() {
       ))}
     </div>
   );
-  
+
 }
 
-export default App;
+export default Chatelet;

@@ -35,7 +35,7 @@ const stations = [
   {
     transportLogo: "BUS",
     lineID: "C01124", // 93
-    stationCode: "70822", // Berty Albrecht
+    stationCode: "70844", // Berty Albrecht
     stationName: "Berty Albrecht"
   },
   {
@@ -52,7 +52,7 @@ const stations = [
   }
 ];
 
-function App() {
+function Suresnes() {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -64,6 +64,7 @@ function App() {
       ))}
     </div>
   );
+  
 }
 
-export default App;
+export default Suresnes;

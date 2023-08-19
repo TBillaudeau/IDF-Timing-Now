@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
-import TrainInfo from '../components/Timing';
 import StationInfo from '../components/Header';
-import stationsData from '../emplacement-des-gares-idf.json';
+import TrainInfo from '../components/Timing';
+import stationsData from '../assets/emplacement-des-gares-idf.json';
 
-function App() {
+function SearchResult() {
   const { line } = useParams();
   const { stop_area } = useParams();
   const stationName = stationsData.find(station => station.fields.id_ref_lda == stop_area).fields.nom_zdl
@@ -17,6 +17,7 @@ function App() {
 
     </div>
   );
+  
 }
 
-export default App;
+export default SearchResult;
