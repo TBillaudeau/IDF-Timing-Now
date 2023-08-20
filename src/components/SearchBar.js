@@ -42,7 +42,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg p-6 flex items-center w-full">
+    <div className="bg-white dark:bg-gray-800 dark:text-white rounded-lg p-6 flex items-center w-full">
       <h2 className="xl:text-xl font-semibold border-1 mr-4">Station :</h2>
       <Select
         options={options}

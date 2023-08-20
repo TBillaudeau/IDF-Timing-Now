@@ -22,10 +22,11 @@ function StationInfo({ transportLogo, lineLogo, stationName }) {
     }, []);
 
     const disrupted = disruptedLines.some(line => line.lineId === 'line:IDFM:' + lineLogo && line.disrupted === true);
+    
 
     // Display station header
     return (
-        <div className="flex items-center bg-white border-gray-900 border-solid border-2 p-2 lg:p-4 mb-4 rounded-lg shadow-md min-h-[52px]" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+        <div className="flex items-center bg-white dark:bg-gray-800 dark:text-white border-gray-900 border-solid border-2 p-2 lg:p-4 mb-4 rounded-lg shadow-md min-h-[52px]" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             {disrupted && (
                 <span className="relative">
                     {isHovered && (
@@ -52,7 +53,7 @@ function StationInfo({ transportLogo, lineLogo, stationName }) {
                     </span>
                 </span>
             )}
-            <img src={process.env.PUBLIC_URL + `/images/${transportLogo}.svg`} alt={transportLogo} className="h-5 lg:h-10 mr-1" />
+            <img src={process.env.PUBLIC_URL + `/images/${transportLogo}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={transportLogo} className="h-5 lg:h-10 mr-1" />
             <img src={process.env.PUBLIC_URL + `/images/${lineLogo}.svg`} alt={lineLogo} className="h-5 lg:h-10 mr-2 lg:mr-4" />
             <p className='text-xs lg:text-base font-medium flex-grow'>{stationName}</p>
             <p className='hidden lg:block text-slate-400 text-xs font-bold pr-3'>Attente</p>

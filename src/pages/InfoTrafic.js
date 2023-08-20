@@ -27,7 +27,7 @@ function InfoTrafic() {
       <div className="xl:col-span-2">
         <TrainDepartureDisplay />
       </div>
-      <div className="bg-white rounded-lg p-4 lg:p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-lg p-4 lg:p-6">
         {Object.entries(lineTypes).map(([lineType, lineIds]) => (
           <div key={lineType} className="flex flex-row p-1 xl:p-2">
             <>
@@ -38,7 +38,7 @@ function InfoTrafic() {
                   </svg>
                 </div>
               ) : (
-                <img src={process.env.PUBLIC_URL + `/images/${lineType}.svg`} alt={lineType} className="h-8 xl:h-12 mt-1 mr-1 lg:mr-4" />
+                <img src={process.env.PUBLIC_URL + `/images/${lineType}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={lineType} className="h-8 xl:h-12 mt-1 mr-1 lg:mr-4" />
               )}
             </>
             <div className="flex flex-row flex-wrap">
