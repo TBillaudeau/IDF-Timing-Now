@@ -31,7 +31,7 @@ function TrainInfo({ lineID, stationName }) {
 
 
   if (status === 'NO_REALTIME_SCHEDULES_FOUND') {
-    return <div className="flex items-center justify-center text-center text-xs lg:text-base bg-white dark:bg-gray-700 dark:text-gray-200 rounded-lg shadow-md p-4 mb-3 h-[72px]"><p className='animate-pulse'>Information en direct indisponible</p></div>;
+    return <div className="flex items-center justify-center text-center text-xs lg:text-base bg-white dark:bg-gray-700 dark:text-gray-200 rounded-lg shadow-md p-4 mb-3 h-[44px] lg:h-[72px]"><p className='animate-pulse'>Information en direct indisponible</p></div>;
   }
 
   // Display loading animation

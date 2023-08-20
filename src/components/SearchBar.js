@@ -29,11 +29,11 @@ const getOptions = (inputValue) => {
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState(getOptions(inputValue));
-  const navigate = useNavigate(); // Get history from React Router
-
+  const navigate = useNavigate(); 
+  
   const handleChange = (selectedOption) => {
     const { value, line } = selectedOption;
-    navigate(`/line/${line}/${value}`);
+    navigate(`/search?line=${line}&stop_area=${value}`);
   };
 
   const handleInputChange = (inputValue) => {

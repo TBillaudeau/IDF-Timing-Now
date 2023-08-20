@@ -27,7 +27,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<InfoTrafic />} />
           <Route path="/line/:line" element={<LineInfo />} />
-          <Route path="/line/:line/:stop_area" element={<Search />} />
+          <Route path="/search" element={<Search />} />
 
           <Route exact path="/infos-trafic" element={<InfoTrafic />} />
           <Route path="/suresnes" element={<Suresnes />} />
