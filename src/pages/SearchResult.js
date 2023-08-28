@@ -11,7 +11,7 @@ function SearchResult() {
 
   return (
 
-    <div className="max-w-screen-sm mx-auto">
+    <div className={`mx-auto ${lines.length === 1 ? 'grid grid-cols-1 max-w-screen-sm' : 'grid grid-cols-2 max-w-screen-lg'}`}>
       {lines.map((line, index) => {
         const stationName = stationsData.find(station => station.fields.id_ref_lda == stopAreas[index]).fields.nom_zdl;
 

@@ -9,17 +9,18 @@ function Footer() {
           <Link to="/" className="flex items-center mb-4 sm:mb-0">
             <img src={process.env.PUBLIC_URL + `/logo512.png`} className="h-8 mr-3" alt="Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">IDF Timing Now</span>
+            <span class="bg-blue-100 text-blue-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">beta</span>
           </Link>
           <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
             <li>
               <Link to="/about" className="mr-4 hover:underline md:mr-6">About</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/privacy-policy" className="mr-4 hover:underline md:mr-6">Privacy Policy</Link>
             </li>
             <li>
               <Link to="/licensing" className="mr-4 hover:underline md:mr-6">Licensing</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/contact" className="hover:underline">Contact</Link>
             </li>
