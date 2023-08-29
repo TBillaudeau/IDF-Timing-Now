@@ -22,8 +22,9 @@ import NotFound from './pages/NotFound';
 function App() {
   return (
     <>
+    <div className='h-screen flex flex-col'>
       <Navbar />
-      <main className='max-w-screen-xl flex-wrap justify-between mx-auto'>
+      <main className='max-w-screen-xl flex-wrap justify-between mx-auto flex-1'>
         <Routes>
           <Route exact path="/" element={<InfoTrafic />} />
           <Route path="/line/:line" element={<LineInfo />} />
@@ -43,7 +44,9 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      <Footer />
+      <Footer className='flex-shrink-0' />
+    </div>
+
     </>
   );
 }
