@@ -22,31 +22,30 @@ import NotFound from './pages/NotFound';
 function App() {
   return (
     <>
-    <div className='h-screen flex flex-col'>
-      <Navbar />
-      <main className='max-w-screen-xl flex-wrap justify-between mx-auto flex-1'>
-        <Routes>
-          <Route exact path="/" element={<InfoTrafic />} />
-          <Route path="/line/:line" element={<LineInfo />} />
-          <Route path="/search" element={<Search />} />
+      <div className='h-screen flex flex-col'>
+        <Navbar />
+        <main className='max-w-screen-xl flex-wrap justify-between mx-auto flex-1 w-full'>
+          <Routes>
+            <Route exact path="/" element={<InfoTrafic />} />
+            <Route path="/line/:line" element={<LineInfo />} />
+            <Route path="/search" element={<Search />} />
 
-          <Route exact path="/infos-trafic" element={<InfoTrafic />} />
-          <Route path="/suresnes" element={<Suresnes />} />
-          <Route path="/saint-lazare" element={<SaintLazare />} />
-          <Route path="/gare-du-nord" element={<GareNord />} />
-          <Route path="/clichy-levallois" element={<ClichyLevallois />} />
-          <Route path="/la-defense" element={<LaDefense />} />
-          <Route path="/chatelet" element={<Chatelet />} />
-          <Route path="/villejuif" element={<Villejuif />} />
-          <Route path="/fosses" element={<Fosses />} />
+            <Route exact path="/infos-trafic" element={<InfoTrafic />} />
+            <Route path="/suresnes" element={<Suresnes />} />
+            <Route path="/saint-lazare" element={<SaintLazare />} />
+            <Route path="/gare-du-nord" element={<GareNord />} />
+            <Route path="/clichy-levallois" element={<ClichyLevallois />} />
+            <Route path="/la-defense" element={<LaDefense />} />
+            <Route path="/chatelet" element={<Chatelet />} />
+            <Route path="/villejuif" element={<Villejuif />} />
+            <Route path="/fosses" element={<Fosses />} />
 
-          <Route path="/about" element={<About />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <Footer className='flex-shrink-0' />
-    </div>
-
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer className='flex-shrink-0' />
+      </div>
     </>
   );
 }

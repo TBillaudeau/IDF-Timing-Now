@@ -51,7 +51,7 @@ function AccordionItem({ id, title, content }) {
 function AccordionWithMargin() {
 
   return (
-    <div className="m-2 sm:m-6 bg-white">
+    <div className="m-2 sm:m-6 bg-white w-full">
       <AccordionItem
         id="1"
         title={
@@ -65,10 +65,10 @@ function AccordionWithMargin() {
         content={
           <div className="p-5 border border-b-0 border-gray-200">
             <p className="mb-2 text-gray-500">
-              IDF Timing Now is a website that provides real-time departure information for various modes of public transportation, including metro, tram, train, RER, and bus, in the Ile de France region.
+              IDF Timing Now est un site web qui fournit des informations en temps réel sur les départs des différents modes de transport public, y compris le métro, le tramway, le train, le RER et le bus, dans la région Ile de France.
             </p>
             <p className="text-gray-500">
-              The website also offers traffic information and allows users to search for specific stations to get accurate departure times. Whether you're commuting or exploring the region, IDF Timing Now helps you plan your journey with ease.
+              Le site web propose également des informations sur le trafic et permet aux utilisateurs de rechercher des stations spécifiques pour obtenir des heures de départ précises. Que vous fassiez la navette ou que vous exploriez la région, IDF Timing Now vous aide à planifier votre voyage en toute simplicité.
             </p>
           </div>
         }
@@ -80,16 +80,16 @@ function AccordionWithMargin() {
             <svg className="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
             </svg>
-            How to Use IDF Timing Now?
+            Comment utiliser IDF Timing Now ?
           </span>
         }
         content={
           <div className="p-5 border border-b-0 border-gray-200">
             <p className="mb-2 text-gray-500">
-              Using IDF Timing Now is easy. Simply enter the name of your desired station in the search bar, and the website will display real-time departure times for different transportation modes.
+              Il est facile d'utiliser IDF Timing Now. Il suffit d'entrer le nom de la station souhaitée dans la barre de recherche, et le site web affichera les heures de départ en temps réel pour les différents modes de transport.
             </p>
             <p className="text-gray-500">
-              You can also view traffic disruptions and find out the estimated time of arrival for your preferred stations. Whether you're a daily commuter or a visitor to the region, IDF Timing Now helps you stay informed and make informed travel decisions.
+              Vous pouvez également consulter les perturbations du trafic et connaître l'heure d'arrivée estimée de vos stations préférées. IDF Timing Now vous aide à rester informé et à prendre des décisions sur vos déplacements.
             </p>
           </div>
         }
@@ -101,16 +101,15 @@ function AccordionWithMargin() {
             <svg className="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
             </svg>
-            Stay Updated with Real-time Data
+            Rester informé grâce à IDF Timing Now real-time datas
           </span>
         }
         content={
           <div className="p-5 border border-t-0 border-gray-200">
             <p className="mb-2 text-gray-500">
-              IDF Timing Now fetches real-time data from various transportation agencies to provide you with the most accurate departure times and traffic information.
-            </p>
-            <p className="mb-2 text-gray-500">
-              The website updates in real-time, ensuring that you have access to the latest information about your selected stations and transportation modes. This helps you plan your journey efficiently and avoid unnecessary delays.
+              Accédez aux mises à jour en temps réel des heures de départ et des horaires de transport. Les informations sont constamment mises à jour pour vous fournir les données les plus récentes.
+            </p><p className="mb-2 text-gray-500">
+              Que vous planifiez votre voyage ou que vous recherchiez le prochain trajet disponible, vous pouvez être sûr que les informations que vous recevez sont exactes et à jour.
             </p>
           </div>
         }
@@ -122,16 +121,16 @@ function AccordionWithMargin() {
             <svg className="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
             </svg>
-            Customize Your Experience
+            Personnalisez votre expérience
           </span>
         }
         content={
           <div className="p-5 border border-t-0 border-gray-200">
             <p className="mb-2 text-gray-500">
-              IDF Timing Now allows you to customize your experience by saving your favorite stations for quick access.
+              IDF Timing Now vous permet de personnaliser votre expérience en sauvegardant vos stations préférées pour un accès rapide.
             </p>
             <p className="text-gray-500">
-              Simply add stations to your favorites, and the website will remember them for you. This feature makes it easy to stay up to date with departure times for the stations you frequent the most.
+              Il vous suffit d'ajouter des stations à vos favoris pour que le site Web les mémorise pour vous. Cette fonction vous permet de rester facilement informé des heures de départ des stations que vous fréquentez le plus.
             </p>
           </div>
         }
@@ -143,64 +142,22 @@ function AccordionWithMargin() {
             <svg className="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
             </svg>
-            Plan Ahead with Traffic Information
+            Planifier à l'avance grâce à l'info trafic
           </span>
         }
         content={
           <div className="p-5 border border-t-0 border-gray-200">
             <p className="mb-2 text-gray-500">
-              In addition to departure times, IDF Timing Now also provides real-time traffic information for different transportation modes.
+              Outre les heures de départ, IDF Timing Now fournit également des informations sur le trafic en temps réel pour les différents modes de transport.
             </p>
             <p className="text-gray-500">
-              Before you start your journey, check for any disruptions or delays that might affect your travel plans. Stay informed and make informed decisions with up-to-date traffic information.
+              Avant de commencer votre voyage, vérifiez s'il y a des perturbations ou des retards qui pourraient affecter vos plans de voyage. Restez informé et prenez des décisions éclairées grâce à des informations routières actualisées.
             </p>
           </div>
         }
       />
-            <AccordionItem
+      <AccordionItem
         id="6"
-        title={
-          <span className="flex items-center">
-            <svg className="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-            </svg>
-            Accessible and User-Friendly
-          </span>
-        }
-        content={
-          <div className="p-5 border border-t-0 border-gray-200">
-            <p className="mb-2 text-gray-500">
-              IDF Timing Now is designed with accessibility in mind, ensuring that all users, including those with disabilities, can easily access and use the website's features.
-            </p>
-            <p className="text-gray-500">
-              The user-friendly interface and clear display of information make it simple for everyone to find the departure times, traffic information, and favorite stations they need.
-            </p>
-          </div>
-        }
-      />
-      <AccordionItem
-        id="7"
-        title={
-          <span className="flex items-center">
-            <svg className="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-            </svg>
-            Stay Informed with Notifications
-          </span>
-        }
-        content={
-          <div className="p-5 border border-t-0 border-gray-200">
-            <p className="mb-2 text-gray-500">
-              Sign up for notifications to receive alerts about disruptions, delays, or important updates related to your favorite stations and selected transportation lines.
-            </p>
-            <p className="text-gray-500">
-              With notifications, you can stay informed about any changes to your travel plans and adjust your route accordingly. Never miss important updates again!
-            </p>
-          </div>
-        }
-      />
-      <AccordionItem
-        id="8"
         title={
           <span className="flex items-center">
             <svg className="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -212,10 +169,10 @@ function AccordionWithMargin() {
         content={
           <div className="p-5 border border-t-0 border-gray-200">
             <p className="mb-2 text-gray-500">
-              We value your feedback! If you have any suggestions, questions, or issues while using IDF Timing Now, feel free to reach out to our support team.
+              Nous apprécions vos commentaires ! Si vous avez des suggestions, des questions ou des problèmes lors de l'utilisation de IDF Timing Now, n'hésitez pas à contacter notre équipe de support.
             </p>
             <p className="text-gray-500">
-              Your feedback helps us continuously improve the website and provide you with the best experience possible. We're here to assist you every step of the way!
+              Vos commentaires nous aident à améliorer continuellement le site web et à vous offrir la meilleure expérience possible. Nous sommes là pour vous aider à chaque étape !
             </p>
           </div>
         }
