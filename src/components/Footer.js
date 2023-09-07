@@ -10,7 +10,7 @@ function Footer() {
             <img src={process.env.PUBLIC_URL + `/logo512.png`} className="h-8 mr-3" alt="Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">IDF Timing Now</span>
             <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 ml-2">beta</span>
-            <span class="bg-gray-100 text-gray-800 text-sm font-semibold px-2.5 py-0.5 rounded dark:bg-gray-200 ml-2">v 0.1</span>
+            <span class="bg-gray-100 text-gray-800 text-sm font-semibold px-2.5 py-0.5 rounded dark:bg-gray-200 ml-2">v 0.2</span>
           </Link>
           <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
             <li>

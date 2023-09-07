@@ -21,7 +21,7 @@ function Info(selectedDisruption) {
                             className="h-8 mr-2"
                         />
                         <p className="text-sm xl:text-base xl:font-semibold flex grow">{selectedDisruption.disruption.title}</p>
-                        <p className="hidden xl:block font-semibold mr-4"> {selectedDisruption.disruption.cause}</p>
+                        <p className="text-xs xl:text-base font-semibold ml-4 xl:mr-4"> {selectedDisruption.disruption.cause}</p>
                     </div>
                     {/* <a href={`https://me-deplacer.iledefrance-mobilites.fr/stif_static/assets_vianavigo/img/linesPlans/HD/${selectedDisruption.lineId.split(':').pop().replace(/:/g, '_')}.png`} target="_blank" rel="noopener noreferrer">
                                 <img

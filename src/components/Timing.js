@@ -65,8 +65,8 @@ function TrainInfo({ lineID, stationName }) {
       {trainData.map((train, index) => (
         <div key={train.time + index} className="flex items-center bg-white dark:text-white dark:bg-gray-700 rounded-lg shadow-md max-h-[72px] p-1 lg:p-4 mb-1 lg:mb-3">
           <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={train.shortName} className="h-4 lg:h-10 ml-1 lg:ml-0 mr-2 lg:mr-4" />
-          <div className="flex-grow">
-            <h2 className='font-bold text-[11px] lg:text-lg line-clamp-2'>{removeGareDePrefix(train.lineDirection)}</h2>
+          <div className="flex-grow overflow-hidden">
+            <h2 className='font-bold text-[11px] lg:text-lg'>{removeGareDePrefix(train.lineDirection)}</h2>
           </div>
           <div className="ml-2 lg:ml-5 min-w-max pr-2 text-right">
             <p className={`text-sm lg:text-2xl font-bold text-green-600 dark:text-green-500${train.time === '0' ? 'animate-pulse' : ''}`}>{train.time}<span className="text-xs lg:text-lg">ᵐⁱⁿ</span></p> {/*ᵐⁱⁿ*/}

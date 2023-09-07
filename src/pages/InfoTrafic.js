@@ -58,7 +58,7 @@ function InfoTrafic() {
                         src={process.env.PUBLIC_URL + `/images/${lineId.split(':').pop()}.svg`}
                         alt={lineId}
                         onClick={() => handleLineClick(disruptedLine)}
-                        className={`h-9 xl:h-12 m-[3px] p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? 'outline-red-500 outline outline-4 outline-offset-[-4px] cursor-pointer' : 'outline-green-600 outline outline-2 outline-offset-[-2px] border-[#00000000]'}`}
+                        className={`h-9 xl:h-12 m-[3px] p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? `${disruptedLines.find(line => line.lineId === lineId)?.disruption.severity === 'BLOQUANTE' ? 'outline-red-600' : 'outline-amber-500'} outline outline-4 outline-offset-[-4px] cursor-pointer` : 'outline-green-600 outline outline-2 outline-offset-[-2px] border-[#00000000]'}`}
                       />
                     )}
                   </>
