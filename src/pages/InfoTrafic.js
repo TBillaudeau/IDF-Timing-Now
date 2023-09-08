@@ -22,7 +22,7 @@ function InfoTrafic() {
   const handleLineClick = (disruption) => {
     if (window.innerWidth < 1280) {
       window.scrollTo({
-        top: window.pageYOffset + 1200,
+        top: window.pageYOffset + 1000,
         behavior: 'smooth',
       });
     }
@@ -45,7 +45,7 @@ function InfoTrafic() {
                   </svg>
                 </div>
               ) : (
-                <img src={process.env.PUBLIC_URL + `/images/${lineType}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={lineType} className="h-9 xl:h-12 mt-1.5 mr-2 lg:mr-4" />
+                <img src={process.env.PUBLIC_URL + `/images/${lineType}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={lineType} className="h-9 xl:h-12 mt-1.5 mr-1 lg:mr-4" />
               )}
             </>
             <div className="flex flex-row flex-wrap">
