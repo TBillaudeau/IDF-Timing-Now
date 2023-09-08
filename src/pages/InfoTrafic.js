@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DisruptionInfo from '../components/DisruptionInfo';
 import TrainDepartureDisplay from '../components/SearchBar'
 import { lineTypes, checkDisruptions } from '../components/Trafic'
+import Banner from "../components/banner";
 
 function InfoTrafic() {
   const [disruptedLines, setDisruptedLines] = useState([]);
@@ -58,7 +59,7 @@ function InfoTrafic() {
                         src={process.env.PUBLIC_URL + `/images/${lineId.split(':').pop()}.svg`}
                         alt={lineId}
                         onClick={() => handleLineClick(disruptedLine)}
-                        className={`h-9 xl:h-12 m-[3px] p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? `${disruptedLines.find(line => line.lineId === lineId)?.disruption.severity === 'BLOQUANTE' ? 'outline-red-600' : 'outline-amber-500'} outline outline-4 outline-offset-[-4px] cursor-pointer` : 'outline-green-600 outline outline-2 outline-offset-[-2px] border-[#00000000]'}`}
+                        className={`h-10 xl:h-12 m-[3px] p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? `${disruptedLines.find(line => line.lineId === lineId)?.disruption.severity === 'BLOQUANTE' ? 'outline-red-600' : 'outline-amber-500'} outline outline-4 outline-offset-[-4px] cursor-pointer` : 'outline-green-600 outline outline-2 outline-offset-[-2px] border-[#00000000]'}`}
                       />
                     )}
                   </>
@@ -69,10 +70,11 @@ function InfoTrafic() {
         ))}
       </div>
       {selectedDisruption && selectedDisruption.disruption && (
-        <div className="">
           <DisruptionInfo selectedDisruption={selectedDisruption} />
-        </div>
       )}
+      <div className="xl:col-span-2">
+        <Banner />
+      </div>
     </div>
   );
 
