@@ -56,7 +56,7 @@ export default function Navbar({ fixed }) {
 
               <li>
                 <Link
-                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/infos-trafic" ? "bg-gray-200 xl:bg-transparent xl:text-blue-700" : ""}`}
+                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/infos-trafic" ? "bg-gray-200 dark:bg-gray-700 xl:bg-transparent xl:text-blue-700" : ""}`}
                   to="/infos-trafic"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -65,7 +65,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li>
                 <Link
-                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Suresnes" ? "bg-gray-200 xl:bg-transparent xl:text-blue-700" : ""}`}
+                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Suresnes" ? "bg-gray-200 dark:bg-gray-700 xl:bg-transparent xl:text-blue-700" : ""}`}
                   to="/Suresnes"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -74,7 +74,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li>
                 <Link
-                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Saint-Lazare" ? "bg-gray-200 xl:bg-transparent xl:text-blue-700" : ""}`}
+                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Saint-Lazare" ? "bg-gray-200 dark:bg-gray-700 xl:bg-transparent xl:text-blue-700" : ""}`}
                   to="/Saint-Lazare"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -83,7 +83,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li>
                 <Link
-                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Gare-Du-Nord" ? "bg-gray-200 xl:bg-transparent xl:text-blue-700" : ""}`}
+                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Gare-Du-Nord" ? "bg-gray-200 dark:bg-gray-700 xl:bg-transparent xl:text-blue-700" : ""}`}
                   to="/Gare-Du-Nord"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -92,7 +92,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li>
                 <Link
-                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Clichy-Levallois" ? "bg-gray-200 xl:bg-transparent xl:text-blue-700" : ""}`}
+                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Clichy-Levallois" ? "bg-gray-200 dark:bg-gray-700 xl:bg-transparent xl:text-blue-700" : ""}`}
                   to="/Clichy-Levallois"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -101,7 +101,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li>
                 <Link
-                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/La-Defense" ? "bg-gray-200 xl:bg-transparent xl:text-blue-700" : ""}`}
+                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/La-Defense" ? "bg-gray-200 dark:bg-gray-700 xl:bg-transparent xl:text-blue-700" : ""}`}
                   to="/La-Defense"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -110,7 +110,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li>
                 <Link
-                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Chatelet" ? "bg-gray-200 xl:bg-transparent xl:text-blue-700" : ""}`}
+                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Chatelet" ? "bg-gray-200 dark:bg-gray-700 xl:bg-transparent xl:text-blue-700" : ""}`}
                   to="/Chatelet"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -119,7 +119,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li>
                 <Link
-                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Villejuif" ? "bg-gray-200 xl:bg-transparent xl:text-blue-700" : ""}`}
+                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Villejuif" ? "bg-gray-200 dark:bg-gray-700 xl:bg-transparent xl:text-blue-700" : ""}`}
                   to="/Villejuif"
                   onClick={() => setNavbarOpen(false)}
                 >
@@ -128,7 +128,7 @@ export default function Navbar({ fixed }) {
               </li>
               <li>
                 <Link
-                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Fosses" ? "bg-gray-200 xl:bg-transparent xl:text-blue-700" : ""}`}
+                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/Fosses" ? "bg-gray-200 dark:bg-gray-700 xl:bg-transparent xl:text-blue-700" : ""}`}
                   to="/Fosses"
                   onClick={() => setNavbarOpen(false)}
                 >
