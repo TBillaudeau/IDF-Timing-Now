@@ -15,7 +15,7 @@ function TrainInfo({ lineID, stationName }) {
         var data = await response.json();
         data = data.nextDepartures.data;
 
-        if (data.length === 0 || !data[0].lineDirection) { //|| data.some(train => train.lineDirection.includes('estime dans'))
+        if (data.length === 0 || !data.every(train => train.lineDirection)) { //|| data.some(train => train.lineDirection.includes('estime dans'))
           const fallbackUrl = `https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:${lineID}/stops/stop_area:IDFM:${stationName}/realtime`;
           const fallbackResponse = await fetch(fallbackUrl);
           var fallbackData = await fallbackResponse.json();
@@ -92,7 +92,7 @@ function TrainInfo({ lineID, stationName }) {
         <div key={sens}>
           {sens !== 'other' && (
             <h2 className="text-xs font-bold mb-2">
-              {sens === '1' ? 'Direction 1' : 'Direction -1'}
+              {sens === '1' ? '' : 'Direction -1'}
             </h2>
           )}
           {groupedTrains[sens].map((train, index) => (
