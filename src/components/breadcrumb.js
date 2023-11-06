@@ -30,11 +30,16 @@ function Breadcrumb({ lineID, stationName }) {
     // const lineName = matchingStations.length > 0 ? matchingStations[0].fields.res_com : '';
     // const stationID = matchingStations.length > 0 ? matchingStations[0].fields.id_ref_lda : '';
     
-    var stationName = stationID !== undefined ? zonesDarrets.find(station => station.fields.zdcid == stationID).fields.zdaname : '';
+    var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid == stationID) : [];
+    var stationName = stations.find(station => station.fields.zdatype == 'railStation')?.fields.zdaname
+        || stations.find(station => station.fields.zdatype == 'metroStation')?.fields.zdaname  
+        || stations.find(station => station.fields.zdatype == 'onstreetTram')?.fields.zdaname
+        || stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdatown + ')'
+    
     var lineName = lineID !== undefined ? referentielDesLignes.find(line => line.fields.id_line == lineID).fields.shortname_groupoflines : '';
 
     return (
-        <nav className="flex sm:flex-row h-10 pl-4 bg-white border-t border-gray-900" ref={navRef} aria-label="Breadcrumb">
+        <nav className="flex sm:flex-row h-10 pl-4 bg-white border-b     border-gray-900" ref={navRef} aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3 flex-none">
                 {/* <li className="inline-flex items-center">
                     <a href="#" className="inline-flex items-center text-xs lg:text-sm font-medium hover:text-blue-600">
