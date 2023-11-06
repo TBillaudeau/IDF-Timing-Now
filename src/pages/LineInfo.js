@@ -61,11 +61,16 @@ function LineInfo() {
       const url = `https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/schedules`;
       fetchData(url);
   }, [lineID]);
+  
   const disruption = disruptedLines.find(ligne => ligne.lineId === 'line:IDFM:' + lineID);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 m-2 sm:m-6">
       <Breadcrumb lineID={lineID} />
+
+      {/* <img src={process.env.PUBLIC_URL + `/images/${transportLogo}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={transportLogo} className="h-5 lg:h-10 mr-1" /> */}
+      <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" />
+
       <div className="xl:col-span-2">
         <SearchBar />
       </div>

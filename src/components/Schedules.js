@@ -92,7 +92,7 @@ function Schedules({ lineID, stationName }) {
                                         }
                                     </h2>
                                 </div>
-                                <div className="ml-1 lg:ml-5 pr-2 text-right">
+                                <div className="ml-1 lg:ml-5 text-right">
                                     <p className="text-sm lg:text-base font-semibold">{frequency.first && frequency.last && `${frequency.first} - ${frequency.last} `}{frequency.frequency}<span className="text-xs lg:text-xs">min</span></p>
                                 </div>
                             </div>

@@ -9,6 +9,7 @@ import LineInfo from './pages/LineInfo';
 import StationInfo from './pages/StationInfo';
 import StopInfo from './pages/StopInfo';
 import Login from './pages/login';
+import Plans from './pages/Plans';
 
 import InfoTrafic from './pages/InfoTrafic';
 import Suresnes from './pages/Suresnes';
@@ -37,6 +38,7 @@ function App() {
             <Route path="/:lineID/:stationID" element={<StopInfo />} />
             <Route path="/search" element={<Search />} />
             <Route path="/research" element={<Research />} />
+            <Route path="/plans" element={<Plans />} />
 
             <Route exact path="/infos-trafic" element={<InfoTrafic />} />
             <Route path="/suresnes" element={<Suresnes />} />
@@ -54,7 +56,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
-        <Footer className='flex-shrink-0' />
+        {/* <Footer className='flex-shrink-0' /> */}
       </div>
     </>
   );

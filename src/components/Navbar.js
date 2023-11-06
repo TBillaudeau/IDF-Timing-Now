@@ -62,7 +62,7 @@ export default function Navbar({ fixed }) {
           </div>
 
           <div className={"items-center justify-between w-full xl:flex xl:w-auto xl:order-1" + (navbarOpen ? " flex" : " hidden")}>
-            <ul className="flex flex-col p-4 xl:p-0 mt-4 w-full font-medium border border-gray-100 rounded-lg bg-gray-50 xl:flex-row xl:space-x-8 xl:mt-0 xl:border-0 xl:bg-white dark:bg-gray-800 xl:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="flex flex-col p-4 xl:p-0 mt-4 w-full font-medium border border-gray-50 rounded-lg bg-gray-100 xl:flex-row xl:space-x-8 xl:mt-0 xl:border-0 xl:bg-white dark:bg-gray-800 xl:dark:bg-gray-900 dark:border-gray-700">
 
               {/* <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.75 4H19M7.75 4a2.25 2.25 0 0 1-4.5 0m4.5 0a2.25 2.25 0 0 0-4.5 0M1 4h2.25m13.5 6H19m-2.25 0a2.25 2.25 0 0 1-4.5 0m4.5 0a2.25 2.25 0 0 0-4.5 0M1 10h11.25m-4.5 6H19M7.75 16a2.25 2.25 0 0 1-4.5 0m4.5 0a2.25 2.25 0 0 0-4.5 0M1 16h2.25" />
@@ -165,56 +165,61 @@ export default function Navbar({ fixed }) {
           </div>
         </div>
       </nav>
-      
 
-<div className="fixed bottom-0 z-50 w-full -translate-x-1/2 bg-white border-b-[18px] border-white left-1/2 dark:bg-gray-700 dark:border-gray-600 md:hidden">
-
+  <div className="fixed bottom-0 z-50 w-full -translate-x-1/2 shadow-[0px_-1px_6px_-1px_rgba(0,0,0,0.1)] bg-white border-b-[18px] border-white left-1/2 dark:bg-gray-700 dark:border-gray-700 md:hidden">
+  <div class="w-full">
+        <div class="grid max-w-xs grid-cols-3 gap-1 p-1 mx-auto my-2 bg-gray-100 rounded-lg dark:bg-gray-600" role="group">
+            <button class="px-1 py-1 text-xs font-medium text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg">
+                IDF Timing Now
+            </button>
+            <button class="px-1 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-lg">
+                beta
+            </button>
+            <button class="px-1 py-1 text-xs font-medium text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg">
+                v 0.8
+            </button>
+        </div>
+    </div>
     <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
-        <Link to="/" data-tooltip-target="tooltip-home" className="inline-flex flex-col items-center justify-center p-2 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-            <svg class="w-4 h-4 mb-1 text-gray-500 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <Link to="/" onClick={() => setNavbarOpen(false)} data-tooltip-target="tooltip-home" className={`inline-flex flex-col items-center justify-center m-1 group rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 ${location.pathname === "/" ? "bg-gray-100 dark:bg-gray-800" : ""}`}>
+            <svg class={`w-4 h-4 mb-1 text-gray-500 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-500`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
             </svg>
             <span class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Trafic</span>
         </Link>
-                {/* Tooltip div... */}
-                <Link to="/research" data-tooltip-target="tooltip-search" className="inline-flex flex-col items-center justify-center p-2 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-        <svg class="w-4 h-4 mb-1 text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-  </svg>
-            <span class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Recherche</span>
 
-        </Link>
-        {/* Tooltip div... */}
-        <Link to="/Suresnes" data-tooltip-target="tooltip-bookmark" className="inline-flex flex-col items-center justify-center p-2 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-        <svg class="w-4 h-4 mb-1 text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-          <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M10 6v4l3.276 3.276M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-        </svg>
-        <span class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Horaires</span>
-
-        </Link>
-        {/* Tooltip div... */}
-        <Link to="/plans" data-tooltip-target="tooltip-post" className="inline-flex flex-col items-center justify-center p-2 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-        <svg class="w-4 h-4 mb-1 text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
-    <path fill="currentColor" d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"/>
-    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
-      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"/>
-  </svg>
-  
-  <span class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Plans</span>
-
+        <Link to="/research" onClick={() => setNavbarOpen(false)} data-tooltip-target="tooltip-home" className={`inline-flex flex-col items-center justify-center m-1 group rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 ${location.pathname === "/research" ? "bg-gray-100 dark:bg-gray-800" : ""}`}>
+          <svg class="w-4 h-4 mb-1 text-gray-500 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+          </svg>
+          <span class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Recherche</span>
         </Link>
 
-        {/* Tooltip div... */}
-        <Link to="/fav" data-tooltip-target="tooltip-settings" className="inline-flex flex-col items-center justify-center p-2 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-        <svg class="w-4 h-4 mb-1 text-gray-500 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 20">
-                <path d="M13 20a1 1 0 0 1-.64-.231L7 15.3l-5.36 4.469A1 1 0 0 1 0 19V2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v17a1 1 0 0 1-1 1Z"/>
-            </svg>
-            <span class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Favoris</span>
-
+        <Link to="/Suresnes" onClick={() => setNavbarOpen(false)} data-tooltip-target="tooltip-home" className={`inline-flex flex-col items-center justify-center m-1 group rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 ${location.pathname === "/Suresnes" ? "bg-gray-100 dark:bg-gray-800" : ""}`}>
+          <svg class="w-4 h-4 mb-1 text-gray-500 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+          </svg>
+          <span class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Horaires</span>
         </Link>
-        {/* Tooltip div... */}
+
+        <Link to="/plans" onClick={() => setNavbarOpen(false)} data-tooltip-target="tooltip-home" className={`inline-flex flex-col items-center justify-center m-1 group rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 ${location.pathname === "/plans" ? "bg-gray-100 dark:bg-gray-800" : ""}`}>
+          <svg class="w-4 h-4 mb-1 text-gray-500 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+            <path fill="currentColor" d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"/>
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"/>
+          </svg>
+        <span class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Plans</span>
+        </Link>
+
+        <Link to="/fav" onClick={() => setNavbarOpen(false)} data-tooltip-target="tooltip-home" className={`inline-flex flex-col items-center justify-center p-1 m-1 group rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 ${location.pathname === "/fav" ? "bg-gray-100 dark:bg-gray-800" : ""}`}>
+          <svg class="w-4 h-4 mb-1 text-gray-500 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 20">
+            <path d="M13 20a1 1 0 0 1-.64-.231L7 15.3l-5.36 4.469A1 1 0 0 1 0 19V2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v17a1 1 0 0 1-1 1Z"/>
+          </svg>
+          <span class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Favoris</span>
+        </Link>
+
+      </div>
     </div>
-</div>
     </>
   );
 }
