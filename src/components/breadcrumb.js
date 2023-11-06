@@ -4,10 +4,7 @@ import stationsData from '../assets/emplacement-des-gares-idf.json';
 import zonesDarrets from '../assets/zones-d-arrets.json';
 import referentielDesLignes from '../assets/referentiel-des-lignes.json';
 
-function Breadcrumb({ lineID, stationName }) {
-
-    const stationID = stationName;
-    
+function Breadcrumb({ lineID, stationID }) {
     const navRef = useRef(null);
 
     useEffect(() => {
@@ -23,20 +20,21 @@ function Breadcrumb({ lineID, stationName }) {
       return () => window.removeEventListener('resize', resizeListener);
     }, []);
   
-
-    // Get line name from line ID
-    // const matchingStations = stationsData.filter((station) => station.fields.idrefligc === lineID && station.fields.nom_lda === stationName);    
-    // console.log(matchingStations);
-    // const lineName = matchingStations.length > 0 ? matchingStations[0].fields.res_com : '';
-    // const stationID = matchingStations.length > 0 ? matchingStations[0].fields.id_ref_lda : '';
-    
+    // Get stationName from stationID    
     var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid == stationID) : [];
     var stationName = stations.find(station => station.fields.zdatype == 'railStation')?.fields.zdaname
         || stations.find(station => station.fields.zdatype == 'metroStation')?.fields.zdaname  
         || stations.find(station => station.fields.zdatype == 'onstreetTram')?.fields.zdaname
         || stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdatown + ')'
     
-    var lineName = lineID !== undefined ? referentielDesLignes.find(line => line.fields.id_line == lineID).fields.shortname_groupoflines : '';
+    // Get lineName from lineID
+    var lineName = lineID !== undefined ? referentielDesLignes.find(line => line.fields.id_line == lineID).fields : '';
+    console.log(lineName);
+    if (lineName.transportmode === 'rail') {
+        lineName = lineName.shortname_groupoflines;
+    }  else {
+        lineName = lineName.transportmode.toUpperCase() + ' ' + lineName.name_line;
+    }
 
     return (
         <nav className="flex sm:flex-row h-10 pl-4 bg-white border-b     border-gray-900" ref={navRef} aria-label="Breadcrumb">

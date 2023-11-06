@@ -13,7 +13,7 @@ function SearchResult() {
       {lines.map((line, index) => {
           return (
               <div key={line} className="grid gap-2 lg:gap-4 m-2 sm:m-6">
-                  {/* <Breadcrumb lineID={line} stationName={stopAreas[index]} /> */}
+                  {/* <Breadcrumb lineID={line} stationID={stopAreas[index]} /> */}
                   <div>                        
                       <StationInfo lineID={line} stationID={stopAreas[index]} />
                       <TrainInfo lineID={line} stationName={stopAreas[index]} />  

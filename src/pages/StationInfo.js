@@ -23,7 +23,7 @@ function Station() {
             {lines.map((line, index) => {
                 return (
                     <div key={line} className="grid gap-2 lg:gap-4 m-2 sm:m-6">
-                        <Breadcrumb lineID={line} stationName={stopArea} />
+                        <Breadcrumb lineID={line} stationID={stopArea} />
                         <div>             
                             <StationInfo lineID={line} stationID={stopArea} />
                             <TrainInfo lineID={line} stationName={stopArea} />  

@@ -216,7 +216,7 @@ export default function Navbar({ fixed }) {
 
       </div>
       <div class="w-full">
-        <div class="grid max-w-xs grid-cols-3 gap-1  mx-auto my-2 bg-gray-100 rounded-lg dark:bg-gray-600" role="group">
+        <div class="grid max-w-xs grid-cols-3 gap-1 mx-auto mb-3 bg-gray-100 rounded-lg dark:bg-gray-600" role="group">
             <button class="px-1 py-1 text-xs font-medium text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg">
                 IDF Timing Now
             </button>
@@ -224,7 +224,7 @@ export default function Navbar({ fixed }) {
                 beta
             </button>
             <button class="px-1 py-1 text-xs font-medium text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg">
-                v 0.8
+                v 0.8.2
             </button>
         </div>
     </div>

@@ -29,9 +29,7 @@ function Plan({ planURL }) {
                 console.log(planURL),
                 <div>
                     <Document file={planURL} onLoadSuccess={onPlanLoadSuccess}>
-                        {Array.from(new Array(numPages), (el, index) => (
-                        <Page key={`page_${index + 1}`} pageNumber={index + 1} width={parentDivRef.current ? parentDivRef.current.offsetWidth : 0} renderTextLayer={false} renderAnnotationLayer={false}/>
-                        ))}
+                        <Page pageNumber={1} width={parentDivRef.current ? parentDivRef.current.offsetWidth : 0} renderTextLayer={false} renderAnnotationLayer={false}/>
                     </Document>
                 </div>
             )}

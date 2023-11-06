@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import TrainInfo from '../components/Timing';
-import StationInfo from '../components/Header';
-import stationsData from '../assets/emplacement-des-gares-idf.json';
 import DisruptionInfo from '../components/DisruptionInfo';
 import Breadcrumb from '../components/breadcrumb';
 import { checkDisruptions } from '../components/Trafic';
