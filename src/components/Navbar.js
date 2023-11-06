@@ -161,25 +161,21 @@ export default function Navbar({ fixed }) {
                   <span className="text-sm">Compte</span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 xl:hover:bg-transparent xl:hover:text-blue-700 xl:p-0 xl:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white xl:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/About" ? "bg-gray-200 dark:bg-gray-700 xl:bg-transparent xl:text-blue-700" : ""}`}
+                  to="/About"
+                  onClick={() => setNavbarOpen(false)}
+                >
+                  <span className="text-sm">À propos</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
-
-  <div className="fixed bottom-0 z-50 w-full -translate-x-1/2 shadow-[0px_-1px_6px_-1px_rgba(0,0,0,0.1)] bg-white border-b-[18px] border-white left-1/2 dark:bg-gray-700 dark:border-gray-700 md:hidden">
-  <div class="w-full">
-        <div class="grid max-w-xs grid-cols-3 gap-1 p-1 mx-auto my-2 bg-gray-100 rounded-lg dark:bg-gray-600" role="group">
-            <button class="px-1 py-1 text-xs font-medium text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg">
-                IDF Timing Now
-            </button>
-            <button class="px-1 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-lg">
-                beta
-            </button>
-            <button class="px-1 py-1 text-xs font-medium text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg">
-                v 0.8
-            </button>
-        </div>
-    </div>
+{/* border-b-[18px] border-white */}
+  <div className="fixed bottom-0 z-50 w-full -translate-x-1/2 shadow-[0px_-1px_6px_-1px_rgba(0,0,0,0.1)] bg-white  left-1/2 dark:bg-gray-700 dark:border-gray-700 md:hidden">
     <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
         <Link to="/" onClick={() => setNavbarOpen(false)} data-tooltip-target="tooltip-home" className={`inline-flex flex-col items-center justify-center m-1 group rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 ${location.pathname === "/" ? "bg-gray-100 dark:bg-gray-800" : ""}`}>
             <svg class={`w-4 h-4 mb-1 text-gray-500 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-500`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -219,6 +215,19 @@ export default function Navbar({ fixed }) {
         </Link>
 
       </div>
+      <div class="w-full">
+        <div class="grid max-w-xs grid-cols-3 gap-1  mx-auto my-2 bg-gray-100 rounded-lg dark:bg-gray-600" role="group">
+            <button class="px-1 py-1 text-xs font-medium text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg">
+                IDF Timing Now
+            </button>
+            <button class="px-1 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-lg">
+                beta
+            </button>
+            <button class="px-1 py-1 text-xs font-medium text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg">
+                v 0.8
+            </button>
+        </div>
+    </div>
     </div>
     </>
   );

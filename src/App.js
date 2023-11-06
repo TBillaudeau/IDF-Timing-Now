@@ -56,7 +56,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
-        {/* <Footer className='flex-shrink-0' /> */}
+        <Footer className='flex-shrink-0' />
       </div>
     </>
   );

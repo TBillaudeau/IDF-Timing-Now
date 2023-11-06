@@ -9,7 +9,7 @@ function Info(selectedDisruption) {
 
     selectedDisruption = selectedDisruption.selectedDisruption
     return (
-        <div className="bg-white dark:bg-gray-800 dark:text-white rounded-lg p-4 lg:p-6 lg:h-[593px]">
+        <div className="bg-white border dark:bg-gray-800 dark:text-white rounded-lg p-4 lg:p-6 lg:h-[593px]">
 
             {selectedDisruption && selectedDisruption.disruption && (
                 <>
