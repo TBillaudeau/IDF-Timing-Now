@@ -33,8 +33,15 @@ const SearchBar = () => {
   
   const handleChange = (selectedOption) => {
     const { value, line } = selectedOption;
-    navigate(`/search?line=${line}&stop_area=${value}`);
+    const matchingStations = stationsData.filter(
+      (station) => station.fields.id_ref_lda === value
+    );
+    const matchingLines = matchingStations.map((station) => station.fields.idrefligc);
+    const lines = matchingLines.filter((l) => l !== line);
+    const queryParams = lines.map((l) => `line=${l}&stop_area=${value}`).join('&');
+    navigate(`/search?line=${line}&stop_area=${value}&${queryParams}`);
   };
+
 
   const handleInputChange = (inputValue) => {
     setInputValue(inputValue);
@@ -42,8 +49,8 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 dark:text-white rounded-lg p-4 xl:p-6 flex items-center w-full">
-      <h2 className="xl:text-xl font-semibold border-1 mr-4">Station :</h2>
+    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 xl:p-6 flex items-center w-full">
+      <h2 className="xl:text-xl font-semibold border-1 mr-4 dark:text-white">Station :</h2>
       <Select
         options={options}
         onInputChange={handleInputChange}

@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import StationInfo from '../components/Header';
 import TrainInfo from '../components/Timing';
-import stationsData from '../assets/emplacement-des-gares-idf.json';
 
 function SearchResult() {
   const location = useLocation();
@@ -10,21 +9,19 @@ function SearchResult() {
   const stopAreas = params.getAll('stop_area');
 
   return (
-
-    <div className={`mx-auto ${lines.length === 1 ? 'grid grid-cols-1 max-w-screen-sm' : 'grid grid-cols-2 max-w-screen-lg'}`}>
+    <div className={`mx-auto ${lines.length === 1 ? 'grid grid-cols-1 max-w-screen-sm' : 'grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3'}`}>
       {lines.map((line, index) => {
-        const stationName = stationsData.find(station => station.fields.id_ref_lda == stopAreas[index]).fields.nom_zdl;
-
-        return (
-          <div key={line} className="m-2 sm:m-6">
-            <StationInfo transportLogo={stationsData.find(station => station.fields.idrefligc == line).fields.res_com.split(' ')[0]} lineLogo={line} stationName={stationName} />
-            <TrainInfo lineID={line} stationName={stopAreas[index]} />        
-          </div>
-        );
-
+          return (
+              <div key={line} className="grid gap-2 lg:gap-4 m-2 sm:m-6">
+                  {/* <Breadcrumb lineID={line} stationName={stopAreas[index]} /> */}
+                  <div>                        
+                      <StationInfo lineID={line} stationID={stopAreas[index]} />
+                      <TrainInfo lineID={line} stationName={stopAreas[index]} />  
+                  </div>
+              </div>
+          );
       })}
-    </div>
-    
+  </div>
   );
 }
 

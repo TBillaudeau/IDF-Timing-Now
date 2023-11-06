@@ -5,6 +5,9 @@ import Footer from './components/Footer';
 
 import Search from './pages/SearchResult';
 import LineInfo from './pages/LineInfo';
+import StationInfo from './pages/StationInfo';
+import StopInfo from './pages/StopInfo';
+import Login from './pages/login';
 
 import InfoTrafic from './pages/InfoTrafic';
 import Suresnes from './pages/Suresnes';
@@ -15,6 +18,7 @@ import LaDefense from './pages/LaDefense';
 import Chatelet from './pages/Chatelet';
 import Villejuif from './pages/Villejuif';
 import Fosses from './pages/Fosses';
+import Luxembourg from './pages/Luxembourg';
 
 import About from './pages/About';
 import NotFound from './pages/NotFound';
@@ -27,7 +31,9 @@ function App() {
         <main className='max-w-screen-xl flex-wrap justify-between mx-auto flex-1 w-full'>
           <Routes>
             <Route exact path="/" element={<InfoTrafic />} />
-            <Route path="/line/:line" element={<LineInfo />} />
+            <Route path="/line/:lineID" element={<LineInfo />} />
+            <Route path="/station/:stationID" element={<StationInfo />} />
+            <Route path="/:lineID/:stationID" element={<StopInfo />} />
             <Route path="/search" element={<Search />} />
 
             <Route exact path="/infos-trafic" element={<InfoTrafic />} />
@@ -39,6 +45,8 @@ function App() {
             <Route path="/chatelet" element={<Chatelet />} />
             <Route path="/villejuif" element={<Villejuif />} />
             <Route path="/fosses" element={<Fosses />} />
+            <Route path="/luxembourg" element={<Luxembourg />} />
+            <Route path="/login" element={<Login />} />
 
             <Route path="/about" element={<About />} />
             <Route path="*" element={<NotFound />} />

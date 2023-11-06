@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import removeGareDePrefix from '../functions/utils';
 import { set } from 'date-fns';
 
 function TrainInfo({ lineID, stationName }) {
+  const stationID = stationName;
 
   // Fetch train departure every 2 seconds
   const [trainData, setTrainData] = useState([]);
@@ -15,28 +17,19 @@ function TrainInfo({ lineID, stationName }) {
         var data = await response.json();
         data = data.nextDepartures.data;
 
-        if (data.length === 0 || !data.every(train => train.lineDirection)) { //|| data.some(train => train.lineDirection.includes('estime dans'))
-          const fallbackUrl = `https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:${lineID}/stops/stop_area:IDFM:${stationName}/realtime`;
-          const fallbackResponse = await fetch(fallbackUrl);
-          var fallbackData = await fallbackResponse.json();
-          fallbackData = fallbackData.nextDepartures.data;
-
-          if (fallbackData.length === 0) {
-            setStatus('NO_REALTIME_SCHEDULES_FOUND');
-          }
-
-          setTrainData(fallbackData);
+        if (data.length === 0 || !data.every(train => train.lineDirection)) {
+          setStatus('NO_REALTIME_SCHEDULES_FOUND');
         } else {
           setTrainData(data);
           setStatus(data.errorMessage);
         }
 
       } catch (error) {
-
+        // Handle error
       }
     };
 
-    const url = `https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/stops/stop_area:IDFM:${stationName}/realtime`;
+    const url = `https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:${lineID}/stops/stop_area:IDFM:${stationID}/realTime`;
     fetchData(url);
 
     const intervalId = setInterval(() => {
@@ -44,11 +37,11 @@ function TrainInfo({ lineID, stationName }) {
     }, 2000);
 
     return () => clearInterval(intervalId);
-  }, [lineID, stationName]);
+  }, [lineID, stationID]);
 
 
   if (status === 'NO_REALTIME_SCHEDULES_FOUND') {
-    return <div className="flex items-center justify-center text-center text-xs lg:text-base bg-white dark:bg-gray-700 dark:text-gray-200 rounded-lg shadow-md p-4 mb-3 h-[44px] lg:h-[72px]"><p className='animate-pulse'>Information en direct indisponible</p></div>;
+    return <Link to={`/${lineID}/${stationID}`}><div className="flex items-center justify-center text-center text-xs lg:text-base bg-white dark:bg-gray-700 dark:text-gray-200 rounded-lg shadow-md p-4 mb-3 h-[44px] lg:h-[72px]"><p className='animate-pulse'>Information en direct indisponible</p></div></Link>;
   }
 
   // Display loading animation
@@ -96,6 +89,8 @@ function TrainInfo({ lineID, stationName }) {
             </h2>
           )}
           {groupedTrains[sens].map((train, index) => (
+            // <Link to={`/search?line=${lineID}&stop_area=${stationID}`}>
+            <Link to={`/${lineID}/${stationID}`}>
             <div key={train.time + index} className="flex items-center bg-white dark:text-white dark:bg-gray-700 rounded-lg shadow-md min-h-[44px] max-h-[72px] p-1 lg:p-4 mb-1 lg:mb-3">
               <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={train.shortName} className="h-4 lg:h-10 ml-1 lg:ml-0 mr-2 lg:mr-4" />
               <div className="flex-grow overflow-hidden">
@@ -112,6 +107,7 @@ function TrainInfo({ lineID, stationName }) {
                 )}
               </div>
             </div>
+            </Link>
           ))}
         </div>
       ))}

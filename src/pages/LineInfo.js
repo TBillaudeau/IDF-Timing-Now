@@ -4,21 +4,18 @@ import TrainInfo from '../components/Timing';
 import StationInfo from '../components/Header';
 import stationsData from '../assets/emplacement-des-gares-idf.json';
 import DisruptionInfo from '../components/DisruptionInfo';
+import Breadcrumb from '../components/breadcrumb';
 import { checkDisruptions } from '../components/Trafic';
-import { Document, Page, pdfjs } from 'react-pdf';
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+import SearchBar from '../components/SearchBar2'
+import Plan from '../components/showPlan';
 
 function LineInfo() {
-  const { line } = useParams();
+  const { lineID } = useParams();
 
   const [trainDataA, setTrainDataA] = useState([]);
   const [disruptedLines, setDisruptedLines] = useState([]);
   const [lineData, setLineData] = useState(null);
-  const [numPagesPlan, setNumPagesPlan] = useState(null);
-  const [numPagesDoc, setNumPagesDoc] = useState(null);
-  const [scalePlan, setScalePlan] = useState(1);
-  const [scaleDoc, setScaleDoc] = useState(1);
+
 
   useEffect(() => {
     const fetchDisruptions = async () => {
@@ -31,48 +28,65 @@ function LineInfo() {
 
   useEffect(() => {
     const fetchLineData = async () => {
-      const response = await fetch(`https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${line}/schedules?complete=false`);
+      const response = await fetch(`https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/schedules`);
       const data = await response.json();
       setLineData(data);
     };
 
     fetchLineData();
-  }, [line]);
+  }, [lineID]);
 
-  function onPlanLoadSuccess({ numPages }) {
-    setNumPagesPlan(numPages);
-    setScalePlan(Math.min(1, document.getElementById('plan-pdf').clientWidth / 600));
-  }
 
-  function onDocLoadSuccess({ numPages }) {
-    setNumPagesDoc(numPages);
-    setScaleDoc(Math.min(1, document.getElementById('doc-pdf').clientWidth / 600));
-  }
+  const [trainData, setTrainData] = useState([]);
+  const [status, setStatus] = useState('');
+  const [activeTab, setActiveTab] = useState('current');
 
-  const disruption = disruptedLines.find(ligne => ligne.lineId === 'line:IDFM:' + line);
+  const handleClick = (tab) => {
+      setActiveTab(tab);
+  };
+  
+  const fetchData = async (url) => {
+      try {
+          const response = await fetch(url);
+          const data = await response.json();
+
+          setTrainData(data);
+          setStatus(data.errorMessage);
+      } catch (error) {
+          console.error(error);
+      }
+  };
+
+  useEffect(() => {
+      const url = `https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/schedules`;
+      fetchData(url);
+  }, [lineID]);
+  const disruption = disruptedLines.find(ligne => ligne.lineId === 'line:IDFM:' + lineID);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 m-2 sm:m-6">
-      <DisruptionInfo selectedDisruption={disruption} />
+      <Breadcrumb lineID={lineID} />
+      <div className="xl:col-span-2">
+        <SearchBar />
+      </div>
 
+      {lineData && (
+      <div className="xl:col-span-2">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 xl:p-6 flex flex-col w-full">
+          <h2 className="xl:text-xl font-semibold border-1 mr-4"><a href={lineData.plans[0].link} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-300 hover:underline">{lineData.plans[0].label} 🗺</a></h2>
+          <div className="max-w-full mt-4">
+            <Plan planURL={lineData.plans[0].link} />
+            {/* <Plan planURL={"https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/REGION_GF.pdf"} /> */}
+          </div>
+        </div>
+      </div>
+      )}
+
+      {/* <Plan planURL={lineData} /> */}
+      <DisruptionInfo selectedDisruption={disruption} />
       <div className="bg-white rounded-lg p-6 flex flex-col">
         {lineData && (
           <>
-            <div>
-              <h3 className="text-md font-medium mb-2">Line Plan</h3>
-              {lineData.plans.map(plan => (
-                <a href={plan.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{plan.label}</a>
-              ))}
-            </div>  
-
-            <div id="plan-pdf">
-              <h3 className="text-md font-medium mb-2">Line Plan</h3>
-              <Document file={lineData.plans[0].link} onLoadSuccess={onPlanLoadSuccess}>
-                {Array.from(new Array(numPagesPlan), (el, index) => (
-                  <Page key={`page_${index + 1}`} pageNumber={index + 1} scale={scalePlan} renderTextLayer={false} renderAnnotationLayer={false}/>
-                ))}
-              </Document>
-            </div>
                     
             {/* <div className="mb-4">
               <h3 className="text-md font-medium mb-2">Schedule Documents</h3>
@@ -93,6 +107,97 @@ function LineInfo() {
                 </div>
               ))}
             </div> */}
+  <div>
+      <div class="w-full inline-flex rounded-md shadow-sm" role="group">
+        <button
+          type="button"
+          class={`w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${
+            activeTab === 'current' ? 'bg-blue-700 text-white' : ''
+          }`}
+          onClick={() => handleClick('current')}
+        >
+          Aujourd'hui
+        </button>
+        <button
+          type="button"
+          class={`w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${
+            activeTab === 'forecast' ? 'bg-blue-700 text-white' : ''
+          }`}
+          onClick={() => handleClick('forecast')}
+        >
+          À venir
+        </button>
+        <button
+          type="button"
+          class="w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+        >
+          Twitter
+        </button>
+      </div>
+
+      <div>
+        {activeTab === 'current' &&
+          trainData.currentIT &&
+          trainData.currentIT.map((current) => (
+            <>
+              <div
+                key={current.id}
+                className="flex items-center bg-white shadow-md h-8 xl:h-10 p-3 lg:p-4 mb-1"
+              >
+                <div className="flex-grow overflow-hidden">
+                  <h2 className="font-medium text-xs lg:text-sm line-clamp-2">
+                    {current.title}
+                  </h2>
+                </div>
+                <div className="ml-1 lg:ml-5 pr-2 text-right">
+                  <p className="text-sm lg:text-base font-semibold">
+                    {current.impactStartTime} - {current.impactEndTime}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center mb-6 cursor-pointer">
+                <p className="text-sm xl:text-base xl:font-semibold flex grow">
+                  {current.title}
+                </p>
+                <p className="text-xs xl:text-base font-semibold ml-4 xl:mr-4">
+                  {' '}
+                  {current.impactStartTime}
+                </p>
+                <p className="text-xs xl:text-base font-semibold ml-4 xl:mr-4">
+                  {' '}
+                  {current.impactEndTime}
+                </p>
+              </div>
+
+              <div
+                dangerouslySetInnerHTML={{ __html: current.message }}
+                className="border border-gray-300 p-4 rounded-lg mt-2 overflow-y-auto max-h-[30rem]"
+              />
+            </>
+          ))}
+
+        {activeTab === 'forecast' &&
+          trainData.forecastIT &&
+          trainData.forecastIT.map((forecast) => (
+            <div
+              key={forecast.id}
+              className="flex items-center bg-white shadow-md h-8 xl:h-10 p-3 lg:p-4 mb-1"
+            >
+              <div className="flex-grow overflow-hidden">
+                <h2 className="font-medium text-xs lg:text-sm line-clamp-2">
+                  {forecast.title}
+                </h2>
+              </div>
+              <div className="ml-1 lg:ml-5 pr-2 text-right">
+                <p className="text-sm lg:text-base font-semibold">
+                  {forecast.impactStartTime} - {forecast.impactEndTime}
+                </p>
+              </div>
+            </div>
+          ))}
+      </div>
+    </div>
 
           </>
         )}
