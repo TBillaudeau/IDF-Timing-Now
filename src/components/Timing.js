@@ -91,7 +91,7 @@ function TrainInfo({ lineID, stationName }) {
           {groupedTrains[sens].map((train, index) => (
             // <Link to={`/search?line=${lineID}&stop_area=${stationID}`}>
             <Link to={`/${lineID}/${stationID}`}>
-            <div key={train.time + index} className="flex items-center bg-white border-b border-gray-400 dark:text-white dark:bg-gray-700 rounded-lg shadow-md min-h-[44px] max-h-[72px] p-1 lg:p-4 mb-1 lg:mb-3">
+            <div key={train.time + index} className="flex items-center bg-white border-b border-gray-400 dark:text-white dark:bg-gray-700  shadow-md min-h-[44px] max-h-[72px] p-1 lg:p-4 mb-1 lg:mb-3">
               <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={train.shortName} className="h-4 lg:h-10 ml-1 lg:ml-0 mr-2 lg:mr-4" />
               <div className="flex-grow overflow-hidden">
                 <h2 className='font-bold text-[11px] lg:text-lg line-clamp-2'>{removeGareDePrefix(train.lineDirection)}</h2>
