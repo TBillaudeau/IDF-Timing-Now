@@ -24,7 +24,7 @@ function StopInfo() {
             <StationInfo  lineID={lineID} stationID={stationID} />
             <TrainInfo lineID={lineID} stationName={stationID} />   
         </div>
-        <div className="lg:bg-white lg:rounded-lg lg:p-6">
+        <div className="lg:p-1">
             <Schedules lineID={lineID} stationName={stationID} /> 
         </div>
     </div>

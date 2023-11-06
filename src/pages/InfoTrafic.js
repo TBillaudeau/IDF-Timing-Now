@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DisruptionInfo from '../components/DisruptionInfo';
-import TrainDepartureDisplay from '../components/SearchBar'
+import SearchBar from '../components/SearchBar'
 import { lineTypes, checkDisruptions } from '../components/Trafic'
 import Banner from "../components/banner";
 
@@ -31,10 +31,10 @@ function InfoTrafic() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 m-2 sm:m-6">
-      <div className="xl:col-span-2">
-        <TrainDepartureDisplay />
-      </div>
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-4 lg:p-6">
+      {/* <div className="xl:col-span-2">
+        <SearchBar />
+      </div> */}
+      <div className="bg-white dark:text-white dark:bg-gray-800 rounded-lg p-4 lg:p-6">
       <h1 className="text-2xl font-bold pb-4 lg:pb-6">Information trafic</h1>
         {Object.entries(lineTypes).map(([lineType, lineIds]) => (
           <div key={lineType} className="flex flex-row p-1 xl:p-2">

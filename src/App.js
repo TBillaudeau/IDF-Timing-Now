@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import Search from './pages/SearchResult';
+import Research from './pages/Research';
 import LineInfo from './pages/LineInfo';
 import StationInfo from './pages/StationInfo';
 import StopInfo from './pages/StopInfo';
@@ -35,6 +36,7 @@ function App() {
             <Route path="/station/:stationID" element={<StationInfo />} />
             <Route path="/:lineID/:stationID" element={<StopInfo />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/research" element={<Research />} />
 
             <Route exact path="/infos-trafic" element={<InfoTrafic />} />
             <Route path="/suresnes" element={<Suresnes />} />
