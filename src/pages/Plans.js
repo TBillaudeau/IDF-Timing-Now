@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import Plan from '../components/showPlan';
 
-let corsProxy = 'https://cors-anywhere.herokuapp.com/';
 let maps = [
     {
         id: 'Metro',
         name: 'Plan Métro',
-        url: corsProxy + 'https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/METRO.pdf'
+        url: 'https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/METRO.pdf'
     },
     {
         id: 'Région',
         name: 'Plan du réseau régional des transports',
-        url: corsProxy + 'https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/REGION_GF.pdf'
+        url: 'https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/REGION_GF.pdf'
     },
     {
         id: 'Noctilien',
         name: 'Plan du réseau de Nuit (schématique)',
-        url: corsProxy + 'https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/NOCTILIEN_MF.pdf'
+        url: 'https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/NOCTILIEN_MF.pdf'
     },
 ];
 
