@@ -34,7 +34,7 @@ function Schedules({ lineID, stationName }) {
             <div className="grid grid-cols-2 gap-4">
                 {trainData.schedules && trainData.schedules.map((schedule) => (
                     <div key={schedule.routeId} className="">
-                        <div className="flex items-center text-white bg-gray-700 shadow-md py-2 px-4 mb-1">
+                        <div className="flex items-center text-white bg-gray-900 shadow-md py-2 px-4 mb-1">
                             <div className="flex-grow overflow-hidden">
                             </div>
                             <div className="ml-1 lg:ml-5 text-right">
@@ -68,7 +68,7 @@ function Schedules({ lineID, stationName }) {
                             </div>
                         )}
 
-                         <div className="flex items-center text-white bg-gray-700 shadow-md h-8 xl:h-10 p-2 lg:p-4 mb-1">
+                         <div className="flex items-center text-white bg-gray-900 shadow-md h-8 xl:h-10 p-2 lg:p-4 mb-1">
                             <div className="flex-grow overflow-hidden">
                                 <h2 className='font-medium text-xs lg:text-sm line-clamp-2'>
                                 Tranche horaire	
