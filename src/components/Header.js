@@ -3,6 +3,7 @@ import { checkDisruptions } from '../components/Trafic';
 import { useNavigate } from 'react-router-dom';
 import zonesDarrets from '../assets/zones-d-arrets.json';
 import referentielDesLignes from '../assets/referentiel-des-lignes.json';
+import AddFav from '../components/fav'
 
 function StationInfo({lineID, stationID }) {
     const navigate = useNavigate();
@@ -49,7 +50,7 @@ function StationInfo({lineID, stationID }) {
             {disrupted && (
                 <span className="relative">
                     {isHovered && (
-                        <div data-popover id="popover-top" role="tooltip" className="absolute z-10 inline-block w-40 lg:w-80 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-100 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                        <div data-popover id="popover-top" role="tooltip" className="absolute z-10 inline-block w-[9rem] lg:w-80 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-100 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
                             <div className="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700 flex flex-row">
                                 <h3 className="flex-grow font-semibold text-gray-900 dark:text-white">{disruptedLines.find(line => line.lineId === 'line:IDFM:' + lineID)?.disruption.cause}</h3>
                             </div>
@@ -76,13 +77,7 @@ function StationInfo({lineID, stationID }) {
             <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" />
             <p className='text-xs lg:text-base font-medium flex-grow line-clamp-2'>{stationName}</p>
             <p className='text-slate-400 text-xs font-bold pr-1 lg:pr-3'>
-                {/* Attente */}
-                {/* <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m11.479 1.712 2.367 4.8a.532.532 0 0 0 .4.292l5.294.769a.534.534 0 0 1 .3.91l-3.83 3.735a.534.534 0 0 0-.154.473l.9 5.272a.535.535 0 0 1-.775.563l-4.734-2.49a.536.536 0 0 0-.5 0l-4.73 2.487a.534.534 0 0 1-.775-.563l.9-5.272a.534.534 0 0 0-.154-.473L2.158 8.48a.534.534 0 0 1 .3-.911l5.294-.77a.532.532 0 0 0 .4-.292l2.367-4.8a.534.534 0 0 1 .96.004Z"/>
-                </svg> */}
-                <svg class="w-3 h-3 lg:w-5 lg:h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                </svg>
+                <AddFav />
             </p>
         </div>
     );

@@ -175,17 +175,17 @@ export default function Navbar({ fixed }) {
         </div>
       </nav>
 
-  <div className="fixed bottom-0 z-50 w-full -translate-x-1/2 shadow-[0px_-1px_6px_-1px_rgba(0,0,0,0.1)] bg-white border-b-[18px] border-white left-1/2 dark:bg-gray-700 dark:border-gray-700 md:hidden">
+  <div className="fixed bottom-0 z-50 w-full -translate-x-1/2 shadow-[0px_-1px_6px_-1px_rgba(0,0,0,0.1)] bg-white border-b-[25px] border-white left-1/2 dark:bg-gray-700 dark:border-gray-700 md:hidden">
     <div class="w-full">
         <div class="grid max-w-xs grid-cols-3 gap-1 mx-auto my-2 bg-gray-100 rounded-lg dark:bg-gray-600" role="group">
             <button class="px-1 py-1 text-xs font-medium text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg">
-                IDF Timing Now
-            </button>
-            <button class="px-1 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-lg">
                 beta
             </button>
+            <button class="px-1 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-lg">
+                IDF Timing Now
+            </button>
             <button class="px-1 py-1 text-xs font-medium text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg">
-                v 0.8.2
+                v 0.9
             </button>
         </div>
     </div>

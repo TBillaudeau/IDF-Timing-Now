@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import removeGareDePrefix from '../functions/utils';
-import { set } from 'date-fns';
+import { lineTypes } from '../components/Trafic';
+import relations from '../assets/relations.json';
+import zonesDarrets from '../assets/zones-d-arrets.json';
 
 function TrainInfo({ lineID, stationName }) {
   const stationID = stationName;
@@ -14,22 +16,109 @@ function TrainInfo({ lineID, stationName }) {
     const fetchData = async (url) => {
       try {
         const response = await fetch(url);
-        var data = await response.json();
-        data = data.nextDepartures.data;
+        const data = await response.json();
+        const nextDepartures = data.nextDepartures.data;
 
-        if (data.length === 0 || !data.every(train => train.lineDirection)) {
+        if (nextDepartures.length === 0 || !nextDepartures.every(train => train.lineDirection)) {
           setStatus('NO_REALTIME_SCHEDULES_FOUND');
         } else {
-          setTrainData(data);
-          setStatus(data.errorMessage);
-        }
+          const zoneAreas = [];
+          nextDepartures.forEach(train => {
+            if (lineTypes.TRAIN.includes(train.lineId)) { //
+              const correspondingRelation = relations.find(relation => relation.arrid == train.destination.stopPointId.split(':').pop());
+  
+              if (correspondingRelation) {
+                const zoneArea = correspondingRelation.zdcid;
+                if (!zoneAreas.includes(zoneArea)) {
+                  zoneAreas.push(zoneArea);
+                }
+              }
+            }
+          });
 
+
+          function getStationName(zoneArea) {
+            var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid == zoneArea) : [];
+            return stations.find(station => station.fields.zdatype == 'railStation')?.fields.zdaname
+                || stations.find(station => station.fields.zdatype == 'metroStation')?.fields.zdaname  
+                || stations.find(station => station.fields.zdatype == 'onstreetTram')?.fields.zdaname
+                || stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdatown + ')'
+          }
+
+          if (zoneAreas.length > 0) {
+            const fetchPromises = zoneAreas.map(zoneArea => {
+              const newURL = `https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/stops/stop_area:IDFM:${stationID}/to/stop_area:IDFM:${zoneArea}/realTime`;
+              return fetch(newURL).then(response => response.json());
+            });
+
+          Promise.all(fetchPromises).then(results => {
+            let combinedNextDepartures = results.reduce((combined, result, index) => {
+              if (result && result.nextDepartures && result.nextDepartures.data) {
+                const zoneArea = zoneAreas[index];
+                const stationName = getStationName(zoneArea);
+                result.nextDepartures.data.forEach(train => {
+                  if (!train.lineDirection) {
+                    train.lineDirection = stationName;
+                  }
+                });
+                return combined.concat(result.nextDepartures.data);
+              }
+              return combined;
+            }, []);
+          
+            // Sort the combinedNextDepartures array by the time property
+            combinedNextDepartures.sort((a, b) => parseInt(a.time) - parseInt(b.time));
+          
+            // Helper function to check for identical objects
+            const isIdentical = (obj1, obj2) => {
+              return JSON.stringify(obj1) === JSON.stringify(obj2);
+            };
+          
+            // Remove identical objects from combinedNextDepartures
+            combinedNextDepartures = combinedNextDepartures.filter(
+              (value, index, self) => self.findIndex(obj => isIdentical(obj, value)) === index
+            );
+            
+            setTrainData(combinedNextDepartures);
+            setStatus(data.errorMessage);
+          
+    
+            // Promise.all(fetchPromises).then(results => {
+            //   var combinedNextDepartures = results.reduce((combined, result) => {
+            //     if (result && result.nextDepartures && result.nextDepartures.data) {
+            //       return combined.concat(result.nextDepartures.data);
+            //     }
+            //     return combined;
+            //   }, []);
+              
+            //   // Sort by time
+            //   combinedNextDepartures.sort((a, b) => parseInt(a.time) - parseInt(b.time));
+
+            //   // Helper function to check for identical objects
+            //   const isIdentical = (obj1, obj2) => {
+            //     return JSON.stringify(obj1) === JSON.stringify(obj2);
+            //   };
+
+            //   // Remove identical objects from combinedNextDepartures
+            //   combinedNextDepartures = combinedNextDepartures.filter(
+            //     (value, index, self) => self.findIndex(obj => isIdentical(obj, value)) === index
+            //   );
+              
+            //   setTrainData(combinedNextDepartures);
+            //   setStatus(data.errorMessage);
+            });
+          } else {
+            setTrainData(nextDepartures);
+            setStatus(data.errorMessage);
+          }
+        }
       } catch (error) {
         // Handle error
       }
     };
 
     const url = `https://api-iv.iledefrance-mobilites.fr/lines/v2/line:IDFM:${lineID}/stops/stop_area:IDFM:${stationID}/realTime`;
+    console.log(url)
     fetchData(url);
 
     const intervalId = setInterval(() => {
@@ -91,10 +180,13 @@ function TrainInfo({ lineID, stationName }) {
           {groupedTrains[sens].map((train, index) => (
             // <Link to={`/search?line=${lineID}&stop_area=${stationID}`}>
             <Link to={`/${lineID}/${stationID}`}>
-            <div key={train.time + index} className="flex items-center bg-white border-b border-gray-400 dark:text-white dark:bg-gray-700  shadow-md min-h-[44px] max-h-[72px] p-1 lg:p-4 mb-1 lg:mb-3">
-              <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={train.shortName} className="h-4 lg:h-10 ml-1 lg:ml-0 mr-2 lg:mr-4" />
+            <div key={train.time + index} className="flex items-center bg-white border-b border-gray-400 dark:text-white dark:bg-gray-700 shadow-md min-h-[44px] max-h-[72px] p-1 lg:p-4 mb-1 lg:mb-3">
+                <div className='shrink-0'>
+                  <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={train.shortName} className="h-4 lg:h-10 pl-1 lg:pl-0" />
+                  <h3 className='text-[8px] lg:text-xs justify-center flex mx-auto mt-0.5 pl-0.5 lg:pl-0'>{removeGareDePrefix(train.vehicleName)}</h3>
+                </div>
               <div className="flex-grow overflow-hidden">
-                <h2 className='font-bold text-[11px] lg:text-lg line-clamp-2'>{removeGareDePrefix(train.lineDirection)}</h2>
+                <h2 className='font-bold text-[11px] lg:text-lg line-clamp-2 ml-2 lg:ml-4'>{removeGareDePrefix(train.lineDirection)}</h2>
               </div>
               <div className="ml-1 lg:ml-5 pr-2 text-right">
                 {train.code === 'message' ? (

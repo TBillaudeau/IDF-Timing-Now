@@ -49,8 +49,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 xl:p-6 flex items-center w-full">
-      <h2 className="xl:text-xl font-semibold border-1 mr-4 dark:text-white">Station :</h2>
+    <div className="bg-white dark:bg-gray-800 rounded-lg py-4 flex items-center w-full">
       <Select
         options={options}
         onInputChange={handleInputChange}

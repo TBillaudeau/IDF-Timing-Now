@@ -68,7 +68,7 @@ function LineInfo() {
       {/* <img src={process.env.PUBLIC_URL + `/images/${transportLogo}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={transportLogo} className="h-5 lg:h-10 mr-1" /> */}
       <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" />
 
-      <div className="xl:col-span-2">
+      <div className="xl:col-span-2 bg-white dark:bg-gray-800 border rounded-lg p-4">
         <SearchBar />
       </div>
 

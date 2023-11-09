@@ -1,22 +1,84 @@
 import SearchBar from '../components/SearchBar'
+import React, { useEffect, useState } from 'react';
 import { lineTypes, checkDisruptions } from '../components/Trafic'
+import stationsData from '../assets/emplacement-des-gares-idf.json';
+import zonesDarrets from '../assets/zones-d-arrets.json';
+import referentielDesLignes from '../assets/referentiel-des-lignes.json';
+import SearchBar2 from '../components/SearchBar2'
 
 function Research() {
+  const [selectedLineType, setSelectedLineType] = useState('');
+  const [selectedLineID, setSelectedLineID] = useState('');
+
+  const handleLineTypeDropdownChange = (event) => {
+    setSelectedLineType(event.target.value);
+  };
+
+  const handleLineIDDropdownChange = (event) => {
+    setSelectedLineID(event.target.value);
+  };
+
+  function getLineName(lineID) {
+    const lineInfo = lineID !== undefined ? referentielDesLignes.find(line => line.fields.id_line === lineID).fields : '';
+  
+    if (lineInfo.transportmode === 'rail') {
+      return lineInfo.shortname_groupoflines;
+    } else {
+      return lineInfo.transportmode.toUpperCase() + ' ' + lineInfo.name_line;
+    }
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 m-2 sm:m-6">
         <div className="bg-white border rounded-lg dark:bg-gray-800 p-4 lg:p-6">
-            <h1 className="text-2xl font-bold dark:text-white pb-4 lg:pb-6">Recherche rapide</h1>
+            <h1 className="text-xl font-bold dark:text-white pb-4 lg:pb-6">Recherche rapide</h1>
             <SearchBar />
         </div>
-        <div className="bg-white border rounded-lg dark:text-white dark:bg-gray-800 p-4 lg:p-6">
-            <h1 className="text-2xl font-bold pb-4 lg:pb-6">Rechercher un horaire</h1>
-            {Object.entries(lineTypes).map(([lineType, lineIds]) => (
-                <div key={lineType} className="flex flex-row p-1 xl:p-2">
-                    <img src={process.env.PUBLIC_URL + `/images/${lineType}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={lineType} className="h-8 xl:h-10 mt-1.5 mr-2 lg:mr-4" />
-                </div>
+
+        <div className="bg-white border rounded-lg dark:bg-gray-800 p-4 lg:p-6">
+          <h1 className="text-xl font-bold pb-4 lg:pb-6 dark:text-white">Rechercher un horaire</h1>
+          
+          <div className='mt-2'>
+            <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mode de transport</label>
+            <select
+              id="countries"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value={selectedLineType}
+              onChange={handleLineTypeDropdownChange}
+            >
+              <option value="">Sélectionnez un mode de transport</option>
+              {Object.entries(lineTypes).map(([lineType, lineIds]) => (
+                <option key={lineType} value={lineType}>
+                  {lineType}
+                </option>
+              ))}
+            </select>            
+          </div>
+          <div className='mt-4'>
+            <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ligne</label>
+            {/* {selectedLineType && ( */}
+              <select
+                id="countries"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                value={selectedLineID}
+                onChange={handleLineIDDropdownChange}
+              >
+                <option value="">Sélectionnez une ligne</option>
+                {lineTypes[selectedLineType]?.map((lineId) => (
+                  <option key={lineId} value={lineId}>
+                    {getLineName(lineId.split(':').pop())}
+                  </option>
                 ))}
-        </div>
+              </select>   
+            {/* )}           */}
+          </div>
+          <div className='mt-4'>
+            <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Station</label>
+            {selectedLineID && (
+                <SearchBar2 key={selectedLineID} lineIDparams={selectedLineID.split(':').pop()} />
+              )}            
+          </div>
+        </div>                
     </div>
   );
 

@@ -29,7 +29,6 @@ function Breadcrumb({ lineID, stationID }) {
     
     // Get lineName from lineID
     var lineName = lineID !== undefined ? referentielDesLignes.find(line => line.fields.id_line == lineID).fields : '';
-    console.log(lineName);
     if (lineName.transportmode === 'rail') {
         lineName = lineName.shortname_groupoflines;
     }  else {

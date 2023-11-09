@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const SearchBar = () => {
+const SearchBar = ({ lineIDparams }) => {
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState([]);
   const navigate = useNavigate();
-  const { lineID } = useParams();
+  let { lineID } = useParams();
+  if (typeof lineIDparams !== 'undefined') {
+    lineID = lineIDparams;
+  }
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -30,14 +33,13 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 xl:p-6 flex items-center w-full">
-      <h2 className="xl:text-xl font-semibold border-1 mr-4 dark:text-white">Station :</h2>
+    <div className="bg-white dark:bg-gray-800 rounded-lg  flex items-center w-full">
       <Select
         options={options}
         onInputChange={handleInputChange}
         onChange={handleChange}
         inputValue={inputValue}
-        placeholder="Enter station name"
+        placeholder="Sélectionnez une station"
         className="flex-1 cursor-pointer"
       />
     </div>
