@@ -66,16 +66,16 @@ function LineInfo() {
       <Breadcrumb lineID={lineID} />
 
       {/* <img src={process.env.PUBLIC_URL + `/images/${transportLogo}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={transportLogo} className="h-5 lg:h-10 mr-1" /> */}
-      <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" />
+      {/* <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" /> */}
 
-      <div className="xl:col-span-2 bg-white dark:bg-gray-800 border rounded-lg p-4">
+      <div className="xl:col-span-2 bg-white dark:bg-gray-800 p-4">
         <SearchBar />
       </div>
 
       {lineData && (
       <div className="xl:col-span-2">
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 xl:p-6 flex flex-col w-full">
-          <h2 className="xl:text-xl font-semibold border-1 mr-4"><a href={lineData.plans[0].link} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-300 hover:underline">{lineData.plans[0].label} 🗺</a></h2>
+        <div className="bg-white dark:bg-gray-800 p-4 xl:p-6 flex flex-col w-full">
+          <h2 className="xl:text-xl font-semibold mr-4"><a href={lineData.plans[0].link} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-300 hover:underline">{lineData.plans[0].label} 🗺</a></h2>
           <div className="max-w-full mt-4">
             <Plan planURL={lineData.plans[0].link} />
             {/* <Plan planURL={"https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/REGION_GF.pdf"} /> */}
@@ -86,7 +86,7 @@ function LineInfo() {
 
       {/* <Plan planURL={lineData} /> */}
       <DisruptionInfo selectedDisruption={disruption} />
-      <div className="bg-white rounded-lg p-6 flex flex-col">
+      <div className="bg-white p-6 flex flex-col">
         {lineData && (
           <>
                     

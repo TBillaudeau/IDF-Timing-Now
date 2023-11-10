@@ -26,7 +26,6 @@ function Plan({ planURL }) {
     return (
         <div ref={parentDivRef}>
             {planURL && (
-                console.log(planURL),
                 <div>
                     <Document file={planURL} onLoadSuccess={onPlanLoadSuccess}>
                         <Page pageNumber={1} width={parentDivRef.current ? parentDivRef.current.offsetWidth : 0} renderTextLayer={false} renderAnnotationLayer={false}/>

@@ -30,19 +30,19 @@ function Research() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 m-2 sm:m-6">
-        <div className="bg-white border rounded-lg dark:bg-gray-800 p-4 lg:p-6">
+        <div className="bg-white dark:bg-gray-800 p-4 lg:p-6">
             <h1 className="text-xl font-bold dark:text-white pb-4 lg:pb-6">Recherche rapide</h1>
             <SearchBar />
         </div>
 
-        <div className="bg-white border rounded-lg dark:bg-gray-800 p-4 lg:p-6">
+        <div className="bg-white dark:bg-gray-800 p-4 lg:p-6">
           <h1 className="text-xl font-bold pb-4 lg:pb-6 dark:text-white">Rechercher un horaire</h1>
           
           <div className='mt-2'>
             <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mode de transport</label>
             <select
               id="countries"
-              className="bg-gray-50 border border-gray-300 text-gray-900 h-16 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={selectedLineType}
               onChange={handleLineTypeDropdownChange}
             >
@@ -56,10 +56,9 @@ function Research() {
           </div>
           <div className='mt-4'>
             <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ligne</label>
-            {/* {selectedLineType && ( */}
               <select
                 id="countries"
-                className="bg-gray-50 border border-gray-300 text-gray-900 h-16 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 value={selectedLineID}
                 onChange={handleLineIDDropdownChange}
               >
@@ -70,7 +69,6 @@ function Research() {
                   </option>
                 ))}
               </select>   
-            {/* )}           */}
           </div>
           <div className='mt-4'>
             <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Station</label>

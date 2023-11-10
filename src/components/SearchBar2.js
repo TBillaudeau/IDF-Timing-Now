@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Select from 'react-select';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const SearchBar = ({ lineIDparams }) => {
@@ -24,24 +23,24 @@ const SearchBar = ({ lineIDparams }) => {
     fetchOptions();
   }, []);
 
-  const handleChange = (selectedOption) => {
-    navigate(`/search?line=${lineID}&stop_area=${selectedOption.value.split(':').pop()}`);
-  };
-
-  const handleInputChange = (inputValue) => {
-    setInputValue(inputValue);
+  const handleChange = (event) => {
+    navigate(`/search?line=${lineID}&stop_area=${event.target.value.split(':').pop()}`);
   };
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg  flex items-center w-full">
-      <Select
-        options={options}
-        onInputChange={handleInputChange}
+      <select
+        value={inputValue}
         onChange={handleChange}
-        inputValue={inputValue}
-        placeholder="Sélectionnez une station"
-        className="flex-1 cursor-pointer"
-      />
+        className="bg-gray-50 border border-gray-300 text-gray-900 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+        <option value="">Sélectionnez une station</option>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };

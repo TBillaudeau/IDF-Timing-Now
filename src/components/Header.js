@@ -46,7 +46,7 @@ function StationInfo({lineID, stationID }) {
 
     // Display station header
     return (
-        <div className="flex items-center bg-white dark:bg-gray-800 dark:text-white border-gray-900 border-solid border p-2 lg:p-4 mb-2 lg:mb-4 rounded-lg shadow-md min-h-[52px]" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+        <div className="flex items-center bg-white dark:bg-gray-800 dark:text-white border-gray-900 dark:border-gray-400 border-solid border p-2 lg:p-4 mb-2 lg:mb-4 rounded-b-lg shadow-md min-h-[52px]" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             {disrupted && (
                 <span className="relative">
                     {isHovered && (
@@ -76,7 +76,7 @@ function StationInfo({lineID, stationID }) {
             <img src={process.env.PUBLIC_URL + `/images/${transportLogo}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={transportLogo} className="h-5 lg:h-10 mr-1" />
             <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" />
             <p className='text-xs lg:text-base font-medium flex-grow line-clamp-2'>{stationName}</p>
-            <p className='text-slate-400 text-xs font-bold pr-1 lg:pr-3'>
+            <p className='text-slate-400 text-xs font-bold pr-0.5 lg:pr-2'>
                 <AddFav />
             </p>
         </div>

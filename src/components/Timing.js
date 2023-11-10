@@ -130,7 +130,7 @@ function TrainInfo({ lineID, stationName }) {
 
 
   if (status === 'NO_REALTIME_SCHEDULES_FOUND') {
-    return <Link to={`/${lineID}/${stationID}`}><div className="flex items-center justify-center text-center text-xs lg:text-base bg-white dark:bg-gray-700 dark:text-gray-200 rounded-lg shadow-md p-4 mb-3 h-[44px] lg:h-[72px]"><p className='animate-pulse'>Information en direct indisponible</p></div></Link>;
+    return <Link to={`/${lineID}/${stationID}`}><div className="shadow-[inset_0rem_0.2rem_0.4rem_0_rgb(0,0,0,0.1)] flex items-center justify-center text-center text-xs lg:text-base bg-white dark:bg-gray-700 dark:text-gray-200 p-4 mb-3 h-[44px] lg:h-[72px]"><p className='animate-pulse'>Information en direct indisponible</p></div></Link>;
   }
 
   // Display loading animation
@@ -180,7 +180,7 @@ function TrainInfo({ lineID, stationName }) {
           {groupedTrains[sens].map((train, index) => (
             // <Link to={`/search?line=${lineID}&stop_area=${stationID}`}>
             <Link to={`/${lineID}/${stationID}`}>
-            <div key={train.time + index} className="flex items-center bg-white border-b border-gray-400 dark:text-white dark:bg-gray-700 shadow-md min-h-[44px] max-h-[72px] p-1 lg:p-4 mb-1 lg:mb-3">
+            <div key={train.time + index} className="flex items-center bg-white border-b border-gray-400 dark:text-white dark:bg-gray-700 min-h-[44px] max-h-[72px] p-1 lg:p-4 mb-1 lg:mb-3">
                 <div className='shrink-0'>
                   <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={train.shortName} className="h-4 lg:h-10 pl-1 lg:pl-0" />
                   <h3 className='text-[8px] lg:text-xs justify-center flex mx-auto mt-0.5 pl-0.5 lg:pl-0'>{removeGareDePrefix(train.vehicleName)}</h3>

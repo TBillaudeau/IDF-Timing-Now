@@ -55,9 +55,9 @@ const stations = [
 function Suresnes() {
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 m-2 sm:m-6">
       {stations.map((station, index) => (
-        <div key={index} className="m-2 sm:m-6">
+        <div key={index} className="bg-white dark:bg-gray-700">
           <StationInfo lineID={station.lineID} stationID={station.stationCode} />
           <TrainInfo lineID={station.lineID} stationName={station.stationCode} />
         </div>

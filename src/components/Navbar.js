@@ -185,7 +185,7 @@ export default function Navbar({ fixed }) {
                 IDF Timing Now
             </button>
             <button class="px-1 py-1 text-xs font-medium text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg">
-                v 0.9
+                v 0.8.5
             </button>
         </div>
     </div>
