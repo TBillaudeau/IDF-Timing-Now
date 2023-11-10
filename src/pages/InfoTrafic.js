@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import DisruptionInfo from '../components/DisruptionInfo';
-import SearchBar from '../components/SearchBar'
 import { lineTypes, checkDisruptions } from '../components/Trafic'
 import Banner from "../components/banner";
+import Research from "./Research";
 
 function InfoTrafic() {
   const [disruptedLines, setDisruptedLines] = useState([]);
@@ -75,6 +75,9 @@ function InfoTrafic() {
             </div>
           </div>
         ))}
+      </div>
+      <div className="hidden lg:block">
+        <Research/>
       </div>
       {selectedDisruption && selectedDisruption.disruption && (
           <DisruptionInfo selectedDisruption={selectedDisruption} />

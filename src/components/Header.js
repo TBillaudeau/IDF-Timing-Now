@@ -26,7 +26,7 @@ function StationInfo({lineID, stationID }) {
 
 
     // Get transportLogo from lineID
-    const station = referentielDesLignes.find(station => station.fields.id_line == lineID);
+    const station = referentielDesLignes.find(station => station.fields.id_line === lineID);
     let transportLogo = station.fields.transportmode;
     if (transportLogo === 'rail') {
         const networkName = station.fields.networkname;
@@ -35,11 +35,11 @@ function StationInfo({lineID, stationID }) {
     transportLogo = transportLogo.toUpperCase();
 
     // Get stationName from stationID
-    var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid == stationID) : [];
-    var stationName = stations.find(station => station.fields.zdatype == 'railStation')?.fields.zdaname
-        || stations.find(station => station.fields.zdatype == 'metroStation')?.fields.zdaname  
-        || stations.find(station => station.fields.zdatype == 'onstreetTram')?.fields.zdaname
-        || stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdatown + ')';
+    var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid === stationID) : [];
+    var stationName = stations.find(station => station.fields.zdatype === 'railStation')?.fields.zdaname
+        || stations.find(station => station.fields.zdatype === 'metroStation')?.fields.zdaname  
+        || stations.find(station => station.fields.zdatype === 'onstreetTram')?.fields.zdaname
+        || stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdatown + ')';
 
     // Check if line is disrupted
     const disrupted = disruptedLines.some(line => line.lineId === 'line:IDFM:' + lineID && line.disrupted === true);
@@ -50,7 +50,7 @@ function StationInfo({lineID, stationID }) {
             {disrupted && (
                 <span className="relative">
                     {isHovered && (
-                        <div data-popover id="popover-top" role="tooltip" className="absolute z-10 inline-block w-[9rem] lg:w-80 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-100 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                        <div data-popover id="popover-top" role="tooltip" className="absolute z-10 inline-block w-40 lg:w-80 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-100 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
                             <div className="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700 flex flex-row">
                                 <h3 className="flex-grow font-semibold text-gray-900 dark:text-white">{disruptedLines.find(line => line.lineId === 'line:IDFM:' + lineID)?.disruption.cause}</h3>
                             </div>

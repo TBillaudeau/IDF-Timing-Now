@@ -25,7 +25,7 @@ function TrainInfo({ lineID, stationName }) {
           const zoneAreas = [];
           nextDepartures.forEach(train => {
             if (lineTypes.TRAIN.includes(train.lineId)) { //
-              const correspondingRelation = relations.find(relation => relation.arrid == train.destination.stopPointId.split(':').pop());
+              const correspondingRelation = relations.find(relation => relation.arrid === train.destination.stopPointId.split(':').pop());
   
               if (correspondingRelation) {
                 const zoneArea = correspondingRelation.zdcid;
@@ -38,16 +38,17 @@ function TrainInfo({ lineID, stationName }) {
 
 
           function getStationName(zoneArea) {
-            var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid == zoneArea) : [];
-            return stations.find(station => station.fields.zdatype == 'railStation')?.fields.zdaname
-                || stations.find(station => station.fields.zdatype == 'metroStation')?.fields.zdaname  
-                || stations.find(station => station.fields.zdatype == 'onstreetTram')?.fields.zdaname
-                || stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdatown + ')'
+            var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid === zoneArea) : [];
+            return stations.find(station => station.fields.zdatype === 'railStation')?.fields.zdaname
+                || stations.find(station => station.fields.zdatype === 'metroStation')?.fields.zdaname  
+                || stations.find(station => station.fields.zdatype === 'onstreetTram')?.fields.zdaname
+                || stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdatown + ')'
           }
 
           if (zoneAreas.length > 0) {
             const fetchPromises = zoneAreas.map(zoneArea => {
               const newURL = `https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/stops/stop_area:IDFM:${stationID}/to/stop_area:IDFM:${zoneArea}/realTime`;
+              console.log(newURL)
               return fetch(newURL).then(response => response.json());
             });
 
@@ -81,31 +82,6 @@ function TrainInfo({ lineID, stationName }) {
             
             setTrainData(combinedNextDepartures);
             setStatus(data.errorMessage);
-          
-    
-            // Promise.all(fetchPromises).then(results => {
-            //   var combinedNextDepartures = results.reduce((combined, result) => {
-            //     if (result && result.nextDepartures && result.nextDepartures.data) {
-            //       return combined.concat(result.nextDepartures.data);
-            //     }
-            //     return combined;
-            //   }, []);
-              
-            //   // Sort by time
-            //   combinedNextDepartures.sort((a, b) => parseInt(a.time) - parseInt(b.time));
-
-            //   // Helper function to check for identical objects
-            //   const isIdentical = (obj1, obj2) => {
-            //     return JSON.stringify(obj1) === JSON.stringify(obj2);
-            //   };
-
-            //   // Remove identical objects from combinedNextDepartures
-            //   combinedNextDepartures = combinedNextDepartures.filter(
-            //     (value, index, self) => self.findIndex(obj => isIdentical(obj, value)) === index
-            //   );
-              
-            //   setTrainData(combinedNextDepartures);
-            //   setStatus(data.errorMessage);
             });
           } else {
             setTrainData(nextDepartures);
@@ -137,7 +113,7 @@ function TrainInfo({ lineID, stationName }) {
   if (trainData.length === 0) {
     return (
       <div className="overflow-y-auto max-h-[27rem] animate-pulse">
-        <div className="flex items-center bg-white dark:bg-gray-800 rounded-lg shadow-md h-[44px] lg:h-[72px] p-1 lg:p-4 mb-1 lg:mb-3">
+        <div className="flex items-center bg-white dark:bg-gray-800 shadow-[inset_0rem_0.2rem_0.4rem_0_rgb(0,0,0,0.1)] h-[44px] lg:h-[72px] p-1 lg:p-4 mb-1 lg:mb-3">
           <div role="status" class="flex items-center justify-center w-4 lg:w-10 h-4 lg:h-10 ml-1 lg:ml-0 mr-2 lg:mr-4 p-1 bg-gray-300 rounded-sm lg:rounded-lg dark:bg-gray-700">
             <svg class="w-5 h-5 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
               <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />

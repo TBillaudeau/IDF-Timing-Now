@@ -10,6 +10,8 @@ import StationInfo from './pages/StationInfo';
 import StopInfo from './pages/StopInfo';
 import Login from './pages/login';
 import Plans from './pages/Plans';
+import Favorites from './pages/Favorites';
+import Poles from './pages/Poles';
 
 import InfoTrafic from './pages/InfoTrafic';
 import Suresnes from './pages/Suresnes';
@@ -39,6 +41,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/research" element={<Research />} />
             <Route path="/plans" element={<Plans />} />
+            <Route path="/poles" element={<Poles />} />
 
             <Route exact path="/infos-trafic" element={<InfoTrafic />} />
             <Route path="/suresnes" element={<Suresnes />} />
@@ -51,6 +54,7 @@ function App() {
             <Route path="/fosses" element={<Fosses />} />
             <Route path="/luxembourg" element={<Luxembourg />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/favorites" element={<Favorites />} />
 
             <Route path="/about" element={<About />} />
             <Route path="*" element={<NotFound />} />

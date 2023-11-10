@@ -1,8 +1,6 @@
 import SearchBar from '../components/SearchBar'
-import React, { useEffect, useState } from 'react';
-import { lineTypes, checkDisruptions } from '../components/Trafic'
-import stationsData from '../assets/emplacement-des-gares-idf.json';
-import zonesDarrets from '../assets/zones-d-arrets.json';
+import React, { useState } from 'react';
+import { lineTypes } from '../components/Trafic'
 import referentielDesLignes from '../assets/referentiel-des-lignes.json';
 import SearchBar2 from '../components/SearchBar2'
 
@@ -29,7 +27,7 @@ function Research() {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 m-2 sm:m-6">
+    <div className="grid grid-cols-1 gap-2 lg:gap-4 m-2 lg:m-0">
         <div className="bg-white dark:bg-gray-800 p-4 lg:p-6">
             <h1 className="text-xl font-bold dark:text-white pb-4 lg:pb-6">Recherche rapide</h1>
             <SearchBar />
