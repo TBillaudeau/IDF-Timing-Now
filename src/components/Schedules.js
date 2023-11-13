@@ -1,10 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import removeGareDePrefix from '../functions/utils';
-import { set } from 'date-fns';
+import tracesDesLignes from '../assets/traces-des-lignes.json';
+import tracesDuReseauFerre from '../assets/traces-du-reseau-ferre-idf.json';
+import arretsLignes from '../assets/arrets-lignes.json';
+import { MapContainer, TileLayer, Marker, Tooltip, Popup, CircleMarker } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css'
+import proj4 from 'proj4';
+import { GeoJSON } from 'react-leaflet';
+import L from 'leaflet';
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+});
+
+// Define the Lambert II étendu and WGS84 projections
+const lambert2e = "+proj=lcc +lat_1=46.8 +lat_0=46.8 +lon_0=0 +k_0=0.99987742 +x_0=600000 +y_0=2200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs";
+const wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
+
 
 function Schedules({ lineID, stationName }) {
     const [trainData, setTrainData] = useState([]);
+    const [coordinates, setCoordinates] = useState([]);
     const [status, setStatus] = useState('');
     const [activeTab, setActiveTab] = useState('current');
 
@@ -19,6 +37,9 @@ function Schedules({ lineID, stationName }) {
 
             setTrainData(data);
             setStatus(data.errorMessage);
+
+            const [x, y] = proj4(lambert2e, wgs84, [data.stop.x, data.stop.y]);
+            setCoordinates([y, x])
         } catch (error) {
             console.error(error);
         }
@@ -29,9 +50,28 @@ function Schedules({ lineID, stationName }) {
         fetchData(url);
     }, [lineID, stationName]);
 
+    // 
+    const usedNames = {};
+    const markers = arretsLignes
+        .filter(stop => stop.fields.id.split(':').pop() === lineID)
+        .map((stop, index) => {
+            const divIcon = L.divIcon({
+                className: 'font-bold bg-red-500 p-1 rounded',
+                html: `<span style="display:block; width:120px;">${usedNames[stop.fields.stop_name] ? '' : stop.fields.stop_name}</span>`            });
+            usedNames[stop.fields.stop_name] = true;
+
+            return (
+                <Marker key={index} position={[stop.fields.stop_lat, stop.fields.stop_lon]} icon={divIcon}>
+                    <Popup>
+                        {stop.fields.stop_name}
+                    </Popup>
+                </Marker>
+            );
+        });
+
      return (
         <>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 mb-4">
                 {trainData.schedules && trainData.schedules.map((schedule) => (
                     <div key={schedule.routeId} className="">
                         <div className="flex items-center text-white bg-gray-800 shadow-md py-2 px-4 mb-1">
@@ -99,12 +139,39 @@ function Schedules({ lineID, stationName }) {
                         ))}
                     </div>
                 ))}
-
+            
             </div>
 
+            <div>
+            {trainData.stop && (
 
-                </>
+                <MapContainer key={coordinates} className="h-72 z-0" center={coordinates} zoom={15} scrollWheelZoom={true}>
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
 
+                    <Marker position={coordinates}>
+                        <Tooltip permanent>
+                            {trainData.stop.name}
+                        </Tooltip>
+                    </Marker>
+                    
+                    {markers}
+                    
+                    {tracesDuReseauFerre.some(line => line.idrefligc === lineID) ? (
+                        tracesDuReseauFerre.filter(line => line.idrefligc === lineID).map((line, index) => (
+                            <GeoJSON key={index} data={line.geo_shape.geometry} style={{ color: '#' + line.colourweb_hexa }} />
+                        ))
+                    ) : (
+                        tracesDesLignes.filter(line => line.route_id.split(':').pop() === lineID).map((line, index) => (
+                            <GeoJSON key={index} data={line.shape.geometry} style={{ color: '#' + line.route_color }} />
+                        ))
+                    )}
+                </MapContainer>
+            )}                  
+            </div>
+        </>
         );
 }
 

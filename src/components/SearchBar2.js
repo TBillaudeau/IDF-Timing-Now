@@ -24,7 +24,7 @@ const SearchBar = ({ lineIDparams }) => {
   }, []);
 
   const handleChange = (event) => {
-    navigate(`/search?line=${lineID}&stop_area=${event.target.value.split(':').pop()}`);
+    navigate(`/${lineID}/${event.target.value.split(':').pop()}`);
   };
 
   return (

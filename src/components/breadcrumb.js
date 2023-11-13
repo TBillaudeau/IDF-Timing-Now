@@ -20,12 +20,14 @@ function Breadcrumb({ lineID, stationID }) {
       return () => window.removeEventListener('resize', resizeListener);
     }, []);
   
-    // Get stationName from stationID    
-    var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid == stationID) : [];
-    var stationName = stations.find(station => station.fields.zdatype == 'railStation')?.fields.zdaname
-        || stations.find(station => station.fields.zdatype == 'metroStation')?.fields.zdaname  
-        || stations.find(station => station.fields.zdatype == 'onstreetTram')?.fields.zdaname
-        || stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdatown + ')'
+    // Get stationName from stationID   
+    if (stationID !== undefined) {
+        var stations = zonesDarrets.filter(station => station.fields.zdcid == stationID);
+        var stationName = stations.find(station => station.fields.zdatype == 'railStation')?.fields.zdaname
+            || stations.find(station => station.fields.zdatype == 'metroStation')?.fields.zdaname  
+            || stations.find(station => station.fields.zdatype == 'onstreetTram')?.fields.zdaname
+            || stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype == 'onstreetBus')?.fields.zdatown + ')';
+    }
     
     // Get lineName from lineID
     var lineName = lineID !== undefined ? referentielDesLignes.find(line => line.fields.id_line == lineID).fields : '';

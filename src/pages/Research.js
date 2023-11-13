@@ -37,9 +37,9 @@ function Research() {
           <h1 className="text-xl font-bold pb-4 lg:pb-6 dark:text-white">Rechercher un horaire</h1>
           
           <div className='mt-2'>
-            <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mode de transport</label>
+            <label htmlFor="mode" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mode de transport</label>
             <select
-              id="countries"
+              id="mode"
               className="bg-gray-50 border border-gray-300 text-gray-900 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={selectedLineType}
               onChange={handleLineTypeDropdownChange}
@@ -53,9 +53,9 @@ function Research() {
             </select>            
           </div>
           <div className='mt-4'>
-            <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ligne</label>
+            <label htmlFor="line" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ligne</label>
               <select
-                id="countries"
+                id="line"
                 className="bg-gray-50 border border-gray-300 text-gray-900 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 value={selectedLineID}
                 onChange={handleLineIDDropdownChange}
@@ -69,7 +69,7 @@ function Research() {
               </select>   
           </div>
           <div className='mt-4'>
-            <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Station</label>
+            <label htmlFor="station" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Station</label>
             {selectedLineID && (
                 <SearchBar2 key={selectedLineID} lineIDparams={selectedLineID.split(':').pop()} />
               )}            
