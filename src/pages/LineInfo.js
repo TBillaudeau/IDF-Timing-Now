@@ -9,10 +9,8 @@ import Plan from '../components/showPlan';
 function LineInfo() {
   const { lineID } = useParams();
 
-  const [trainDataA, setTrainDataA] = useState([]);
   const [disruptedLines, setDisruptedLines] = useState([]);
   const [lineData, setLineData] = useState(null);
-
 
   useEffect(() => {
     const fetchDisruptions = async () => {
@@ -33,9 +31,7 @@ function LineInfo() {
     fetchLineData();
   }, [lineID]);
 
-
   const [trainData, setTrainData] = useState([]);
-  const [status, setStatus] = useState('');
   const [activeTab, setActiveTab] = useState('current');
 
   const handleClick = (tab) => {
@@ -48,7 +44,6 @@ function LineInfo() {
           const data = await response.json();
 
           setTrainData(data);
-          setStatus(data.errorMessage);
       } catch (error) {
           console.error(error);
       }
@@ -64,10 +59,6 @@ function LineInfo() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 m-2 sm:m-6">
       <Breadcrumb lineID={lineID} />
-
-      {/* <img src={process.env.PUBLIC_URL + `/images/${transportLogo}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={transportLogo} className="h-5 lg:h-10 mr-1" /> */}
-      {/* <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" /> */}
-
       <div className="xl:col-span-2 bg-white dark:bg-gray-800 p-4">
         <SearchBar />
       </div>
@@ -78,13 +69,11 @@ function LineInfo() {
           <h2 className="xl:text-xl font-semibold mr-4"><a href={lineData.plans[0].link} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-300 hover:underline">{lineData.plans[0].label} 🗺</a></h2>
           <div className="max-w-full mt-4">
             <Plan planURL={lineData.plans[0].link} />
-            {/* <Plan planURL={"https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/REGION_GF.pdf"} /> */}
           </div>
         </div>
       </div>
       )}
 
-      {/* <Plan planURL={lineData} /> */}
       <DisruptionInfo selectedDisruption={disruption} />
       <div className="bg-white p-6 flex flex-col">
         {lineData && (

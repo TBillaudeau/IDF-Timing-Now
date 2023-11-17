@@ -15,14 +15,8 @@ import Poles from './pages/Poles';
 
 import InfoTrafic from './pages/InfoTrafic';
 import Suresnes from './pages/Suresnes';
-import SaintLazare from './pages/SaintLazare';
-import ClichyLevallois from './pages/ClichyLevallois';
-import GareNord from './pages/GareDuNord';
-import LaDefense from './pages/LaDefense';
 import Chatelet from './pages/Chatelet';
-import Villejuif from './pages/Villejuif';
 import Fosses from './pages/Fosses';
-import Luxembourg from './pages/Luxembourg';
 
 import About from './pages/About';
 import NotFound from './pages/NotFound';
@@ -45,14 +39,8 @@ function App() {
 
             <Route exact path="/infos-trafic" element={<InfoTrafic />} />
             <Route path="/suresnes" element={<Suresnes />} />
-            <Route path="/saint-lazare" element={<SaintLazare />} />
-            <Route path="/gare-du-nord" element={<GareNord />} />
-            <Route path="/clichy-levallois" element={<ClichyLevallois />} />
-            <Route path="/la-defense" element={<LaDefense />} />
             <Route path="/chatelet" element={<Chatelet />} />
-            <Route path="/villejuif" element={<Villejuif />} />
             <Route path="/fosses" element={<Fosses />} />
-            <Route path="/luxembourg" element={<Luxembourg />} />
             <Route path="/login" element={<Login />} />
             <Route path="/favorites" element={<Favorites />} />
 

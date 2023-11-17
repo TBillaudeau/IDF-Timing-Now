@@ -1,39 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/build/pdf.worker.min.js',
-    import.meta.url,
-  ).toString();
+  'pdfjs-dist/build/pdf.worker.min.js',
+  import.meta.url,
+).toString();
 
 function Plan({ planURL }) {
-    const [numPages, setNumPages] = useState(null);
-    const [width, setWidth] = useState(0); // Define width state here
+  const parentDivRef = useRef();
 
-    const parentDivRef = useRef();
-
-    useEffect(() => {
-        if (parentDivRef.current) {
-            setWidth(parentDivRef.current.offsetWidth);
-        }
-    }, [parentDivRef]);
-
-    function onPlanLoadSuccess({ numPages }) {
-        setNumPages(numPages);
-    }
-
-    return (
-        <div ref={parentDivRef}>
-            {planURL && (
-                <div>
-                    <Document file={planURL} onLoadSuccess={onPlanLoadSuccess}>
-                        <Page pageNumber={1} width={parentDivRef.current ? parentDivRef.current.offsetWidth : 0} renderTextLayer={false} renderAnnotationLayer={false}/>
-                    </Document>
-                </div>
-            )}
-        </div>
-    );
+  return (
+    <div ref={parentDivRef}>
+      {planURL && (
+        <Document file={planURL}>
+          <Page pageNumber={1} width={parentDivRef.current?.offsetWidth || 0} renderTextLayer={false} renderAnnotationLayer={false} />
+        </Document>
+      )}
+    </div>
+  );
 }
 
 export default Plan;

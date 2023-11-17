@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import tracesDesLignes from '../assets/traces-des-lignes.json';
 import tracesDuReseauFerre from '../assets/traces-du-reseau-ferre-idf.json';
 import arretsLignes from '../assets/arrets-lignes.json';
-import { MapContainer, TileLayer, Marker, Tooltip, Popup, CircleMarker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Tooltip, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css'
 import proj4 from 'proj4';
 import { GeoJSON } from 'react-leaflet';
@@ -148,7 +148,7 @@ function Schedules({ lineID, stationName }) {
                 <MapContainer key={coordinates} className="h-72 z-0" center={coordinates} zoom={15} scrollWheelZoom={true}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
                     />
 
                     <Marker position={coordinates}>

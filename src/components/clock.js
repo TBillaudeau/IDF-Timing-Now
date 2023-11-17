@@ -15,8 +15,8 @@ function Clock() {
 
   return (
     <div className="py-1 px-2 border border-gray-900 bg-gray-900 dark:bg-gray-800 rounded-lg">
-    <h2 className="self-center text-xl font-bold whitespace-nowrap text-yellow-500">{time.toLocaleTimeString()}</h2>
-  </div>
+      <h2 className="self-center text-xl font-bold whitespace-nowrap text-yellow-500">{time.toLocaleTimeString()}</h2>
+    </div>
   );
 }
 

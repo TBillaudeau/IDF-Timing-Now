@@ -42,7 +42,6 @@ const SearchBar = () => {
     navigate(`/search?line=${line}&stop_area=${value}&${queryParams}`);
   };
 
-
   const handleInputChange = (inputValue) => {
     setInputValue(inputValue);
     setOptions(getOptions(inputValue));
