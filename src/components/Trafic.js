@@ -39,6 +39,7 @@ export const lineTypes = {
     'line:IDFM:C02317', // TRAM9
     'line:IDFM:C02528', // TRAM10
     'line:IDFM:C01999', // TRAM11
+    'line:IDFM:C02529', // TRAM12
     'line:IDFM:C02344', // TRAM13
   ],
   TRAIN: [
