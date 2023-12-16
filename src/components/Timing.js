@@ -4,6 +4,7 @@ import removeGareDePrefix from '../functions/utils';
 import { lineTypes } from '../components/Trafic';
 import relations from '../assets/relations.json';
 import zonesDarrets from '../assets/zones-d-arrets.json';
+import referentielDesLignes from '../assets/referentiel-des-lignes.json';
 
 function TrainInfo({ lineID, stationName }) {
   const stationID = stationName;
@@ -144,6 +145,8 @@ function TrainInfo({ lineID, stationName }) {
     groupedTrains[sens].push(train);
   });
 
+  const lineColor = referentielDesLignes.find(line => line.fields.id_line == lineID)?.fields.colourweb_hexa;
+  console.log(lineColor)  
   return (
     <div className="overflow-y-auto max-h-[27rem]">
       {Object.keys(groupedTrains).map((sens) => (
@@ -156,11 +159,15 @@ function TrainInfo({ lineID, stationName }) {
           {groupedTrains[sens].map((train, index) => (
             // <Link to={`/search?line=${lineID}&stop_area=${stationID}`}>
             <Link to={`/${lineID}/${stationID}`}>
-            <div key={train.time + index} className="flex items-center bg-white border-b border-gray-400 dark:text-white dark:bg-gray-700 min-h-[44px] max-h-[72px] p-1 lg:p-4 mb-1 lg:mb-3">
-                <div className='shrink-0'>
-                  <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={train.shortName} className="h-4 lg:h-10 pl-1 lg:pl-0" />
-                  <h3 className='text-[8px] lg:text-xs justify-center flex mx-auto mt-0.5 pl-0.5 lg:pl-0'>{removeGareDePrefix(train.vehicleName)}</h3>
-                </div>
+            <div 
+              key={train.time + index} 
+              className="flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-700 min-h-[44px] max-h-[72px] p-1 lg:p-4 relative" 
+              style={{borderBottom: `2px solid #${lineColor}`}}
+            >
+              <div className='shrink-0'>
+                <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={train.shortName} className="h-4 lg:h-10 pl-1 lg:pl-0" />
+                <h3 className='text-[8px] lg:text-xs justify-center flex mx-auto mt-0.5 pl-0.5 lg:pl-0'>{removeGareDePrefix(train.vehicleName)}</h3>
+              </div>
               <div className="flex-grow overflow-hidden">
                 <h2 className='font-bold text-[11px] lg:text-lg line-clamp-2 ml-2 lg:ml-4'>{removeGareDePrefix(train.lineDirection)}</h2>
               </div>
@@ -174,6 +181,12 @@ function TrainInfo({ lineID, stationName }) {
                   </>
                 )}
               </div>
+              <div 
+                className="absolute top-0 right-0 bottom-0 left-0 lg:left-0 bg-gradient-to-r from-transparent to-white dark:to-gray-700" 
+                style={{
+                  backgroundImage: `linear-gradient(to right, transparent, rgba(${parseInt(lineColor.slice(0, 2), 16)}, ${parseInt(lineColor.slice(2, 4), 16)}, ${parseInt(lineColor.slice(4, 6), 16)}, 0.05))`
+                }}
+              />
             </div>
             </Link>
           ))}
