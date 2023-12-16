@@ -12,7 +12,7 @@ function Station() {
 
     useEffect(() => {
         const matchingStations = stationsData.filter(
-            (station) => station.fields.id_ref_lda === stopArea
+            (station) => station.fields.id_ref_lda == stopArea
         );
         const matchingLines = matchingStations.map((station) => station.fields.idrefligc);
         setLines(matchingLines);
@@ -28,7 +28,6 @@ function Station() {
                             <StationInfo lineID={line} stationID={stopArea} />
                             <TrainInfo lineID={line} stationName={stopArea} />  
                         </div>
-      
                     </div>
                 );
             })}
