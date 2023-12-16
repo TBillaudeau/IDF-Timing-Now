@@ -23,12 +23,6 @@ const wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
 function Schedules({ lineID, stationName }) {
     const [trainData, setTrainData] = useState([]);
     const [coordinates, setCoordinates] = useState([]);
-    const [status, setStatus] = useState('');
-    const [activeTab, setActiveTab] = useState('current');
-
-    const handleClick = (tab) => {
-        setActiveTab(tab);
-    };
     
     const fetchData = async (url) => {
         try {
@@ -36,7 +30,6 @@ function Schedules({ lineID, stationName }) {
             const data = await response.json();
 
             setTrainData(data);
-            setStatus(data.errorMessage);
 
             const [x, y] = proj4(lambert2e, wgs84, [data.stop.x, data.stop.y]);
             setCoordinates([y, x])
@@ -57,7 +50,8 @@ function Schedules({ lineID, stationName }) {
         .map((stop, index) => {
             const divIcon = L.divIcon({
                 className: 'font-bold bg-red-500 p-1 rounded',
-                html: `<span style="display:block; width:120px;">${usedNames[stop.fields.stop_name] ? '' : stop.fields.stop_name}</span>`            });
+                html: `<span style="display:block; width:120px;">${usedNames[stop.fields.stop_name] ? '' : stop.fields.stop_name}</span>`
+            });
             usedNames[stop.fields.stop_name] = true;
 
             return (
