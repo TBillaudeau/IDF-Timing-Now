@@ -10,7 +10,7 @@ export default function Navbar({ fixed }) {
   const suresnesURL = "/search?line=C01740&stop_area=70829&line=C01390&stop_area=70845&line=C01741&stop_area=70829&line=C01106&stop_area=70823&line=C01196&stop_area=70822&line=C01124&stop_area=70844&line=C01239&stop_area=70823&line=C01240&stop_area=70823"
   const saintLazareURL = "/search?line=C01740&stop_area=71370&line=C01729&stop_area=73688&line=C01739&stop_area=71370&line=C01384&stop_area=71370"
   const gareDuNordURL = "/search?line=C01743&stop_area=71410&line=C01728&stop_area=71410&line=C01729&stop_area=478733&line=C01737&stop_area=71410&line=C01738&stop_area=71410&line=C01374&stop_area=71410"
-  const clichyLevalloisURL = "/search?line=C01740&stop_area=71370&line=C01371&stop_area=425779&line=C01240&stop_area=71379"
+  const clichyLevalloisURL = "/search?line=C01740&stop_area=72073&line=C01371&stop_area=425779&line=C01240&stop_area=71379"
   const laDefenseURL = "/search?line=C01742&stop_area=71517&line=C01740&stop_area=71517&line=C01390&stop_area=71517&line=C01741&stop_area=71517&line=C01371&stop_area=71517"
   // const chateletURL = "/search?line=C01742&stop_area=474151&line=C01743&stop_area=474151&line=C01728&stop_area=474151&line=C01374&stop_area=73794&line=C01377&stop_area=71264&line=C01371&stop_area=71264&line=C01374&stop_area=71264&line=C01381&stop_area=71264"
   const chateletURL = "/Chatelet"
