@@ -145,8 +145,20 @@ function TrainInfo({ lineID, stationName }) {
     groupedTrains[sens].push(train);
   });
 
-  const lineColor = referentielDesLignes.find(line => line.fields.id_line == lineID)?.fields.colourweb_hexa;
-  console.log(lineColor)  
+  var lineColor = referentielDesLignes.find(line => line.fields.id_line == lineID)?.fields.colourweb_hexa;
+  function blendColor(color, blendWith, alpha) {
+    const [r1, g1, b1] = [parseInt(color.slice(0, 2), 16), parseInt(color.slice(2, 4), 16), parseInt(color.slice(4, 6), 16)];
+    const [r2, g2, b2] = [parseInt(blendWith.slice(0, 2), 16), parseInt(blendWith.slice(2, 4), 16), parseInt(blendWith.slice(4, 6), 16)];
+
+    const r = Math.round(r1 * (1 - alpha) + r2 * alpha);
+    const g = Math.round(g1 * (1 - alpha) + g2 * alpha);
+    const b = Math.round(b1 * (1 - alpha) + b2 * alpha);
+
+    return ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
+  }
+  var lighterColor = blendColor(lineColor, 'ffffff', 0.5);
+
+
   return (
     <div className="overflow-y-auto max-h-[27rem]">
       {Object.keys(groupedTrains).map((sens) => (
@@ -171,7 +183,7 @@ function TrainInfo({ lineID, stationName }) {
               <div className="flex-grow overflow-hidden">
                 <h2 className='font-bold text-[11px] lg:text-lg line-clamp-2 ml-2 lg:ml-4'>{removeGareDePrefix(train.lineDirection)}</h2>
               </div>
-              <div className="ml-1 lg:ml-5 pr-2 text-right">
+              <div className="ml-1 lg:ml-5 pr-2 text-right z-10">
                 {train.code === 'message' ? (
                     <p className="text-[10px] lg:text-base font-bold text-green-600 dark:text-green-500 whitespace-normal">{train.schedule}</p>
                 ) : (
@@ -184,7 +196,7 @@ function TrainInfo({ lineID, stationName }) {
               <div 
                 className="absolute top-0 right-0 bottom-0 left-0 lg:left-0 bg-gradient-to-r from-transparent to-white dark:to-gray-700" 
                 style={{
-                  backgroundImage: `linear-gradient(to right, transparent, rgba(${parseInt(lineColor.slice(0, 2), 16)}, ${parseInt(lineColor.slice(2, 4), 16)}, ${parseInt(lineColor.slice(4, 6), 16)}, 0.05))`
+                  backgroundImage: `linear-gradient(to right, transparent, rgba(${parseInt(lighterColor.slice(0, 2), 16)}, ${parseInt(lighterColor.slice(2, 4), 16)}, ${parseInt(lighterColor.slice(4, 6), 16)}, 0.1))`
                 }}
               />
             </div>
