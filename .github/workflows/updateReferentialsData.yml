@@ -1,0 +1,34 @@
+name: Update Data Files
+
+on:
+  schedule:
+    # Runs at 03:00 UTC every day
+    - cron: '0 3 * * *'
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Download Data Files
+      run: |
+        curl -o src/data/referentiel-des-lignes.json "https://data.iledefrance-mobilites.fr/explore/dataset/referentiel-des-lignes/download/?format=json&timezone=Europe/Berlin&lang=fr"
+        curl -o src/data/arrets-lignes.json "https://data.iledefrance-mobilites.fr/explore/dataset/arrets-lignes/download/?format=json&timezone=Europe/Berlin&lang=fr"
+        curl -o src/data/emplacement-des-gares-idf.json "https://data.iledefrance-mobilites.fr/explore/dataset/emplacement-des-gares-idf/download/?format=json&timezone=Europe/Berlin&lang=fr"
+        curl -o src/data/fiches-horaires-et-plans.json "https://data.iledefrance-mobilites.fr/explore/dataset/fiches-horaires-et-plans/download/?format=json&timezone=Europe/Berlin&lang=fr"
+        curl -o src/data/projets_lignes_idf.json "https://data.iledefrance-mobilites.fr/explore/dataset/projets_lignes_idf/download/?format=json&timezone=Europe/Berlin&lang=fr"
+        curl -o src/data/plans-region.json "https://data.iledefrance-mobilites.fr/explore/dataset/plans-region/download/?format=json&timezone=Europe/Berlin&lang=fr"
+        curl -o src/data/relations.json "https://data.iledefrance-mobilites.fr/explore/dataset/relations/download/?format=json&timezone=Europe/Berlin&lang=fr"
+        curl -o src/data/zones-d-arrets.json "https://data.iledefrance-mobilites.fr/explore/dataset/zones-d-arrets/download/?format=json&timezone=Europe/Berlin&lang=fr"
+        curl -o src/data/sanitaires-reseau-ratp.json "https://data.iledefrance-mobilites.fr/explore/dataset/sanitaires-reseau-ratp/download/?format=json&timezone=Europe/Berlin&lang=fr"
+        curl -o src/data/traces-du-reseau-ferre-idf.json "https://data.iledefrance-mobilites.fr/explore/dataset/traces-du-reseau-ferre-idf/download/?format=json&timezone=Europe/Berlin&lang=fr"
+        curl -o src/data/traces-des-lignes.json "https://data.iledefrance-mobilites.fr/explore/dataset/traces-des-lignes-de-transport-en-commun-idfm/download/?format=json&timezone=Europe/Berlin&lang=fr"
+
+    - name: Commit and Push Changes
+      run: |
+        git add src/data/*
+        git commit -m "Update data files"
+        git push

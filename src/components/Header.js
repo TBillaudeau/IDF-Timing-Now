@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { checkDisruptions } from '../components/Trafic';
 import { useNavigate } from 'react-router-dom';
-import zonesDarrets from '../assets/zones-d-arrets.json';
-import referentielDesLignes from '../assets/referentiel-des-lignes.json';
+import zonesDarrets from '../data/zones-d-arrets.json';
+import referentielDesLignes from '../data/referentiel-des-lignes.json';
 import AddFav from '../components/fav'
 
 function StationInfo({lineID, stationID }) {

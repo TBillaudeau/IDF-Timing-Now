@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import removeGareDePrefix from '../functions/utils';
+import { removeGareDePrefix } from '../utils/stringUtils';
 import { lineTypes } from '../components/Trafic';
-import relations from '../assets/relations.json';
-import zonesDarrets from '../assets/zones-d-arrets.json';
-import referentielDesLignes from '../assets/referentiel-des-lignes.json';
+import relations from '../data/relations.json';
+import zonesDarrets from '../data/zones-d-arrets.json';
+import referentielDesLignes from '../data/referentiel-des-lignes.json';
 
 function TrainInfo({ lineID, stationName }) {
   const stationID = stationName;

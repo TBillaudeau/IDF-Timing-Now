@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { lineTypes } from '../components/Trafic';
-import referentielDesLignes from '../assets/referentiel-des-lignes.json';
+import referentielDesLignes from '../data/referentiel-des-lignes.json';
 import { useNavigate } from 'react-router-dom';
 
 let maps = [

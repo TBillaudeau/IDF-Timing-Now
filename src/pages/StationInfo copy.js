@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import StationInfo from '../components/Header';
 import TrainInfo from '../components/Timing2';
 import Breadcrumb from "../components/breadcrumb";
-import stationsData from '../data/emplacement-des-gares-idf.json';
+import stationsData from '../assets/emplacement-des-gares-idf.json';
 
 function Station() {
     const { stationID } = useParams();
@@ -20,8 +20,17 @@ function Station() {
 
     return (
         <div className={`mx-auto ${lines.length === 1 ? 'grid grid-cols-1 max-w-screen-sm' : 'grid grid-cols-1 max-w-screen-lg'}`}>
-            {/* <StationInfo line={null} stationID={stopArea} /> */}
-            <TrainInfo line={null} stationName={stopArea} />  
+            {lines.map((line, index) => {
+                return (
+                    <div key={line} className="grid gap-2 lg:gap-4 m-2 sm:m-6">
+                        <Breadcrumb lineID={line} stationID={stopArea} />
+                        <div>             
+                            <StationInfo lineID={line} stationID={stopArea} />
+                            <TrainInfo lineID={line} stationName={stopArea} />  
+                        </div>
+                    </div>
+                );
+            })}
         </div>
     );
 }

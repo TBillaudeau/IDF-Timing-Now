@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import zonesDarrets from '../assets/zones-d-arrets.json';
-import referentielDesLignes from '../assets/referentiel-des-lignes.json';
+import zonesDarrets from '../data/zones-d-arrets.json';
+import referentielDesLignes from '../data/referentiel-des-lignes.json';
 
 function Breadcrumb({ lineID, stationID }) {
   const navRef = useRef(null);

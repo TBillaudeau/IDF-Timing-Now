@@ -23,9 +23,10 @@ function LineInfo() {
 
   useEffect(() => {
     const fetchLineData = async () => {
-      const response = await fetch(`https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/schedules`);
+      const response = await fetch(`https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/schedules?it=true`);
       const data = await response.json();
       setLineData(data);
+      console.log(data);
     };
 
     fetchLineData();
@@ -50,7 +51,7 @@ function LineInfo() {
   };
 
   useEffect(() => {
-      const url = `https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/schedules`;
+      const url = `https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/schedules?it=true`;
       fetchData(url);
   }, [lineID]);
   
@@ -75,6 +76,8 @@ function LineInfo() {
       )}
 
       <DisruptionInfo selectedDisruption={disruption} />
+
+      
       <div className="bg-white p-6 flex flex-col">
         {lineData && (
           <>
