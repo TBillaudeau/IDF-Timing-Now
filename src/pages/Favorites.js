@@ -1,24 +1,23 @@
 import { Link } from "react-router-dom";
 
 function Favorites() {
-
-  return (
-    <>
-      <main className="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8">
-        <div className="text-center">
-          <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">Coming Soon</h1>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link
-              to="/"
-              className="rounded-md bg-violet-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-violet-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Go back home
-            </Link>
-          </div>
-        </div>
-      </main>
-    </>
-  );
-
+      return (
+        <main className="min-h-[80vh] flex items-center justify-center bg-gradient-to-r from-violet-300 to-blue-300 p-6">
+            <div className="text-center">
+                <div className="flex justify-center space-x-1">
+                  <div className="animate-bounce w-24 h-24 bg-white rounded-full mb-4 flex items-center justify-center">
+                      <div className="w-4 h-4 bg-black rounded-full"></div>
+                  </div>
+                  <div className="animate-bounce w-24 h-24 bg-white rounded-full mb-4 flex items-center justify-center">
+                      <div className="w-4 h-4 bg-black rounded-full"></div>
+                  </div>
+                </div>
+                <h1 className="text-4xl font-bold text-gray-900 mt-4">Coming Soon...</h1>
+                <p className="text-gray-600 mt-4">Stay tunned</p>
+                <Link to="/" className="mt-8 inline-block bg-violet-700 text-white font-semibold px-4 py-2 rounded shadow hover:bg-violet-800">Go back home</Link>
+            </div>
+        </main>
+    );
 }
+
 export default Favorites;

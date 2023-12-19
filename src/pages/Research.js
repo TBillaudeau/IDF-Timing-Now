@@ -78,7 +78,6 @@ function Research() {
                   className="h-full bg-violet-700 hover:bg-violet-800 text-white text-sm font-bold py-2 px-4 rounded flex justify-center items-center"
                   onClick={() => navigate(`/line/${selectedLineID.split(':').pop()}`)}
                 >
-                  {/* {getLineName(selectedLineID.split(':').pop())} */}
                   <img src={process.env.PUBLIC_URL + `/images/${getTransportLogoByLineID(selectedLineID.split(':').pop())}_LIGHT.svg`} alt={getTransportLogoByLineID(selectedLineID.split(':').pop())} className="h-5 lg:h-10 mr-1" />
                   <img src={process.env.PUBLIC_URL + `/images/${selectedLineID.split(':').pop()}.svg`} alt={selectedLineID.split(':').pop()} className="h-5 lg:h-10 mr-2 lg:mr-4" />
                   <svg class="ml-1 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 15">
