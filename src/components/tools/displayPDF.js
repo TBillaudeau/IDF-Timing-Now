@@ -7,13 +7,17 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString();
 
-function Plan({ planURL }) {
+function PDFAsImg({ planURL }) {
   const parentDivRef = useRef();
+
+  const handleLoadError = () => {
+    // Do nothing when the PDF fails to load
+  };
 
   return (
     <div ref={parentDivRef}>
       {planURL && (
-        <Document file={planURL}>
+        <Document file={planURL} onLoadError={handleLoadError}>
           <Page pageNumber={1} width={parentDivRef.current?.offsetWidth || 0} renderTextLayer={false} renderAnnotationLayer={false} />
         </Document>
       )}
@@ -21,4 +25,4 @@ function Plan({ planURL }) {
   );
 }
 
-export default Plan;
+export default PDFAsImg;

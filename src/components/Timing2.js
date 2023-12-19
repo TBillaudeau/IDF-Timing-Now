@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { removeGareDePrefix } from '../utils/stringUtils';
 import { set } from 'date-fns';
+import relations from '../data/relations.json';
+import zonesDarrets from '../data/zones-d-arrets.json';
+import referentielDesLignes from '../data/referentiel-des-lignes.json';
 
 function TrainInfo({ lineID, stationName }) {
 
@@ -50,6 +53,23 @@ function TrainInfo({ lineID, stationName }) {
     return () => clearInterval(intervalId);
   }, [stationName]);
 
+  function getLighterColor(lineID) {
+    var lineColor = referentielDesLignes.find(line => line.fields.id_line == lineID)?.fields.colourweb_hexa;
+
+    function blendColor(color, blendWith, alpha) {
+      const [r1, g1, b1] = [parseInt(color.slice(0, 2), 16), parseInt(color.slice(2, 4), 16), parseInt(color.slice(4, 6), 16)];
+      const [r2, g2, b2] = [parseInt(blendWith.slice(0, 2), 16), parseInt(blendWith.slice(2, 4), 16), parseInt(blendWith.slice(4, 6), 16)];
+
+      const r = Math.round(r1 * (1 - alpha) + r2 * alpha);
+      const g = Math.round(g1 * (1 - alpha) + g2 * alpha);
+      const b = Math.round(b1 * (1 - alpha) + b2 * alpha);
+
+      return ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
+    }
+
+    return blendColor(lineColor, 'ffffff', 0.5);
+  }
+
 
   if (status === 'NO_REALTIME_SCHEDULES_FOUND') {
     return <div className="flex items-center justify-center text-center text-xs lg:text-base bg-white dark:bg-gray-700 dark:text-gray-200 rounded-lg shadow-md p-4 mb-3 h-[44px] lg:h-[72px]"><p className='animate-pulse'>Information en direct indisponible</p></div>;
@@ -92,31 +112,38 @@ function TrainInfo({ lineID, stationName }) {
 
   // Display train departures grouped by line direction
   return (
-    <div className="overflow-y-auto">
+    <div className="">
       {trainData.map((train, index) => (
-        <div key={index} className="flex flex-col bg-white dark:text-white dark:bg-gray-700 rounded-lg shadow-md p-1 lg:p-4 mb-1 lg:mb-3">
-          <div className="flex items-center">
-            <img src={process.env.PUBLIC_URL + `/images/${train.lineRef.replace(/:$/, '').split(':').pop()}.svg`} alt={train.lineRef.replace(/:$/, '').split(':').pop()} className="h-4 lg:h-10 ml-1 lg:ml-0 mr-2 lg:mr-4" />
-            <div className="flex-grow overflow-hidden">
-              <h2 className='font-bold text-[11px] lg:text-lg'>{train.directionName}</h2>
-            </div>
-            <div className="ml-2 lg:ml-5 min-w-max pr-2 text-right">
-              <p className="text-sm lg:text-2xl font-bold">{train.vehicleJourneyName}</p>
-            </div>
+        <div 
+          key={index} 
+          className="flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-700 min-h-[44px] max-h-[72px] p-1 lg:p-4 relative mb-1 lg:mb-3 shadow-md" 
+          style={{borderBottom: `2px solid #${getLighterColor(train.lineRef.replace(/:$/, '').split(':').pop())}`}} // Replace lineColor with your desired color
+        >
+          <div className='shrink-0'>
+            <img 
+              src={process.env.PUBLIC_URL + `/images/${train.lineRef.replace(/:$/, '').split(':').pop()}.svg`} 
+              alt={train.lineRef.replace(/:$/, '').split(':').pop()} 
+              className="h-4 lg:h-10 pl-1 lg:pl-0 mr-2 lg:mr-4" 
+            />
+            <h3 className='text-[8px] lg:text-xs justify-center flex mx-auto mt-0.5 pl-0.5 lg:pl-0'>{train.vehicleJourneyName}</h3>
           </div>
-          <div className="mt-2">
-            <p>Operator: {train.operatorRef}</p>
-            <p>Destination: {train.destinationName}</p>
-            <p>Arrival: {new Date(train.expectedArrivalTime).toLocaleTimeString()}</p>
-            <p>Departure: {new Date(train.expectedDepartureTime).toLocaleTimeString()}</p>
-            <p>Arrival Status: {train.arrivalStatus}</p>
-            <p>Departure Status: {train.departureStatus}</p>
-            <p>Vehicle At Stop: {train.vehicleAtStop ? 'Yes' : 'No'}</p>
-            <p>Vehicle Features: {train.vehicleFeatureRef}</p>            
-            <p>Minutes from now: {train.minutesFromNow}</p>
+          <div className="flex-grow overflow-hidden">
+            <h2 className='font-bold text-[11px] lg:text-lg line-clamp-2 ml-2 lg:ml-4'>{train.destinationName} - {train.departureStatus} - {train.vehicleAtStop}</h2>
           </div>
+          <div className="ml-1 lg:ml-5 pr-2 text-right">
+            <p className="text-sm lg:text-2xl font-bold">{train.minutesFromNow}ᵐⁱⁿ</p>
+            <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">{new Date(train.expectedArrivalTime).toLocaleTimeString()}</p>
+            <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">{new Date(train.expectedDepartureTime).toLocaleTimeString()}</p>
+          </div>
+          <div 
+            className="absolute top-0 right-0 bottom-0 left-0 lg:left-0 bg-gradient-to-r from-transparent to-white dark:to-gray-700"
+            style={{
+              backgroundImage: `linear-gradient(to right, transparent, rgba(${parseInt(getLighterColor(train.lineRef.replace(/:$/, '').split(':').pop()).slice(0, 2), 16)}, ${parseInt(getLighterColor(train.lineRef.replace(/:$/, '').split(':').pop()).slice(2, 4), 16)}, ${parseInt(getLighterColor(train.lineRef.replace(/:$/, '').split(':').pop()).slice(4, 6), 16)}, 0.1))`
+            }}
+          />
         </div>
       ))}
+
     </div>
   );
 }

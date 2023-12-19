@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "date-fns": "^2.30.0",
     "leaflet": "^1.9.4",
+    "leaflet.locatecontrol": "^0.79.0",
     "proj4": "^2.9.2",
     "react": "^18.2.0",
     "react-cookie": "^5.0.0",

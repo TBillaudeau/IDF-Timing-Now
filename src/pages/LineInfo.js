@@ -1,61 +1,67 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import DisruptionInfo from '../components/DisruptionInfo';
 import Breadcrumb from '../components/breadcrumb';
-import { checkDisruptions } from '../components/Trafic';
-import SearchBar from '../components/SearchBar2'
-import Plan from '../components/showPlan';
+import SearchBar from '../components/SearchBar2';
+import PDFAsImg from '../components/tools/displayPDF';
 
 function LineInfo() {
   const { lineID } = useParams();
-
-  const [disruptedLines, setDisruptedLines] = useState([]);
   const [lineData, setLineData] = useState(null);
-
-  useEffect(() => {
-    const fetchDisruptions = async () => {
-      const { disruptedLines } = await checkDisruptions();
-      setDisruptedLines(disruptedLines);
-    };
-
-    fetchDisruptions();
-  }, []);
+  const [activeTab, setActiveTab] = useState('current');
+  const [expandedItemId, setExpandedItemId] = useState(null);
 
   useEffect(() => {
     const fetchLineData = async () => {
       const response = await fetch(`https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/schedules?it=true`);
       const data = await response.json();
       setLineData(data);
-      console.log(data);
     };
 
     fetchLineData();
   }, [lineID]);
 
-  const [trainData, setTrainData] = useState([]);
-  const [activeTab, setActiveTab] = useState('current');
+  const TabButton = ({ label, value }) => (
+    <button
+      className={`p-2 text-xs font-medium rounded-lg ${activeTab === value ? 'bg-violet-100 text-violet-700 dark:text-violet-700' : 'hover:bg-slate-200 dark:hover:bg-slate-700'}`}
+      onClick={() => setActiveTab(value)}
+    >
+      {label}
+    </button>
+  );
 
-  const handleClick = (tab) => {
-      setActiveTab(tab);
-  };
-  
-  const fetchData = async (url) => {
-      try {
-          const response = await fetch(url);
-          const data = await response.json();
-
-          setTrainData(data);
-      } catch (error) {
-          console.error(error);
-      }
+  const handleExpandItem = (id) => {
+    setExpandedItemId(expandedItemId === id ? null : id);
   };
 
-  useEffect(() => {
-      const url = `https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/schedules?it=true`;
-      fetchData(url);
-  }, [lineID]);
-  
-  const disruption = disruptedLines.find(ligne => ligne.lineId === 'line:IDFM:' + lineID);
+  const ArrowUp = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+    </svg>
+  );
+
+  const ArrowDown = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+    </svg>
+  );
+
+  const renderItem = (item) => (
+    <div key={item.id} className="mb-4 border border-gray-300 p-4 rounded-lg">
+      <div className="cursor-pointer flex justify-between items-center" onClick={() => handleExpandItem(item.id)}>
+        <div className="flex items-center">
+          <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={lineID} className="h-5 mr-2" />
+          <p className="text-sm font-semibold">{item.title}</p>
+        </div>
+        {expandedItemId === item.id ? <ArrowUp /> : <ArrowDown />}
+      </div>
+      {expandedItemId === item.id && (
+        <div
+          dangerouslySetInnerHTML={{ __html: item.message }}
+          className="mt-2 text-sm overflow-y-auto max-h-[30rem]"
+        />
+      )}
+    </div>
+  );
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 m-2 sm:m-6">
@@ -64,141 +70,43 @@ function LineInfo() {
         <SearchBar />
       </div>
 
+
       {lineData && (
-      <div className="xl:col-span-2">
-        <div className="bg-white dark:bg-gray-800 p-4 xl:p-6 flex flex-col w-full">
-          <h2 className="xl:text-xl font-semibold mr-4"><a href={lineData.plans[0].link} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-300 hover:underline">{lineData.plans[0].label} 🗺</a></h2>
-          <div className="max-w-full mt-4">
-            <Plan planURL={lineData.plans[0].link} />
+        <div className="xl:col-span-2">
+          <div className="bg-white dark:bg-gray-800 p-4 xl:p-6 flex flex-col w-full">
+            <h2 className="xl:text-xl font-semibold mr-4"><a href={lineData.plans[0].link} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-300 hover:underline">{lineData.plans[0].label}</a></h2>
+            <div className="max-w-full mt-4">
+              {/* <PDFAsImg planURL={lineData.plans[0].link} /> */}
+            </div>
           </div>
         </div>
-      </div>
       )}
 
-      <DisruptionInfo selectedDisruption={disruption} />
-
-      
-      <div className="bg-white p-6 flex flex-col">
-        {lineData && (
-          <>
-                    
-            {/* <div className="mb-4">
-              <h3 className="text-md font-medium mb-2">Schedule Documents</h3>
-              {lineData.scheduleDocs.map(doc => (
-                <a href={doc.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{doc.label}</a>
-              ))}
-            </div> */}
-
-            {/* <div id="doc-pdf">
-              <h3 className="text-md font-medium mb-2">Schedule Documents</h3>
-              {lineData.scheduleDocs.map(doc => (
-                <div key={doc.label}>
-                  <Document file={doc.link} onLoadSuccess={onDocLoadSuccess}>
-                    {Array.from(new Array(numPagesDoc), (el, index) => (
-                      <Page key={`page_${index + 1}`} pageNumber={index + 1} scale={scaleDoc} renderTextLayer={false} renderAnnotationLayer={false}/>
-                    ))}
-                  </Document>
-                </div>
-              ))}
-            </div> */}
-  <div>
-      <div class="w-full inline-flex rounded-md shadow-sm" role="group">
-        <button
-          type="button"
-          class={`w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${
-            activeTab === 'current' ? 'bg-blue-700 text-white' : ''
-          }`}
-          onClick={() => handleClick('current')}
-        >
-          Aujourd'hui
-        </button>
-        <button
-          type="button"
-          class={`w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${
-            activeTab === 'forecast' ? 'bg-blue-700 text-white' : ''
-          }`}
-          onClick={() => handleClick('forecast')}
-        >
-          À venir
-        </button>
-        <button
-          type="button"
-          class="w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-        >
-          Twitter
-        </button>
-      </div>
-
-      <div>
-        {activeTab === 'current' &&
-          trainData.currentIT &&
-          trainData.currentIT.map((current) => (
-            <>
-              <div
-                key={current.id}
-                className="flex items-center bg-white shadow-md h-8 xl:h-10 p-3 lg:p-4 mb-1"
-              >
-                <div className="flex-grow overflow-hidden">
-                  <h2 className="font-medium text-xs lg:text-sm line-clamp-2">
-                    {current.title}
-                  </h2>
-                </div>
-                <div className="ml-1 lg:ml-5 pr-2 text-right">
-                  <p className="text-sm lg:text-base font-semibold">
-                    {current.impactStartTime} - {current.impactEndTime}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center mb-6 cursor-pointer">
-                <p className="text-sm xl:text-base xl:font-semibold flex grow">
-                  {current.title}
-                </p>
-                <p className="text-xs xl:text-base font-semibold ml-4 xl:mr-4">
-                  {' '}
-                  {current.impactStartTime}
-                </p>
-                <p className="text-xs xl:text-base font-semibold ml-4 xl:mr-4">
-                  {' '}
-                  {current.impactEndTime}
-                </p>
-              </div>
-
-              <div
-                dangerouslySetInnerHTML={{ __html: current.message }}
-                className="border border-gray-300 p-4 rounded-lg mt-2 overflow-y-auto max-h-[30rem]"
-              />
-            </>
-          ))}
-
-        {activeTab === 'forecast' &&
-          trainData.forecastIT &&
-          trainData.forecastIT.map((forecast) => (
-            <div
-              key={forecast.id}
-              className="flex items-center bg-white shadow-md h-8 xl:h-10 p-3 lg:p-4 mb-1"
-            >
-              <div className="flex-grow overflow-hidden">
-                <h2 className="font-medium text-xs lg:text-sm line-clamp-2">
-                  {forecast.title}
-                </h2>
-              </div>
-              <div className="ml-1 lg:ml-5 pr-2 text-right">
-                <p className="text-sm lg:text-base font-semibold">
-                  {forecast.impactStartTime} - {forecast.impactEndTime}
-                </p>
-              </div>
+      {lineData && 'scheduleDocs' in lineData && (
+        <div className="xl:col-span-2">
+          <div className="bg-white dark:bg-gray-800 p-4 xl:p-6 flex flex-col w-full">
+            <h2 className="xl:text-xl font-semibold mr-4"><a href={lineData.scheduleDocs[0].link} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-300 hover:underline">{lineData.scheduleDocs[0].label}</a></h2>
+            <div className="max-w-full mt-4">
+              {/* <PDFAsImg planURL={lineData.scheduleDocs[0].link} /> */}
             </div>
-          ))}
-      </div>
-    </div>
+          </div>
+        </div>
+      )}
 
-          </>
-        )}
+      <div className='bg-white dark:bg-gray-800 dark:text-white p-4 xl:p-6 flex flex-col w-full'>
+        <div className="grid grid-cols-3 gap-1 mx-auto p-1 rounded-lg border border-gray-300 w-full" role="group">
+          <TabButton label="En cours" value="current" />
+          <TabButton label="À venir" value="forecast" />
+          <TabButton label="Twitter" value="twitter" />
+        </div>
+        <div className="mt-4">
+          {activeTab === 'current' && lineData?.currentIT?.map(renderItem)}
+          {activeTab === 'forecast' && lineData?.forecastIT?.map(renderItem)}
+        </div>
       </div>
+
     </div>
   );
-
 }
 
 export default LineInfo;

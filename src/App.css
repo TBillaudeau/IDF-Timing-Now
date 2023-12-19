@@ -4,12 +4,15 @@
 
 /* bg-gray-100 */
 body {
-    background-color: #f3f4f6
-}
+    /* background-color: #f3f4f6 */
+    background-color: #F1F3FE
+    /* background-color: #551a8b */
+    /* background-color: #a94064 */
 
-/* width */
-::-webkit-scrollbar {
-    width: 5px;
+     /* background-color: #cd5700 */
+    /* background-color: #65000b */
+    /* background-color: #6f2da8 */
+
 }
   
 /* Track */
@@ -27,4 +30,3 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #aaaaaa;
 }
-

@@ -8,40 +8,41 @@ export const getStopIdByLineId = (lineId) => {
 };
 
 // Function to get the station name
-const getStationName = () => {
-const stations = zonesDarrets.filter((station) => station.fields.zdcid === stationID);
-return (
-    stations.find((station) => station.fields.zdatype === 'railStation')?.fields.zdaname ||
-    stations.find((station) => station.fields.zdatype === 'metroStation')?.fields.zdaname ||
-    stations.find((station) => station.fields.zdatype === 'onstreetTram')?.fields.zdaname ||
-    (stations.find((station) => station.fields.zdatype === 'onstreetBus')?.fields.zdaname +
-    ' (' +
-    stations.find((station) => station.fields.zdatype === 'onstreetBus')?.fields.zdatown +
-    ')')
-);
+export const getStationNameByStationID = (stationID) => {
+    const stations = zonesDarrets.filter((station) => station.fields.zdcid === stationID);
+    return (
+        stations.find((station) => station.fields.zdatype === 'railStation')?.fields.zdaname ||
+        stations.find((station) => station.fields.zdatype === 'metroStation')?.fields.zdaname ||
+        stations.find((station) => station.fields.zdatype === 'onstreetTram')?.fields.zdaname ||
+        (stations.find((station) => station.fields.zdatype === 'onstreetBus')?.fields.zdaname +
+        ' (' +
+        stations.find((station) => station.fields.zdatype === 'onstreetBus')?.fields.zdatown +
+        ')')
+    );
 };
 
 // Function to get the line name
-const getLineName = () => {
-const lineInfo = referentielDesLignes.find((line) => line.fields.id_line === lineID).fields;
-return lineInfo.transportmode === 'rail'
-    ? lineInfo.shortname_groupoflines
-    : lineInfo.transportmode.toUpperCase() + ' ' + lineInfo.name_line;
+export const getLineNameByLineID = (lineID) => {
+    const lineInfo = referentielDesLignes.find((line) => line.fields.id_line === lineID).fields;
+    return lineInfo.transportmode === 'rail'
+        ? lineInfo.shortname_groupoflines
+        : lineInfo.transportmode.toUpperCase() + ' ' + lineInfo.name_line;
 };
 
-
-// Get transportLogo from lineID
-const station = referentielDesLignes.find(station => station.fields.id_line === lineID);
-let transportLogo = station.fields.transportmode;
-if (transportLogo === 'rail') {
-    const networkName = station.fields.networkname;
-    transportLogo = networkName === 'RER' ? 'rer' : networkName === 'Transilien' ? 'train' : 'cable';
-} 
-transportLogo = transportLogo.toUpperCase();
+// Function to get the lineID
+export const getTransportLogoByLineID = (lineID) => {
+    const station = referentielDesLignes.find(station => station.fields.id_line === lineID);
+    let transportLogo = station.fields.transportmode;
+    if (transportLogo === 'rail') {
+        const networkName = station.fields.networkname;
+        transportLogo = networkName === 'RER' ? 'rer' : networkName === 'Transilien' ? 'train' : 'cable';
+    } 
+    return transportLogo.toUpperCase();
+};
 
 // Get stationName from stationID
-var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid === stationID) : [];
-var stationName = stations.find(station => station.fields.zdatype === 'railStation')?.fields.zdaname
-    || stations.find(station => station.fields.zdatype === 'metroStation')?.fields.zdaname  
-    || stations.find(station => station.fields.zdatype === 'onstreetTram')?.fields.zdaname
-    || stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdatown + ')';
+// var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid === stationID) : [];
+// var stationName = stations.find(station => station.fields.zdatype === 'railStation')?.fields.zdaname
+//     || stations.find(station => station.fields.zdatype === 'metroStation')?.fields.zdaname  
+//     || stations.find(station => station.fields.zdatype === 'onstreetTram')?.fields.zdaname
+//     || stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdatown + ')';

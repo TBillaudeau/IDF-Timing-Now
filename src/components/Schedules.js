@@ -165,10 +165,7 @@ function Schedules({ lineID, stationName }) {
             {trainData.stop && (
 
                 <MapContainer key={coordinates} className="h-72 z-0" center={coordinates} zoom={15} scrollWheelZoom={true}>
-                    <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                        url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
-                    />
+                    <TileLayer url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'/>
 
                     {/* <Marker position={coordinates} icon={greenIcon}>
                         <Tooltip permanent>
@@ -177,8 +174,6 @@ function Schedules({ lineID, stationName }) {
                     </Marker> */}
                     
                     {createMarkers(trainData)}
-
-                    {/* {markers} */}
                     
                     {tracesDuReseauFerre.some(line => line.idrefligc === lineID) ? (
                         tracesDuReseauFerre.filter(line => line.idrefligc === lineID).map((line, index) => (

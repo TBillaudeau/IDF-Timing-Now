@@ -1,4 +1,4 @@
-import StationInfo from '../components/Header';
+import StationInfo from '../components/stationHeader';
 import TrainInfo from '../components/Timing';
 
 const stations = [

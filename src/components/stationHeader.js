@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { checkDisruptions } from '../components/Trafic';
+import { checkDisruptions } from './Trafic';
 import { useNavigate } from 'react-router-dom';
-import zonesDarrets from '../data/zones-d-arrets.json';
-import referentielDesLignes from '../data/referentiel-des-lignes.json';
-import AddFav from '../components/fav'
+import AddFav from './tools/fav'
+import { getStationNameByStationID, getTransportLogoByLineID } from '../utils/dataHelpers';
 
-function StationInfo({lineID, stationID }) {
+function StationInfo({ lineID, stationID }) {
     const navigate = useNavigate();
     const handleNavigate = () => {
         navigate(`/line/${lineID}`);
@@ -23,23 +22,6 @@ function StationInfo({lineID, stationID }) {
 
         fetchDisruptions();
     }, []);
-
-
-    // Get transportLogo from lineID
-    const station = referentielDesLignes.find(station => station.fields.id_line === lineID);
-    let transportLogo = station.fields.transportmode;
-    if (transportLogo === 'rail') {
-        const networkName = station.fields.networkname;
-        transportLogo = networkName === 'RER' ? 'rer' : networkName === 'Transilien' ? 'train' : 'cable';
-    } 
-    transportLogo = transportLogo.toUpperCase();
-
-    // Get stationName from stationID
-    var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid === stationID) : [];
-    var stationName = stations.find(station => station.fields.zdatype === 'railStation')?.fields.zdaname
-        || stations.find(station => station.fields.zdatype === 'metroStation')?.fields.zdaname  
-        || stations.find(station => station.fields.zdatype === 'onstreetTram')?.fields.zdaname
-        || stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdatown + ')';
 
     // Check if line is disrupted
     const disrupted = disruptedLines.some(line => line.lineId === 'line:IDFM:' + lineID && line.disrupted === true);
@@ -73,9 +55,9 @@ function StationInfo({lineID, stationID }) {
                     </span>
                 </span>
             )}
-            <img src={process.env.PUBLIC_URL + `/images/${transportLogo}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={transportLogo} className="h-5 lg:h-10 mr-1" />
+            <img src={process.env.PUBLIC_URL + `/images/${getTransportLogoByLineID(lineID)}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportLogoByLineID(lineID)} className="h-5 lg:h-10 mr-1" />
             <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" />
-            <p className='text-xs lg:text-base font-medium flex-grow line-clamp-2'>{stationName}</p>
+            <p className='text-xs lg:text-base font-medium flex-grow line-clamp-2'>{getStationNameByStationID(stationID)}</p>
             <p className='text-slate-400 text-xs font-bold pr-0.5 lg:pr-2'>
                 <AddFav />
             </p>

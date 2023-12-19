@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import removeGareDePrefix from '../functions/utils';
+// import removeGareDePrefix from '../functions/utils';
 import { set } from 'date-fns';
 
 function TrainInfo({ lineID, stationName }) {

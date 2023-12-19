@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import StationInfo from '../components/Header';
+import StationInfo from '../components/stationHeader';
 import TrainInfo from '../components/Timing2';
 import Breadcrumb from "../components/breadcrumb";
 import stationsData from '../assets/emplacement-des-gares-idf.json';
