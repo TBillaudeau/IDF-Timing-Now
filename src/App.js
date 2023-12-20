@@ -14,9 +14,9 @@ import Plans from './pages/Plans';
 import Favorites from './pages/Favorites';
 import Poles from './pages/Poles';
 import Location from './pages/Locate';
+import Trip from './pages/Trip';
 
 import InfoTrafic from './pages/InfoTrafic';
-import Suresnes from './pages/Suresnes';
 import Chatelet from './pages/Chatelet';
 import Fosses from './pages/Fosses';
 
@@ -40,9 +40,9 @@ function App() {
               <Route path="/plans" element={<Plans />} />
               <Route path="/poles" element={<Poles />} />
               <Route path="/locate" element={<Location />} />
+              <Route path="/trip" element={<Trip />} />
 
               <Route exact path="/infos-trafic" element={<InfoTrafic />} />
-              <Route path="/suresnes" element={<Suresnes />} />
               <Route path="/chatelet" element={<Chatelet />} />
               <Route path="/fosses" element={<Fosses />} />
               <Route path="/login" element={<Login />} />

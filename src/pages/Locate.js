@@ -8,6 +8,7 @@ import LocateControl from 'leaflet.locatecontrol';
 import TrainInfo from '../components/Timing2';
 import tracesDuReseauFerre from '../data/traces-du-reseau-ferre-idf.json';
 import { GeoJSON } from 'react-leaflet';
+import arretsLignes from '../data/arrets-lignes.json';
 
 const Location = () => {
     const [initialPosition, setInitialPosition] = useState(null);
@@ -20,7 +21,6 @@ const Location = () => {
             moveend: (e) => {
                 const newPos = e.target.getCenter();
                 setPosition(newPos);
-                console.log(`Marker position: ${newPos.lat}, ${newPos.lng}`);
             }
         });
 
@@ -68,7 +68,7 @@ const Location = () => {
         <div className="h-[80vh]">
             {initialPosition && (
                 <MapContainer className="h-[40%]" whenCreated={setMapInstance => { mapRef.current = setMapInstance; }} center={initialPosition} zoom={13}>
-                    <TileLayer url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'/>
+                    <TileLayer url="https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png" />
                     <CenterMarker />
                     <MiddleMarker />
                     {tracesDuReseauFerre.map((line, index) => (

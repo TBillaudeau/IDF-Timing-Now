@@ -33,11 +33,9 @@ const redIcon = new L.Icon({
     shadowSize: [41, 41]
   });
 
-
 // Define the Lambert II étendu and WGS84 projections
 const lambert2e = "+proj=lcc +lat_1=46.8 +lat_0=46.8 +lon_0=0 +k_0=0.99987742 +x_0=600000 +y_0=2200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs";
 const wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
-
 
 function Schedules({ lineID, stationName }) {
     const [trainData, setTrainData] = useState([]);
@@ -49,7 +47,6 @@ function Schedules({ lineID, stationName }) {
             const data = await response.json();
 
             setTrainData(data);
-            console.log(data);
 
             const [x, y] = proj4(lambert2e, wgs84, [data.stop.x, data.stop.y]);
             setCoordinates([y, x])
@@ -80,7 +77,7 @@ function Schedules({ lineID, stationName }) {
                     </Marker>
                 ) : (
                     <Marker key={stop.fields.stop_id} position={[stop.fields.stop_lat, stop.fields.stop_lon]}>
-                        <Tooltip permanent={!isSeen}>
+                        <Tooltip>
                             {stop.fields.stop_name}
                         </Tooltip>
                     </Marker>
