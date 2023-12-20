@@ -28,7 +28,7 @@ function Research() {
       </div>
 
       <div className="bg-white dark:bg-gray-800 p-4 lg:p-6">
-        <h1 className="text-xl font-bold pb-4 dark:text-white">Rechercher un horaire</h1>
+        <h1 className="text-xl font-bold pb-4 dark:text-white">Recherche station • ligne</h1>
 
         <div className='mt-2'>
           <label htmlFor="mode" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mode de transport</label>

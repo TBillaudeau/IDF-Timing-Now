@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import StationInfo from '../components/stationHeader';
 import TrainInfo from '../components/Timing';
 import Breadcrumb from "../components/breadcrumb";
-import Schedules from "../components/Schedules";
+import Schedules from "../components/shared/Schedules";
 
 
 function StopInfo() {

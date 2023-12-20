@@ -183,7 +183,7 @@ function TrainInfo({ lineID, stationName }) {
               <div className="flex-grow overflow-hidden">
                 <h2 className='font-bold text-[11px] lg:text-lg line-clamp-2 ml-2 lg:ml-4'>{removeGareDePrefix(train.lineDirection)}</h2>
               </div>
-              <div className="ml-1 lg:ml-5 pr-2 text-right z-10">
+              <div className="ml-1 lg:ml-5 pr-2 text-right">
                 {train.code === 'message' ? (
                     <p className="text-[10px] lg:text-base font-bold text-green-600 dark:text-green-500 whitespace-normal">{train.schedule}</p>
                 ) : (

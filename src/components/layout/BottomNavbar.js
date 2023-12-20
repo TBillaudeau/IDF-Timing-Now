@@ -8,15 +8,15 @@ export default function BottomNavbar() {
 
     return (
         <footer className="fixed bottom-0 z-50 w-full -translate-x-1/2 shadow-[0px_-3px_6px_-1px_rgba(0,0,0,0.2)] bg-white border-b-[25px] border-white left-1/2 dark:bg-slate-700 dark:border-slate-700 md:hidden">
-            <div class="w-full">
-                <div class="grid max-w-xs grid-cols-3 gap-1 mx-auto my-2 bg-slate-100 rounded-lg dark:bg-slate-600" role="group">
-                    <button class="px-1 py-1 text-xs font-medium text-slate-900 hover:bg-slate-200 dark:text-white dark:hover:bg-slate-800 rounded-lg">
+            <div class="w-full absolute bottom-[-30px]">
+                <div class="grid grid-cols-3 gap-1 mx-auto my-2" role="group">
+                    <button class="px-1 py-1 text-xs font-medium text-slate-900 hover:bg-slate-200 dark:text-white dark:hover:bg-slate-800">
                         beta
                     </button>
-                    <button class="px-1 py-1 text-xs font-medium bg-violet-100 text-violet-700 rounded-lg">
-                        IDF RailTime
+                    <button class="px-1 py-1 text-xs font-medium text-violet-700">
+                        {/* IDF RailTime */}
                     </button>
-                    <button class="px-1 py-1 text-xs font-medium text-slate-900 hover:bg-slate-200 dark:text-white dark:hover:bg-slate-800 rounded-lg">
+                    <button class="px-1 py-1 text-xs font-medium text-slate-900 hover:bg-slate-200 dark:text-white dark:hover:bg-slate-800">
                         v 0.8.7
                     </button>
                 </div>

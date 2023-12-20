@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function NotFound() {
     return (
-        <main className="min-h-[80vh] flex items-center justify-center bg-gradient-to-r from-violet-300 to-blue-300 p-6">
+        <main className="flex items-center justify-center bg-gradient-to-r from-violet-300 to-blue-300 p-6" style={{ height: 'calc(100vh - 130px)' }}>
             <div className="text-center">
                 <div className="flex justify-center space-x-1">
                   <div className="animate-bounce w-24 h-24 bg-white rounded-full mb-4 flex items-center justify-center">

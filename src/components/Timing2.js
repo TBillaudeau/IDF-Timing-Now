@@ -4,6 +4,7 @@ import { set } from 'date-fns';
 import relations from '../data/relations.json';
 import zonesDarrets from '../data/zones-d-arrets.json';
 import referentielDesLignes from '../data/referentiel-des-lignes.json';
+import LineSVG from './tools/createLineLogo';
 
 function TrainInfo({ lineID, stationName }) {
 
@@ -120,11 +121,12 @@ function TrainInfo({ lineID, stationName }) {
           style={{borderBottom: `4px solid #${getLighterColor(train.lineRef.replace(/:$/, '').split(':').pop())}`}} // Replace lineColor with your desired color
         >
           <div className='shrink-0'>
-            <img 
+            {/* <img 
               src={process.env.PUBLIC_URL + `/images/${train.lineRef.replace(/:$/, '').split(':').pop()}.svg`} 
               alt={train.lineRef.replace(/:$/, '').split(':').pop()} 
               className="h-4 lg:h-10 pl-1 lg:pl-0 mr-2 lg:mr-4" 
-            />
+            /> */}
+            <LineSVG lineID={train.lineRef.replace(/:$/, '').split(':').pop()} className="h-6 lg:h-10 pl-1 lg:pl-0 mr-2 lg:mr-4" />
             <h3 className='text-[8px] lg:text-xs justify-center flex mx-auto mt-0.5 pl-0.5 lg:pl-0'>{train.vehicleJourneyName}</h3>
           </div>
           <div className="flex-grow overflow-hidden">
@@ -132,8 +134,8 @@ function TrainInfo({ lineID, stationName }) {
           </div>
           <div className="ml-1 lg:ml-5 pr-2 text-right">
             <p className="text-sm lg:text-2xl font-bold">{train.departureStatus} {train.minutesFromNow}ᵐⁱⁿ</p>
-            <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">expectedArrivalTime: {new Date(train.expectedArrivalTime).toLocaleTimeString()}</p>
-            <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">expectedDepartureTime: {new Date(train.expectedDepartureTime).toLocaleTimeString()}</p>
+            <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">Arrival: {new Date(train.expectedArrivalTime).toLocaleTimeString()}</p>
+            <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">Departure: {new Date(train.expectedDepartureTime).toLocaleTimeString()}</p>
           </div>
           <div 
             className="absolute top-0 right-0 bottom-0 left-0 lg:left-0 bg-gradient-to-r from-transparent to-white dark:to-gray-700"

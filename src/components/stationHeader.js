@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { checkDisruptions } from './Trafic';
 import { useNavigate } from 'react-router-dom';
-import AddFav from './tools/fav'
+import AddFav from './elements/fav'
 import { getStationNameByStationID, getTransportLogoByLineID } from '../utils/dataHelpers';
 
 function StationInfo({ lineID, stationID }) {

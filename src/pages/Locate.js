@@ -70,10 +70,11 @@ const Location = () => {
     }, [mapRef]);
 
     return (
-        <div className="h-[80vh]">
+        <div style={{ height: 'calc(100vh - 130px)' }}>
             {initialPosition && (
-                <MapContainer className="h-[50%]" whenCreated={setMapInstance => { mapRef.current = setMapInstance; }} center={initialPosition} zoom={13}>
-                    <TileLayer url="https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png" />
+                <MapContainer className="h-[40%]" whenCreated={setMapInstance => { mapRef.current = setMapInstance; }} center={initialPosition} zoom={13}>
+                    <TileLayer url={`https://{s}.tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=${process.env.REACT_APP_JAWG_API_KEY}`} />
+                    console.log(process.env.REACT_APP_JAWG_API_KEY);
                     <CenterMarker />
                     <MiddleMarker />
                     {tracesDuReseauFerre.map((line, index) => (
@@ -82,7 +83,7 @@ const Location = () => {
                 </MapContainer>
             )}
             {stopAreas && (
-                <div className="h-[50%] overflow-y-scroll">
+                <div className="h-[60%] overflow-y-scroll">
                     {stopAreas.map((stopArea, index) => (
                         <TrainInfo line={null} stationName={stopArea.id.split(':').pop()} />
                     ))}

@@ -28,7 +28,7 @@ function App() {
     <>
       <div className='h-screen flex flex-col'>
         <Navbar />
-        <main className='flex-1 w-screen overflow-y-scroll lg:max-h-screen max-h-[80vh]'>
+        <main className='flex-1 w-screen overflow-y-scroll lg:max-h-screen' style={{ maxHeight: 'calc(100vh - 130px)' }}>
           <section className='max-w-screen-xl flex-wrap justify-between mx-auto'>
             <Routes>
               <Route exact path="/" element={<InfoTrafic />} />

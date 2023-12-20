@@ -19,7 +19,7 @@ export default function Navbar({ fixed }) {
 
   return (
     <>
-      <nav className="bg-white border-gray-200 dark:bg-gray-900 shadow-md">
+      <nav className="bg-white border-gray-200 dark:bg-gray-900 shadow-md z-10">
         <div className="flex flex-wrap items-center justify-between mx-auto p-2 lg:p-4">
           <Link
             className="flex items-center"
