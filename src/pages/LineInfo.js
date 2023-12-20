@@ -82,17 +82,6 @@ function LineInfo() {
         </div>
       )}
 
-      {lineData && 'scheduleDocs' in lineData && (
-        <div className="xl:col-span-2">
-          <div className="bg-white dark:bg-gray-800 p-4 xl:p-6 flex flex-col w-full">
-            <h2 className="xl:text-xl font-semibold mr-4"><a href={lineData.scheduleDocs[0].link} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-300 hover:underline">{lineData.scheduleDocs[0].label}</a></h2>
-            <div className="max-w-full mt-4">
-              {/* <PDFAsImg planURL={lineData.scheduleDocs[0].link} /> */}
-            </div>
-          </div>
-        </div>
-      )}
-
       <div className='bg-white dark:bg-gray-800 dark:text-white p-4 xl:p-6 flex flex-col w-full'>
         <div className="grid grid-cols-3 gap-1 mx-auto p-1 rounded-lg border border-gray-300 w-full" role="group">
           <TabButton label="En cours" value="current" />

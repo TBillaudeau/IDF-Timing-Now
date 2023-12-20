@@ -51,6 +51,11 @@ const Location = () => {
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
             setInitialPosition([position.coords.latitude, position.coords.longitude]);
+        }, (error) => {
+            console.error("Error occurred while getting geolocation: ", error);
+            if (!initialPosition) {
+                setInitialPosition([48.8598, 2.3470]);
+            }
         });
     }, []);
 
@@ -67,7 +72,7 @@ const Location = () => {
     return (
         <div className="h-[80vh]">
             {initialPosition && (
-                <MapContainer className="h-[40%]" whenCreated={setMapInstance => { mapRef.current = setMapInstance; }} center={initialPosition} zoom={13}>
+                <MapContainer className="h-[50%]" whenCreated={setMapInstance => { mapRef.current = setMapInstance; }} center={initialPosition} zoom={13}>
                     <TileLayer url="https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png" />
                     <CenterMarker />
                     <MiddleMarker />
