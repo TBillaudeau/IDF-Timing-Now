@@ -8,13 +8,14 @@ on:
 jobs:
   update-data:
     runs-on: ubuntu-latest
+    env:
+      CI: false
+      ACCESS_TOKEN: ${{ secrets.GH_PAT }}
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.GH_PAT }}
-
+      
     - name: Configure Git
       run: |
         git config --global user.email "actions@github.com"
