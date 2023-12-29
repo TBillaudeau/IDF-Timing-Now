@@ -28,7 +28,7 @@ function StationInfo({ lineID, stationID }) {
 
     // Display station header
     return (
-        <div className="flex items-center bg-white dark:bg-gray-800 dark:text-white border-gray-900 dark:border-gray-400 border-solid border p-2 lg:p-4 mb-2 lg:mb-4 rounded-b-lg shadow-md min-h-[52px]" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+        <div className="flex items-center bg-white dark:bg-gray-800 dark:text-white border-gray-900 dark:border-gray-800 border-solid border p-2 lg:p-4 mb-2 lg:mb-4 rounded-b-lg shadow-md min-h-[52px]" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             {disrupted && (
                 <span className="relative">
                     {isHovered && (

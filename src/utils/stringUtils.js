@@ -15,3 +15,20 @@ const getLastNonEmptySegment = (lineRef) => {
     return lineRef.replace(/:$/, '').split(':').pop();
 };
 
+
+export const convertTransportMode = (mode) => {
+    switch (mode) {
+        case 'Transilien':
+            return 'TRAIN';
+        case 'Train Transilien':
+            return 'TRAIN';
+        case 'Métro':
+            return 'METRO';
+        case 'Tramway':
+            return 'TRAM';
+        case 'walking':
+            return 'WALKING';
+        default:
+            return mode;
+    }
+};

@@ -19,7 +19,7 @@ function Breadcrumb({ lineID, stationID }) {
   }, []);
 
   return (
-    <nav className="flex sm:flex-row h-10 pl-4 bg-white border-b border-gray-900" ref={navRef} aria-label="Breadcrumb">
+    <nav className="flex sm:flex-row h-10 pl-4 bg-white dark:bg-gray-800 dark:text-white border-b border-gray-700 dark:border-gray-400" ref={navRef} aria-label="Breadcrumb">
       <ol className="inline-flex items-center space-x-1 md:space-x-3 flex-none">
         {lineID && (
           <li>

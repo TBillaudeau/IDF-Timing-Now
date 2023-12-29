@@ -173,7 +173,7 @@ function TrainInfo({ lineID, stationName }) {
             <Link to={`/${lineID}/${stationID}`}>
             <div 
               key={train.time + index} 
-              className="flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-700 min-h-[44px] max-h-[72px] p-1 lg:p-4 relative" 
+              className="flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-800 min-h-[44px] max-h-[72px] p-1 lg:p-4 relative" 
               style={{borderBottom: `2px solid #${lineColor}`}}
             >
               <div className='shrink-0'>
@@ -194,7 +194,7 @@ function TrainInfo({ lineID, stationName }) {
                 )}
               </div>
               <div 
-                className="absolute top-0 right-0 bottom-0 left-0 lg:left-0 bg-gradient-to-r from-transparent to-white dark:to-gray-700" 
+                className="absolute top-0 right-0 bottom-0 left-0 lg:left-0 bg-gradient-to-r from-transparent to-white dark:to-gray-800" 
                 style={{
                   backgroundImage: `linear-gradient(to right, transparent, rgba(${parseInt(lighterColor.slice(0, 2), 16)}, ${parseInt(lighterColor.slice(2, 4), 16)}, ${parseInt(lighterColor.slice(4, 6), 16)}, 0.1))`
                 }}

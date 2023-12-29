@@ -22,14 +22,6 @@ function Info(selectedDisruption) {
                         <p className="text-sm xl:text-base xl:font-semibold flex grow">{selectedDisruption.disruption.title}</p>
                         <p className="text-xs xl:text-base font-semibold ml-4 xl:mr-4"> {selectedDisruption.disruption.cause}</p>
                     </div>
-                    {/* <a href={`https://me-deplacer.iledefrance-mobilites.fr/stif_static/assets_vianavigo/img/linesPlans/HD/${selectedDisruption.lineId.split(':').pop().replace(/:/g, '_')}.png`} target="_blank" rel="noopener noreferrer">
-                                <img
-                                    src={`https://me-deplacer.iledefrance-mobilites.fr/stif_static/assets_vianavigo/img/linesPlans/HD/${selectedDisruption.lineId.split(':').pop().replace(/:/g, '_')}.png`}
-                                    alt={selectedDisruption.lineId}
-                                    className="w-full border p-2 border-gray-300"
-                                />
-                            </a> */}
-
                     <div
                         dangerouslySetInnerHTML={{ __html: selectedDisruption.disruption.message }}
                         className="border border-gray-300 p-4 rounded-lg mt-2 overflow-y-auto max-h-[30rem]"

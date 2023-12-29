@@ -13,8 +13,8 @@ import Login from './pages/login';
 import Plans from './pages/Plans';
 import Favorites from './pages/Favorites';
 import Poles from './pages/Poles';
-import Location from './pages/Locate';
-import Trip from './pages/Trip';
+import Location from './pages/Proximity';
+import Trip from './pages/Itineraire';
 
 import InfoTrafic from './pages/InfoTrafic';
 import Chatelet from './pages/Chatelet';
@@ -26,21 +26,22 @@ import NotFound from './pages/NotFound';
 function App() {
   return (
     <>
-      <div className='h-screen flex flex-col'>
+      <div className='h-screen flex flex-col bg-gray-100 dark:bg-gray-900'>
         <Navbar />
-        <main className='flex-1 w-screen overflow-y-scroll lg:max-h-screen' style={{ maxHeight: 'calc(100vh - 130px)' }}>
+        <main className='flex-1 w-full overflow-y-auto lg:max-h-screen' style={{ maxHeight: 'calc(100vh - 130px)' }}>
           <section className='max-w-screen-xl flex-wrap justify-between mx-auto'>
             <Routes>
               <Route exact path="/" element={<InfoTrafic />} />
+              <Route path="/infos-trafic" element={<InfoTrafic />} />
               <Route path="/line/:lineID" element={<LineInfo />} />
               <Route path="/station/:stationID" element={<StationInfo />} />
               <Route path="/:lineID/:stationID" element={<StopInfo />} />
               <Route path="/search" element={<Search />} />
-              <Route path="/research" element={<Research />} />
+              <Route path="/recherche" element={<Research />} />
               <Route path="/plans" element={<Plans />} />
               <Route path="/poles" element={<Poles />} />
-              <Route path="/locate" element={<Location />} />
-              <Route path="/trip" element={<Trip />} />
+              <Route path="/a-proximite" element={<Location />} />
+              <Route path="/itineraire" element={<Trip />} />
 
               <Route exact path="/infos-trafic" element={<InfoTrafic />} />
               <Route path="/chatelet" element={<Chatelet />} />

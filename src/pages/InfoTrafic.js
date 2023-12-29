@@ -34,7 +34,7 @@ function InfoTrafic() {
       {/* <div className="xl:col-span-2">
         <SearchBar />
       </div> */}
-      <div className="bg-white dark:text-white dark:bg-gray-800 p-4 lg:p-6">
+      <div className="bg-white dark:text-white dark:bg-gray-800 p-4  rounded-lg lg:p-6">
       <h1 className="text-2xl font-bold pb-4 lg:pb-6">Information trafic</h1>
         {Object.entries(lineTypes).map(([lineType, lineIds]) => (
           <div key={lineType} className="flex flex-row p-1 xl:p-2">
@@ -46,7 +46,7 @@ function InfoTrafic() {
                   </svg>
                 </div>
               ) : (
-                <img src={process.env.PUBLIC_URL + `/images/${lineType}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={lineType} className="h-8 xl:h-10 mt-1.5 mr-2 lg:mr-4" />
+                <img src={process.env.PUBLIC_URL + `/images/${lineType}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={lineType} className="h-8 xl:h-10 mt-1.5 mr-2 lg:mr-4 text-blue-600" />
               )}
             </>
             <div className="flex flex-row flex-wrap">
@@ -82,9 +82,9 @@ function InfoTrafic() {
       {selectedDisruption && selectedDisruption.disruption && (
           <DisruptionInfo selectedDisruption={selectedDisruption} />
       )}
-      <div className="xl:col-span-2">
+      {/* <div className="xl:col-span-2">
         <Banner />
-      </div>
+      </div> */}
     </div>
   );
 

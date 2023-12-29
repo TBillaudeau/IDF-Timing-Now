@@ -1,6 +1,6 @@
 {
-  "short_name": "IDFTimingNow",
-  "name": "IDF Timing Now",
+  "short_name": "RailTime IDF",
+  "name": "RailTime IDF",
   "icons": [
     {
       "src": "favicon.ico",

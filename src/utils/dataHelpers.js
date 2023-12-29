@@ -1,11 +1,5 @@
-import relations from '../data/relations.json';
 import zonesDarrets from '../data/zones-d-arrets.json';
 import referentielDesLignes from '../data/referentiel-des-lignes.json';
-import stationsData from '../data/emplacement-des-gares-idf.json';
-
-export const getStopIdByLineId = (lineId) => {
-    // Logic to search the data referential and return the stop ID
-};
 
 // Function to get the station name
 export const getStationNameByStationID = (stationID) => {
@@ -15,9 +9,9 @@ export const getStationNameByStationID = (stationID) => {
         stations.find((station) => station.fields.zdatype === 'metroStation')?.fields.zdaname ||
         stations.find((station) => station.fields.zdatype === 'onstreetTram')?.fields.zdaname ||
         (stations.find((station) => station.fields.zdatype === 'onstreetBus')?.fields.zdaname +
-        ' (' +
-        stations.find((station) => station.fields.zdatype === 'onstreetBus')?.fields.zdatown +
-        ')')
+            ' (' +
+            stations.find((station) => station.fields.zdatype === 'onstreetBus')?.fields.zdatown +
+            ')')
     );
 };
 
@@ -36,13 +30,24 @@ export const getTransportLogoByLineID = (lineID) => {
     if (transportLogo === 'rail') {
         const networkName = station.fields.networkname;
         transportLogo = networkName === 'RER' ? 'rer' : networkName === 'Transilien' ? 'train' : 'cable';
-    } 
+    }
     return transportLogo.toUpperCase();
 };
 
-// Get stationName from stationID
-// var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid === stationID) : [];
-// var stationName = stations.find(station => station.fields.zdatype === 'railStation')?.fields.zdaname
-//     || stations.find(station => station.fields.zdatype === 'metroStation')?.fields.zdaname  
-//     || stations.find(station => station.fields.zdatype === 'onstreetTram')?.fields.zdaname
-//     || stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdatown + ')';
+// Function to get the line color
+export const getLineColorByLineID = (lineID) => {
+    var lineColor = referentielDesLignes.find(line => line.fields.id_line == lineID)?.fields.colourweb_hexa;
+
+    function blendColor(color, blendWith, alpha) {
+        const [r1, g1, b1] = [parseInt(color.slice(0, 2), 16), parseInt(color.slice(2, 4), 16), parseInt(color.slice(4, 6), 16)];
+        const [r2, g2, b2] = [parseInt(blendWith.slice(0, 2), 16), parseInt(blendWith.slice(2, 4), 16), parseInt(blendWith.slice(4, 6), 16)];
+
+        const r = Math.round(r1 * (1 - alpha) + r2 * alpha);
+        const g = Math.round(g1 * (1 - alpha) + g2 * alpha);
+        const b = Math.round(b1 * (1 - alpha) + b2 * alpha);
+
+        return ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
+    }
+
+    return blendColor(lineColor, 'ffffff', 0.5);
+}

@@ -1,4 +1,4 @@
-name: Update Data Files
+name: update-data-files
 
 on:
   schedule:
@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GH_PAT }}
 
     - name: Configure Git
       run: |

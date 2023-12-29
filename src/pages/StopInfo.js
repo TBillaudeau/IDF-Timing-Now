@@ -3,7 +3,7 @@ import StationInfo from '../components/stationHeader';
 import TrainInfo from '../components/Timing';
 import Breadcrumb from "../components/breadcrumb";
 import Schedules from "../components/shared/Schedules";
-
+import LineMap from "../components/shared/lineMap";
 
 function StopInfo() {
   const { lineID } = useParams();
@@ -21,6 +21,7 @@ function StopInfo() {
       </div>
       <div className="lg:p-1">
         <Schedules lineID={lineID} stationName={stationID} />
+        <LineMap lineID={lineID} stationName={stationID} />
       </div>
     </div>
 
