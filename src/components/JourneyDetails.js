@@ -39,10 +39,15 @@ function JourneyDetails({ journeyData }) {
         };
     });
 
-
+    // Helper function to format the total duration
+    const formatDuration = (seconds) => {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        return hours === 0 ? `${minutes} min` : `${hours} h ${minutes} min`;
+    };
 
     return (
-        <div className="max-w-4xl mx-auto p-4">
+        <div className="max-w-4xl mx-auto p-2">
             <h2 className="text-2xl font-bold text-center mb-6">Journey Overview</h2>
 
             <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
@@ -68,35 +73,68 @@ function JourneyDetails({ journeyData }) {
                         zoom={new LatLng(sectionDetails[0].coordinates[0][0], sectionDetails[0].coordinates[0][1]).distanceTo(new LatLng(sectionDetails[sectionDetails.length - 1].coordinates[0][0], sectionDetails[sectionDetails.length - 1].coordinates[0][1])) < 1000 ? 13 : new LatLng(sectionDetails[0].coordinates[0][0], sectionDetails[0].coordinates[0][1]).distanceTo(new LatLng(sectionDetails[sectionDetails.length - 1].coordinates[0][0], sectionDetails[sectionDetails.length - 1].coordinates[0][1])) < 5000 ? 12 : new LatLng(sectionDetails[0].coordinates[0][0], sectionDetails[0].coordinates[0][1]).distanceTo(new LatLng(sectionDetails[sectionDetails.length - 1].coordinates[0][0], sectionDetails[sectionDetails.length - 1].coordinates[0][1])) < 10000 ? 11 : 10}
                         attributionControl={false}
                     >                       
-                    <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
+                        <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
                         {sectionDetails.map((section, idx) => (
                             <React.Fragment key={idx}>
                                 <Polyline positions={section.coordinates} color={section.color} />
-                                {/* {section.markerPosition && (
-                                    <Marker position={section.markerPosition}>
-                                        <Popup>{`Section ${section.index + 1}: ${section.lineID}`}</Popup>
-                                    </Marker>
-                                )} */}
+                                {section.coordinates[0] && section.duration > 1 && (
+                                    <>
+                                        {section.lineID && (
+                                            <Marker 
+                                                position={section.coordinates[0]} 
+                                                icon={L.icon({
+                                                    iconUrl: process.env.PUBLIC_URL + `/images/${section.lineID.split(":").pop()}.svg`,
+                                                    iconSize: [25, ], // size of the icon
+                                                    iconAnchor: [10, 20], // point of the icon which will correspond to marker's location
+                                                    popupAnchor: [0, -40] // point from which the popup should open relative to the iconAnchor
+                                                })}
+                                            />
+                                        )}
+                                    </>
+                                )}
                             </React.Fragment>
                         ))}
                     </MapContainer>
                 </div>
             )}
 
-            {sectionDetails.map((section) => (
-                <div key={section.index} className="bg-white shadow-lg rounded-lg p-6 mb-4">
-                    <h3 className="text-lg font-semibold mb-2">Section {section.index + 1}</h3>
-                    <img src={process.env.PUBLIC_URL + `/images/${convertTransportMode(section.mode)}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={convertTransportMode(section.mode)} className="h-5 lg:h-10 mr-1" />
-                    <img src={process.env.PUBLIC_URL + `/images/${section.lineID ? section.lineID.split(":").pop() : 'default'}.svg`} alt={section.lineID ? section.lineID.split(":").pop() : 'default'} className="h-5 lg:h-10 mr-2 lg:mr-4" />                    <p><strong>Line:</strong> {section.lineID}</p>
-                    <p><strong>Mode:</strong> {section.mode}</p>
-                    <p><strong>From (Stop Area ID):</strong> {section.from?.name || 'Unknown'}</p>
-                    <p><strong>To (Stop Area ID):</strong> {section.to?.name || 'Unknown'}</p>
-                    <p><strong>Terminus:</strong> {section.terminus}</p>
-                    <p><strong>Departure:</strong> {section.departure}</p>
-                    <p><strong>Arrival:</strong> {section.arrival}</p>
-                    <p><strong>Duration:</strong> {section.duration} minutes</p>
-                </div>
-            ))}
+            {sectionDetails.map((section, index) => {
+                const isCorrespondence = section.from && section.to && section.from.name === section.to.name;
+                const isWaitingTime = !section.from && !section.to && section.duration;
+                const color = section.color;
+
+                return (
+                    <div key={section.index} className="bg-white relative flex p-6">
+                        <div className="mr-4 w-20">
+                            <div style={{backgroundColor: color}} className="absolute top-16 w-1 h-full"></div>
+                            <div className="flex items-center mb-2">
+                                <img src={process.env.PUBLIC_URL + `/images/${convertTransportMode(section.mode)}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={convertTransportMode(section.mode)} className="h-5 lg:h-10 mr-1" />
+                                {section.lineID && <img src={process.env.PUBLIC_URL + `/images/${section.lineID.split(":").pop()}.svg`} alt={section.lineID.split(":").pop()} className="h-5 lg:h-10 mr-2 lg:mr-4" />}
+                            </div>
+                        </div>
+                        <div>
+                            {isCorrespondence ? (
+                                <p>Correspondance - {section.duration} minutes</p>
+                            ) : isWaitingTime ? (
+                                <p>Temps d'attente : {section.duration} minutes</p>
+                            ) : (
+                                <>
+                                    <div className="flex justify-between">
+                                        <p>{section.from?.name}</p>
+                                        <p>{section.departure}</p>
+                                    </div>
+                                    <p><strong>Terminus:</strong> {section.terminus}</p>
+                                    <div className="flex justify-between">
+                                        <p>{section.to?.name}</p>
+                                        <p>{section.arrival}</p>
+                                    </div>
+                                    <p><strong>Duration:</strong> {section.duration} minutes</p>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                );
+            })}
 
         </div>
     );

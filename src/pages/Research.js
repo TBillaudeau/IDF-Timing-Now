@@ -75,13 +75,13 @@ function Research() {
 
   return (
     <div className="grid grid-cols-1 gap-2 my-2 lg:m-0">
-      <div className="bg-white dark:bg-gray-800 p-4 lg:p-6">
+      <div className="bg-white dark:bg-gray-800 p-4 lg:p-6 grid gap-4">
         <h1 className="text-xl font-bold dark:text-white">Recherche station</h1>
         <SearchBar placeholder="Gare, station, arrêt" type="stop_area" onSelectionChange={setStation} />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 p-4 lg:p-6">
-        <h1 className="text-xl font-bold dark:text-white">Recherche itinéraire</h1>
+      <div className="bg-violet-700 p-4 lg:p-6 grid gap-4">
+        <h1 className="text-xl font-bold text-white">Recherche itinéraire</h1>
         <SearchBar placeholder="Partir de..." type="" onSelectionChange={setFromStation} />
         <SearchBar placeholder="Aller à..." type="" onSelectionChange={setToStation} />
       </div>

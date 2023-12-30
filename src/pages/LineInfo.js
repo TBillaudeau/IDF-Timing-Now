@@ -67,16 +67,16 @@ function LineInfo() {
   );
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2 m-2 sm:m-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2 my-2 sm:m-6">
       <Breadcrumb lineID={lineID} />
       <div className="xl:col-span-2 bg-white dark:bg-gray-800 p-4">
         <SearchBar />
       </div>
 
       <div className="xl:col-span-2">
-        <div className="bg-white dark:bg-gray-800 p-4 xl:p-6 flex flex-col w-full">
+        <div className="bg-violet-700 p-4 xl:p-6 flex flex-col w-full">
           {lineData ? (
-            <div className="flex items-center text-violet-700 dark:text-violet-500">
+            <div className="flex items-center text-white">
               <svg class="w-5 h-5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
                 <path fill="currentColor" d="M11.045 7.514a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm-4.572 3.072L3.857 15.92h7.949l-1.811-3.37-1.61 2.716-1.912-4.679Z" />
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 1v4a1 1 0 0 1-1 1H1m14 12a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2v16ZM11.045 7.514a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM3.857 15.92l2.616-5.333 1.912 4.68 1.61-2.717 1.81 3.37H3.858Z" />

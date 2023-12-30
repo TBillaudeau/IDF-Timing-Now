@@ -20,7 +20,7 @@ function Trip() {
             });
             const data = await response.json();
             console.log(data);
-            setTrainData(data.journeys ? data.journeys : []); // Set the journeys or an empty array
+            setTrainData(data.journeys ? data.journeys : []);
         };
 
         fetchLineData();

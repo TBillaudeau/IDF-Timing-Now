@@ -95,7 +95,7 @@ const SearchBar = ({ placeholder, type = '', onSelectionChange }) => {
 
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg py-4 flex items-center w-full">
+    <div className="flex items-center w-full">
       <Select
         options={options}
         onInputChange={handleInputChange}
