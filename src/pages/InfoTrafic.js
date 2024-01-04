@@ -3,11 +3,13 @@ import DisruptionInfo from '../components/DisruptionInfo';
 import { lineTypes, checkDisruptions } from '../components/Trafic'
 import Banner from "../components/banner";
 import Research from "./Research";
+import { useNavigate } from 'react-router-dom';
 
 function InfoTrafic() {
   const [disruptedLines, setDisruptedLines] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedDisruption, setSelectedDisruption] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,13 +22,14 @@ function InfoTrafic() {
   }, []);
 
   const handleLineClick = (disruption) => {
-    if (window.innerWidth < 1280) {
-      window.scrollTo({
-        top: window.pageYOffset + 600,
-        behavior: 'smooth',
-      });
-    }
-    setSelectedDisruption(disruption);
+    // if (window.innerWidth < 1280) {
+    //   window.scrollTo({
+    //     top: window.pageYOffset + 600,
+    //     behavior: 'smooth',
+    //   });
+    // }
+    // setSelectedDisruption(disruption);
+    navigate(`/line/${disruption.lineId.split(':').pop()}`);
   };
 
   return (
@@ -34,7 +37,7 @@ function InfoTrafic() {
       {/* <div className="xl:col-span-2">
         <SearchBar />
       </div> */}
-      <div className="bg-white dark:text-white dark:bg-gray-800 p-4  rounded-lg lg:p-6">
+      <div className="bg-white dark:text-white dark:bg-gray-800 p-4 lg:p-6">
       <h1 className="text-2xl font-bold pb-4 lg:pb-6">Information trafic</h1>
         {Object.entries(lineTypes).map(([lineType, lineIds]) => (
           <div key={lineType} className="flex flex-row p-1 xl:p-2">

@@ -8,6 +8,16 @@ export const lineTypes = {
     'line:IDFM:C01728', // RERD
     'line:IDFM:C01729', // RERE
   ],
+  TRAIN: [
+    'line:IDFM:C01737', // TRAINH
+    'line:IDFM:C01739', // TRAINJ
+    'line:IDFM:C01738', // TRAINK
+    'line:IDFM:C01740', // TRAINL
+    'line:IDFM:C01736', // TRAINN
+    'line:IDFM:C01730', // TRAINP
+    'line:IDFM:C01731', // TRAINR
+    'line:IDFM:C01741', // TRAINU
+  ],
   METRO: [
     'line:IDFM:C01371', // METRO1
     'line:IDFM:C01372', // METRO2
@@ -41,16 +51,6 @@ export const lineTypes = {
     'line:IDFM:C01999', // TRAM11
     'line:IDFM:C02529', // TRAM12
     'line:IDFM:C02344', // TRAM13
-  ],
-  TRAIN: [
-    'line:IDFM:C01737', // TRAINH
-    'line:IDFM:C01739', // TRAINJ
-    'line:IDFM:C01738', // TRAINK
-    'line:IDFM:C01740', // TRAINL
-    'line:IDFM:C01736', // TRAINN
-    'line:IDFM:C01730', // TRAINP
-    'line:IDFM:C01731', // TRAINR
-    'line:IDFM:C01741', // TRAINU
   ],
   BUS: [
     'line:IDFM:C01106', // 70

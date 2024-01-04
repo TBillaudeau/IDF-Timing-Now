@@ -11,11 +11,11 @@ function StopInfo() {
 
   return (
 
-    <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 m-2 sm:m-6'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 gap-2 my-2 sm:m-6'>
       <div className="xl:col-span-2">
         <Breadcrumb lineID={lineID} stationID={stationID} />
       </div>
-      <div className="">
+      <div className="p-2">
         <StationInfo lineID={lineID} stationID={stationID} />
         <TrainInfo lineID={lineID} stationName={stationID} />
       </div>

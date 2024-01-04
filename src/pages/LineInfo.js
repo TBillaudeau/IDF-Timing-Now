@@ -67,14 +67,14 @@ function LineInfo() {
   );
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2 my-2 sm:m-6">
+    <div className="grid grid-cols-1 gap-2 my-2">
       <Breadcrumb lineID={lineID} />
-      <div className="xl:col-span-2 bg-white dark:bg-gray-800 p-4">
+      <div className="bg-white dark:bg-gray-800 p-4">
         <SearchBar />
       </div>
 
-      <div className="xl:col-span-2">
-        <div className="bg-violet-700 p-4 xl:p-6 flex flex-col w-full">
+      <div className="">
+        <div className="bg-purple-800 p-4 xl:p-6 flex flex-col w-full">
           {lineData ? (
             <div className="flex items-center text-white">
               <svg class="w-5 h-5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">

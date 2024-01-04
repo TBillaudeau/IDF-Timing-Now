@@ -76,7 +76,7 @@ const SearchBar = ({ placeholder, type = '', onSelectionChange }) => {
           .map(([mode, lines], index) => (
             <div key={index} className="flex items-center mr-2 lg:mr-4">
               <img
-                src={`${process.env.PUBLIC_URL}/images/${mode}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`}
+                src={`${process.env.PUBLIC_URL}/images/${mode}.svg`}
                 className="h-5 lg:h-10 mr-1"
               />
               {mode !== 'BUS' && lines.map(line => (

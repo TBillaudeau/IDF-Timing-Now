@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import StationInfo from '../components/stationHeader';
 import TrainInfo from '../components/Timing2';
 import Breadcrumb from "../components/breadcrumb";
-import stationsData from '../assets/emplacement-des-gares-idf.json';
+import stationsData from '../data/emplacement-des-gares-idf.json';
 
 function Station() {
     const { stationID } = useParams();

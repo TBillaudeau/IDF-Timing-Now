@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { checkDisruptions } from './Trafic';
 import { useNavigate } from 'react-router-dom';
 import AddFav from './elements/fav'
-import { getStationNameByStationID, getTransportLogoByLineID } from '../utils/dataHelpers';
+import { getStationNameByStationID, getTransportByLineID } from '../utils/dataHelpers';
 
 function StationInfo({ lineID, stationID }) {
     const navigate = useNavigate();
@@ -55,7 +55,7 @@ function StationInfo({ lineID, stationID }) {
                     </span>
                 </span>
             )}
-            <img src={process.env.PUBLIC_URL + `/images/${getTransportLogoByLineID(lineID)}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportLogoByLineID(lineID)} className="h-5 lg:h-10 mr-1" />
+            <img src={process.env.PUBLIC_URL + `/images/${getTransportByLineID(lineID)}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportByLineID(lineID)} className="h-5 lg:h-10 mr-1" />
             <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" />
             <p className='text-xs lg:text-base font-medium flex-grow line-clamp-2'>{getStationNameByStationID(stationID)}</p>
             <p className='text-slate-400 text-xs font-bold pr-0.5 lg:pr-2'>

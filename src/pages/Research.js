@@ -38,6 +38,24 @@ function LineOptionsSelector({ selectedLine, onSelect, lines }) {
   );
 }
 
+let maps = [
+  {
+      id: 'Metro',
+      name: 'Plan Métro',
+      url: 'https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/METRO.pdf'
+  },
+  {
+      id: 'Région',
+      name: 'Plan du réseau régional des transports',
+      url: 'https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/REGION_GF.pdf'
+  },
+  {
+      id: 'Noctilien',
+      name: 'Plan du réseau de Nuit (schématique)',
+      url: 'https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/NOCTILIEN_MF.pdf'
+  },
+]
+
 function Research() {
   const [selectedLineType, setSelectedLineType] = useState('');
   const [selectedLineID, setSelectedLineID] = useState('');
@@ -80,7 +98,7 @@ function Research() {
         <SearchBar placeholder="Gare, station, arrêt" type="stop_area" onSelectionChange={setStation} />
       </div>
 
-      <div className="bg-violet-700 p-4 lg:p-6 grid gap-4">
+      <div className="bg-purple-800 p-4 lg:p-6 grid gap-4">
         <h1 className="text-xl font-bold text-white">Recherche itinéraire</h1>
         <SearchBar placeholder="Partir de..." type="" onSelectionChange={setFromStation} />
         <SearchBar placeholder="Aller à..." type="" onSelectionChange={setToStation} />
@@ -92,6 +110,19 @@ function Research() {
         {selectedLineType && (
           <LineOptionsSelector selectedLine={selectedLineID} onSelect={handleLineSelect} lines={lineOptions} />
         )}
+      </div>
+
+      <div className="bg-white dark:text-white dark:bg-gray-800 p-4 lg:p-6">
+        <h1 className="text-xl font-bold mb-4 lg:pb-6">Plan du réseau en Île-de-France</h1>
+        {maps.map((map, index) => (
+          <div key={index} className="mb-4">
+            <h2 className="font-bold border-1 mr-4">
+              <a href={map.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-300 hover:underline">
+                🗺 {map.name}
+              </a>
+            </h2>
+          </div>
+        ))}
       </div>
 
     </div>

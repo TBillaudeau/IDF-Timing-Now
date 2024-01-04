@@ -11,10 +11,9 @@ export const removeGareDePrefix = (lineDirection) => {
     }
 };
 
-const getLastNonEmptySegment = (lineRef) => {
-    return lineRef.replace(/:$/, '').split(':').pop();
+const getLineIDfromStringID = (stringID) => {
+    return stringID.replace(/:$/, '').split(':').pop();
 };
-
 
 export const convertTransportMode = (mode) => {
     switch (mode) {

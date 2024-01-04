@@ -111,8 +111,8 @@ function LineMap({ lineID, stationName }) {
         <div>
             {trainData.stop && (
 
-                <MapContainer key={coordinates} className="h-72 z-0" center={coordinates} zoom={15} scrollWheelZoom={true}>
-                    <TileLayer url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png" />
+                <MapContainer key={coordinates} className="h-72 z-0" center={coordinates} zoom={15} scrollWheelZoom={true} attributionControl={false}>
+                    <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
 
 
                     <RecenterControl />
