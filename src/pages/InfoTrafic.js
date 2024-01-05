@@ -21,7 +21,7 @@ function InfoTrafic() {
     fetchData();
   }, []);
 
-  const handleLineClick = (disruption) => {
+  const handleLineClick = (lineId) => {
     // if (window.innerWidth < 1280) {
     //   window.scrollTo({
     //     top: window.pageYOffset + 600,
@@ -29,7 +29,7 @@ function InfoTrafic() {
     //   });
     // }
     // setSelectedDisruption(disruption);
-    navigate(`/line/${disruption.lineId.split(':').pop()}`);
+    navigate(`/line/${lineId.split(':').pop()}`);
   };
 
   return (
@@ -68,8 +68,8 @@ function InfoTrafic() {
                         key={lineId}
                         src={process.env.PUBLIC_URL + `/images/${lineId.split(':').pop()}.svg`}
                         alt={lineId}
-                        onClick={() => handleLineClick(disruptedLine)}
-                        className={`h-10 xl:h-12 m-[3px] p-1 border-4 rounded-lg ${disruptedLine && disruptedLine.disrupted ? `${disruptedLines.find(line => line.lineId === lineId)?.disruption.severity === 'BLOQUANTE' ? 'outline-red-600' : 'outline-amber-500'} outline outline-4 outline-offset-[-4px] cursor-pointer` : 'outline-green-600 outline outline-2 outline-offset-[-2px] border-[#00000000]'}`}
+                        onClick={() => handleLineClick(lineId)}
+                        className={`h-10 xl:h-12 m-[3px] p-1 border-4 rounded-md ${disruptedLine && disruptedLine.disrupted ? `${disruptedLines.find(line => line.lineId === lineId)?.disruption.severity === 'BLOQUANTE' ? 'outline-red-600' : 'outline-amber-500'} outline outline-4 outline-offset-[-4px] cursor-pointer` : 'outline-green-600 outline outline-2 outline-offset-[-2px] border-[#00000000]'}`}
                       />
                     )}
                   </>

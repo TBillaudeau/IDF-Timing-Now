@@ -13,7 +13,7 @@ function LineSVG({ lineID, className }) {
             if (true) {
                 const color = "#" + item.fields.colourweb_hexa;
                 const text_color = "#" + item.fields.textcolourweb_hexa;
-                const estimatedWidth = name.length * 30;
+                let estimatedWidth = Math.max(name.length * 30, 120);
 
                 setSvgSrc(`
                     <svg viewBox="0 0 ${estimatedWidth} 120">

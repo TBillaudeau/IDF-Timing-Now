@@ -5,6 +5,9 @@ import 'leaflet/dist/leaflet.css';
 import { LatLng } from 'leaflet';
 import { useLocation } from "react-router-dom";
 import { convertTransportMode } from '../utils/stringUtils';
+import TrainInfo from '../components/Timing';
+import relations from '../data/relations.json';
+
 
 function JourneyDetails({ journeyData }) {
     // Helper function to format date and time
@@ -47,8 +50,8 @@ function JourneyDetails({ journeyData }) {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-2">
-            <h2 className="text-2xl font-bold text-center mb-6">Journey Overview</h2>
+        <div className="max-w-4xl mx-auto">
+            {/* <h2 className="text-2xl font-bold text-center mb-6">Journey Overview</h2>
 
             <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
                 <h3 className="text-xl font-semibold mb-4">Basic Information</h3>
@@ -59,32 +62,32 @@ function JourneyDetails({ journeyData }) {
                     <p><strong>Walking distance:</strong> {journeyData.distances.walking} meters</p>
                     <p><strong>CO2 Emission:</strong> {journeyData.co2_emission.value} {journeyData.co2_emission.unit}</p>
                 </div>
-            </div>
+            </div> */}
 
             {sectionDetails.length > 0 && (
                 <div>
-                    <h3 className="text-lg font-semibold mb-4">Journey Path</h3>
-                    <MapContainer 
-                        style={{ height: '400px', width: '100%' }} 
+                    <MapContainer
+                        className="z-10 h-96"
                         center={[
                             (sectionDetails[0].coordinates[0][0] + sectionDetails[sectionDetails.length - 1].coordinates[0][0]) / 2,
                             (sectionDetails[0].coordinates[0][1] + sectionDetails[sectionDetails.length - 1].coordinates[0][1]) / 2
                         ]}
                         zoom={new LatLng(sectionDetails[0].coordinates[0][0], sectionDetails[0].coordinates[0][1]).distanceTo(new LatLng(sectionDetails[sectionDetails.length - 1].coordinates[0][0], sectionDetails[sectionDetails.length - 1].coordinates[0][1])) < 1000 ? 13 : new LatLng(sectionDetails[0].coordinates[0][0], sectionDetails[0].coordinates[0][1]).distanceTo(new LatLng(sectionDetails[sectionDetails.length - 1].coordinates[0][0], sectionDetails[sectionDetails.length - 1].coordinates[0][1])) < 5000 ? 12 : new LatLng(sectionDetails[0].coordinates[0][0], sectionDetails[0].coordinates[0][1]).distanceTo(new LatLng(sectionDetails[sectionDetails.length - 1].coordinates[0][0], sectionDetails[sectionDetails.length - 1].coordinates[0][1])) < 10000 ? 11 : 10}
                         attributionControl={false}
-                    >                       
+                    >
                         <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
                         {sectionDetails.map((section, idx) => (
                             <React.Fragment key={idx}>
-                                <Polyline positions={section.coordinates} color={section.color} />
+                                <Polyline positions={section.coordinates} color={section.color} dashArray={section.mode === 'walking' ? '5, 5' : null}
+                                />
                                 {section.coordinates[0] && section.duration > 1 && (
                                     <>
                                         {section.lineID && (
-                                            <Marker 
-                                                position={section.coordinates[0]} 
+                                            <Marker
+                                                position={section.coordinates[0]}
                                                 icon={L.icon({
                                                     iconUrl: process.env.PUBLIC_URL + `/images/${section.lineID.split(":").pop()}.svg`,
-                                                    iconSize: [25, ], // size of the icon
+                                                    iconSize: [25,], // size of the icon
                                                     iconAnchor: [10, 20], // point of the icon which will correspond to marker's location
                                                     popupAnchor: [0, -40] // point from which the popup should open relative to the iconAnchor
                                                 })}
@@ -103,13 +106,41 @@ function JourneyDetails({ journeyData }) {
                 const isWaitingTime = !section.from && !section.to && section.duration;
                 const color = section.color;
 
+                if (section.mode === 'walking' && section.duration === 0) {
+                    return null;
+                }
+
                 return (
-                    <div key={section.index} className="bg-white relative flex p-6">
-                        <div className="mr-4 w-20">
-                            <div style={{backgroundColor: color}} className="absolute top-16 w-1 h-full"></div>
-                            <div className="flex items-center mb-2">
-                                <img src={process.env.PUBLIC_URL + `/images/${convertTransportMode(section.mode)}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={convertTransportMode(section.mode)} className="h-5 lg:h-10 mr-1" />
-                                {section.lineID && <img src={process.env.PUBLIC_URL + `/images/${section.lineID.split(":").pop()}.svg`} alt={section.lineID.split(":").pop()} className="h-5 lg:h-10 mr-2 lg:mr-4" />}
+                    <div key={section.index} className="bg-white relative flex p-4">
+                        <div className="w-20">
+                            <div
+                                style={{
+                                    background: section.mode === 'walking' || section.mode === undefined
+                                        ? `linear-gradient(${color} 50%, transparent 50%)`
+                                        : color,
+                                    backgroundSize: '1px 10px',
+                                    transform: 'translateY(-12px)'
+                                }}
+                                className="absolute w-1 h-full ml-2 z-0"
+                            ></div>
+                            <div className="flex items-center mb-2 absolute">
+                                {section.mode !== undefined ? (
+                                    <img
+                                        src={process.env.PUBLIC_URL + `/images/${convertTransportMode(section.mode)}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`}
+                                        alt={convertTransportMode(section.mode)}
+                                        className="bg-white outline outline-4 outline-white h-5 lg:h-10 mr-1"                                    />
+                                ) : (
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 30" className="h-5 lg:h-10 mx-1">
+                                        <path fill="#fff" stroke="#000" stroke-width="2.5" d="M1.75 9a7.75 7.75 0 1 1 15.5 0v12a7.75 7.75 0 0 1-15.5 0V9Z"></path>
+                                    </svg>
+                                )}
+                                {section.lineID && (
+                                    <img
+                                        src={process.env.PUBLIC_URL + `/images/${section.lineID.split(":").pop()}.svg`}
+                                        alt={section.lineID.split(":").pop()}
+                                        className="h-5 lg:h-10 mr-2 lg:mr-4"
+                                    />
+                                )}
                             </div>
                         </div>
                         <div>
@@ -128,6 +159,25 @@ function JourneyDetails({ journeyData }) {
                                         <p>{section.to?.name}</p>
                                         <p>{section.arrival}</p>
                                     </div>
+                                    {section.mode !== 'walking' && section.mode !== undefined && (
+                                        <TrainInfo 
+                                            lineID={section.lineID.split(':').pop()} 
+                                            stationName={
+                                                (() => {
+                                                    try {
+                                                        let relation = relations.find(relation => relation.arrid === section.from.id.split(":").pop());
+                                                        if (!relation) {
+                                                            relation = relations.find(relation => relation.zdaid === section.from.id.split(":").pop());
+                                                        }
+                                                        return relation ? relation.zdcid : '';
+                                                    } catch (error) {
+                                                        console.error('Error accessing zdcid:', error);
+                                                        return '';
+                                                    }
+                                                })()
+                                            }
+                                        />
+                                    )}
                                     <p><strong>Duration:</strong> {section.duration} minutes</p>
                                 </>
                             )}

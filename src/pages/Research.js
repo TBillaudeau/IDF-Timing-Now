@@ -46,12 +46,12 @@ let maps = [
   },
   {
       id: 'Région',
-      name: 'Plan du réseau régional des transports',
+      name: 'Plan réseau régional',
       url: 'https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/REGION_GF.pdf'
   },
   {
       id: 'Noctilien',
-      name: 'Plan du réseau de Nuit (schématique)',
+      name: 'Plan réseau de Nuit',
       url: 'https://eu.ftp.opendatasoft.com/stif/PlansRegion/Plans/NOCTILIEN_MF.pdf'
   },
 ]

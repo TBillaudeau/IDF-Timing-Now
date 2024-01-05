@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLocation } from "react-router-dom";
 import { convertTransportMode } from '../utils/stringUtils';
 import JourneyDetails from "../components/JourneyDetails";
@@ -10,6 +10,7 @@ function Trip() {
 
     const [trainData, setTrainData] = useState([]);
     const [selectedJourney, setSelectedJourney] = useState(null);
+    const journeyDetailsRef = useRef(null);
 
     useEffect(() => {
         const fetchLineData = async () => {
@@ -25,6 +26,12 @@ function Trip() {
 
         fetchLineData();
     }, []);
+
+    useEffect(() => {
+        if (selectedJourney && journeyDetailsRef.current) {
+          journeyDetailsRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, [selectedJourney]);
 
     const handleJourneySelect = (journey) => {
         setSelectedJourney(journey);
@@ -53,8 +60,11 @@ function Trip() {
                         const departureTime = new Date(new Date(journey.departure_date_time.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, "$1-$2-$3T$4:$5:$6Z")).getTime() - 60 * 60 * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                         const arrivalTime = new Date(new Date(journey.arrival_date_time.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, "$1-$2-$3T$4:$5:$6Z")).getTime() - 60 * 60 * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                         return (
-                            <div key={index} className="flex flex-col mb-4 p-2 border rounded bg-white dark:bg-gray-800 dark:text-white cursor-pointer" onClick={() => handleJourneySelect(journey)}>
-                                <div className="flex overflow-x-auto py-2">
+                            <div 
+                            key={index} 
+                            className={`flex flex-col mb-4 p-2 border rounded bg-white dark:bg-gray-800 dark:text-white cursor-pointer ${selectedJourney === journey ? 'sticky top-0 z-50' : ''}`} 
+                            onClick={() => handleJourneySelect(journey)}
+                        >                                <div className="flex overflow-x-auto py-2">
                                     {journey.sections.map((section, idx) => (
                                         <React.Fragment key={idx}>
                                             <div className='flex items-center gap-1 shrink-0'>
@@ -89,12 +99,17 @@ function Trip() {
                             </div>
                         );
                     })}
+
+                    {selectedJourney && 
+                        <div ref={journeyDetailsRef}>
+                            <JourneyDetails journeyData={selectedJourney} />
+                        </div>
+                    }
                 </div>
             ) : (
                 <p>Loading journey details...</p>
             )}
 
-            {selectedJourney && <JourneyDetails journeyData={selectedJourney} />}
         </div>
     );
 }

@@ -45,7 +45,7 @@ export const LineLogoByLineID = ({ lineID }) => {
     };
 
     if (hasError) {
-        return <LineSVG lineID={lineID} className="h-6 lg:h-10 pl-1 lg:pl-0 mr-2 lg:mr-4" />;
+        return <LineSVG lineID={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" />;
     } else {
         return <img src={`${process.env.PUBLIC_URL}/images/${lineID}.svg`} alt={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" onError={handleError} />;
     }
