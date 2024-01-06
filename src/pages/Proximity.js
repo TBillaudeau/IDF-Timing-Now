@@ -104,7 +104,7 @@ const Location = () => {
                         {stopAreas.map((stopArea, index) => (
                             <>
                                 <h1 className="inline-block text-white bg-blue-900 p-2">{stopArea.name}</h1>
-                                <TrainInfo line={null} stationName={stopArea.id.split(':').pop()} />
+                                <TrainInfo key={stopArea.id} line={null} stationName={stopArea.id.split(':').pop()} />
                             </>
                         ))}
                     </div>

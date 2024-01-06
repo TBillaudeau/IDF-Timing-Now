@@ -198,11 +198,12 @@ function JourneyDetails({ journeyData }) {
                                             stationName={
                                                 (() => {
                                                     try {
-                                                        let relation = relations.find(relation => relation.arrid === section.from.id.split(":").pop());
+                                                        let relation = relations.find(relation => relation.fields.arrid === section.from.id.split(":").pop());
+                                                        console.log(relation);
                                                         if (!relation) {
-                                                            relation = relations.find(relation => relation.zdaid === section.from.id.split(":").pop());
+                                                            relation = relations.find(relation => relation.fields.zdaid === section.from.id.split(":").pop());
                                                         }
-                                                        return relation ? relation.zdcid : '';
+                                                        return relation ? relation.fields.zdcid : '';
                                                     } catch (error) {
                                                         console.error('Error accessing zdcid:', error);
                                                         return '';
