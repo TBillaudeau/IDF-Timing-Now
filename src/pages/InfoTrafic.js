@@ -39,7 +39,7 @@ function InfoTrafic() {
         <SearchBar />
       </div> */}
       <div className="bg-white dark:text-white dark:bg-gray-800 p-4 lg:p-6">
-      <h1 className="text-2xl font-bold pb-4 lg:pb-6">Information trafic</h1>
+        <h1 className="text-2xl font-bold pb-4 lg:pb-6">Information trafic</h1>
         {Object.entries(lineTypes).map(([lineType, lineIds]) => (
           <div key={lineType} className="flex flex-row p-1 xl:p-2">
             <>
@@ -65,7 +65,9 @@ function InfoTrafic() {
                         </svg>
                       </div>
                     ) : (
-                      <LineLogoByLineID lineID={lineId.split(':').pop()} className={`h-10 xl:h-12 m-[3px] p-1 border-4 rounded-md ${disruptedLine && disruptedLine.disrupted ? `${disruptedLines.find(line => line.lineId === lineId)?.disruption.severity === 'BLOQUANTE' ? 'outline-red-600' : 'outline-amber-500'} outline outline-4 outline-offset-[-4px] cursor-pointer` : 'outline-green-600 outline outline-2 outline-offset-[-2px] border-[#00000000]'}`} />
+                      <div onClick={() => handleLineClick(lineId)}>
+                        <LineLogoByLineID lineID={lineId.split(':').pop()} className={`h-10 xl:h-12 m-[3px] p-1 border-4 rounded-md cursor-pointer ${disruptedLine && disruptedLine.disrupted ? `${disruptedLines.find(line => line.lineId === lineId)?.disruption.severity === 'BLOQUANTE' ? 'outline-red-600' : 'outline-amber-500'} outline outline-4 outline-offset-[-4px]` : 'outline-green-600 outline outline-2 outline-offset-[-2px] border-[#00000000]'}`} />
+                      </div>
                     )}
                   </>
                 );
@@ -75,10 +77,10 @@ function InfoTrafic() {
         ))}
       </div>
       <div className="hidden lg:block">
-        <Research/>
+        <Research />
       </div>
       {selectedDisruption && selectedDisruption.disruption && (
-          <DisruptionInfo selectedDisruption={selectedDisruption} />
+        <DisruptionInfo selectedDisruption={selectedDisruption} />
       )}
       {/* <div className="xl:col-span-2">
         <Banner />

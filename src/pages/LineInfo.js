@@ -5,6 +5,7 @@ import SearchBar from '../components/SearchBar2';
 import PDFAsImg from '../components/tools/displayPDF';
 import TwitterTimeline from '../components/shared/TwitterTimeline';
 import HashLoader from "react-spinners/HashLoader";
+import { LineLogoByLineID } from '../utils/dataHelpers';
 
 function LineInfo() {
   const { lineID } = useParams();
@@ -51,7 +52,7 @@ function LineInfo() {
     <div key={item.id} className="mb-4 border border-gray-300 p-4 rounded-lg">
       <div className="cursor-pointer flex justify-between items-center" onClick={() => handleExpandItem(item.id)}>
         <div className="flex items-center">
-          <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={lineID} className="h-5 mr-2" />
+          <LineLogoByLineID lineID={lineID} className="h-5 mr-2" />
           <p className="text-sm font-semibold">{item.title}</p>
         </div>
         {(activeTab === 'current' || expandedItemId === item.id) ? <ArrowUp /> : <ArrowDown />}
@@ -74,7 +75,7 @@ function LineInfo() {
       </div>
 
       <div className="">
-        <div className="bg-purple-800 p-4 xl:p-6 flex flex-col w-full">
+        <div className="bg-purple-900 p-4 xl:p-6 flex flex-col w-full">
           {lineData ? (
             <div className="flex items-center text-white">
               <svg class="w-5 h-5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">

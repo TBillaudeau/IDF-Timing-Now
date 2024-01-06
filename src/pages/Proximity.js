@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import TrainInfo from '../components/Timing2';
+import TrainInfo from '../components/Timing4';
 import tracesDuReseauFerre from '../data/traces-du-reseau-ferre-idf.json';
 import { GeoJSON } from 'react-leaflet';
 import arretsLignes from '../data/arrets-lignes.json';
@@ -30,6 +30,7 @@ const Location = () => {
                         }
                     });
                     const data = await response.json();
+                    console.log(data);
                     setStopAreas(data.stop_areas);
                 };
                 fetchData();
@@ -87,15 +88,26 @@ const Location = () => {
                     <RecenterControl />
                     <MiddleMarker />
                     {tracesDuReseauFerre.map((line, index) => (
-                        <GeoJSON key={index} data={line.geo_shape.geometry} style={{ color: '#' + line.colourweb_hexa }} />
+                        line.fields && line.fields.geo_shape && line.fields.geo_shape.coordinates ? (
+                            <GeoJSON key={index} data={{
+                                type: "LineString",
+                                coordinates: line.fields.geo_shape.coordinates
+                            }} style={{ color: '#' + line.fields.colourweb_hexa }} />
+                        ) : null
                     ))}
+
                 </MapContainer>
             )}
             {stopAreas && (
                 <div className="h-[60%] overflow-y-scroll">
-                    {stopAreas.map((stopArea, index) => (
-                        <TrainInfo line={null} stationName={stopArea.id.split(':').pop()} />
-                    ))}
+                    <div className="space-y-4 border">
+                        {stopAreas.map((stopArea, index) => (
+                            <>
+                                <h1 className="inline-block text-white bg-blue-900 p-2">{stopArea.name}</h1>
+                                <TrainInfo line={null} stationName={stopArea.id.split(':').pop()} />
+                            </>
+                        ))}
+                    </div>
                 </div>
             )}
         </div>

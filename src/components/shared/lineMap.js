@@ -125,7 +125,7 @@ function LineMap({ lineID, stationName }) {
 
                     {createMarkers(trainData)}
 
-                    {tracesDuReseauFerre.some(line => line.idrefligc === lineID) ? (
+                    {/* {tracesDuReseauFerre.some(line => line.idrefligc === lineID) ? (
                         tracesDuReseauFerre.filter(line => line.idrefligc === lineID).map((line, index) => (
                             <GeoJSON key={index} data={line.geo_shape.geometry} style={{ color: '#' + line.colourweb_hexa }} />
                         ))
@@ -133,7 +133,7 @@ function LineMap({ lineID, stationName }) {
                         tracesDesLignes.filter(line => line.route_id.split(':').pop() === lineID).map((line, index) => (
                             <GeoJSON key={index} data={line.shape.geometry} style={{ color: '#' + line.route_color }} />
                         ))
-                    )}
+                    )} */}
                 </MapContainer>
             )}
         </div>

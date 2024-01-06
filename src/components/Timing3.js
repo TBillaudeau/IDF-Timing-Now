@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { getLineColorByLineID, LineLogoByLineID, getTransportByLineID } from '../utils/dataHelpers';
+import { removeGareDePrefix } from '../utils/stringUtils';
+import { set } from 'date-fns';
+import relations from '../data/relations.json';
+import zonesDarrets from '../data/zones-d-arrets.json';
+import referentielDesLignes from '../data/referentiel-des-lignes.json';
 import LineSVG from './tools/createLineLogo';
-
+import { getLineColorByLineID } from '../utils/dataHelpers';
 
 function TrainInfo({ lineID, stationName }) {
 
   // Fetch train departure every 2 seconds
   const [trainData, setTrainData] = useState([]);
   const [status, setStatus] = useState('');
-  const [activeTab, setActiveTab] = useState('current');
-  const [selectedLogo, setSelectedLogo] = useState(null);
 
   const calculateMinutesFromNow = (time) => {
-    return Math.floor((new Date(time) - new Date()) / 60000);
+    return Math.round((new Date(time) - new Date()) / 60000);
   };
 
   const url = `https://prim.iledefrance-mobilites.fr/marketplace/stop-monitoring?MonitoringRef=STIF:StopArea:SP:${stationName}:`;
@@ -24,37 +26,34 @@ function TrainInfo({ lineID, stationName }) {
           'apikey': process.env.REACT_APP_IDFM_API_KEY
         }
       })
-      .then(response => response.status === 404 ? null : response.json())
-      .then(data => {
-        const departures = data?.Siri?.ServiceDelivery?.StopMonitoringDelivery[0]?.MonitoredStopVisit?.map(journey => ({
-          lineRef: journey?.MonitoredVehicleJourney?.LineRef?.value,
-          operatorRef: journey?.MonitoredVehicleJourney?.OperatorRef?.value,
-          stopPointName: journey?.MonitoredVehicleJourney?.MonitoredCall?.StopPointName[0]?.value,
-          directionName: journey?.MonitoredVehicleJourney?.DirectionName[0]?.value,
-          destinationName: journey?.MonitoredVehicleJourney?.DestinationName[0]?.value,
-          vehicleJourneyName: journey?.MonitoredVehicleJourney?.JourneyNote[0]?.value,
-          expectedArrivalTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime,
-          aimedArrival: journey?.MonitoredVehicleJourney?.MonitoredCall?.AimedArrival,
-          expectedDepartureTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime,
-          aimedDepartureTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.aimedDepartureTime,
-          arrivalStatus: journey?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalStatus,
-          departureStatus: journey?.MonitoredVehicleJourney?.MonitoredCall?.DepartureStatus,
-          vehicleAtStop: journey?.MonitoredVehicleJourney?.MonitoredCall?.VehicleAtStop,
-          arrivalPlatform: journey?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalPlatformName?.value,
-          trainNumber: journey?.MonitoredVehicleJourney?.TrainNumber?.TrainNumberRef[0]?.value,
-          minutesFromNow: calculateMinutesFromNow(journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime || journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime),
-        }));
+        .then(response => response.status === 404 ? null : response.json())
+        .then(data => {
+          const departures = data?.Siri?.ServiceDelivery?.StopMonitoringDelivery[0]?.MonitoredStopVisit?.map(journey => ({
+            lineRef: journey?.MonitoredVehicleJourney?.LineRef?.value,
+            operatorRef: journey?.MonitoredVehicleJourney?.OperatorRef?.value,
+            directionName: journey?.MonitoredVehicleJourney?.DirectionName[0]?.value,
+            destinationName: journey?.MonitoredVehicleJourney?.DestinationName[0]?.value,
+            vehicleJourneyName: journey?.MonitoredVehicleJourney?.VehicleJourneyName[0]?.value,
+            expectedArrivalTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime,
+            aimedArrival: journey?.MonitoredVehicleJourney?.MonitoredCall?.AimedArrival,
+            expectedDepartureTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime,
+            aimedDepartureTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.aimedDepartureTime,
+            arrivalStatus: journey?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalStatus,
+            departureStatus: journey?.MonitoredVehicleJourney?.MonitoredCall?.DepartureStatus,
+            vehicleAtStop: journey?.MonitoredVehicleJourney?.MonitoredCall?.VehicleAtStop,
+            minutesFromNow: calculateMinutesFromNow(journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime || journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime),
+          }));
 
-        setData(departures.sort((a, b) => a.minutesFromNow - b.minutesFromNow));
-      })
-      .catch(error => console.error(error));
+          setData(departures.sort((a, b) => a.minutesFromNow - b.minutesFromNow));
+          setStatus(data.nextDepartures.errorMessage);
+        })
+        .catch(error => console.error(error));
     };
 
     fetchData(url, setTrainData, setStatus);
     const intervalId = setInterval(() => fetchData(url, setTrainData, setStatus), 2000);
     return () => clearInterval(intervalId);
   }, [stationName]);
-
 
 
   if (status === 'NO_REALTIME_SCHEDULES_FOUND') {
@@ -86,74 +85,56 @@ function TrainInfo({ lineID, stationName }) {
     );
   }
 
-  const TabButton = ({ value, children }) => (
-    <button
-      className={`p-2 text-xs font-medium rounded-lg ${activeTab === value ? 'bg-violet-100 text-violet-700 dark:text-violet-700' : 'hover:bg-slate-200 dark:hover:bg-slate-700'}`}
-      onClick={() => setActiveTab(value)}
-    >
-      {children}
-    </button>
-  );
+  // Group train departures by lineID and then by lineDirection
+  const groupedTrainData = trainData.reduce((acc, train) => {
+    const lineID = train.lineRef.replace(/:$/, '').split(':').pop();
+    const lineDirection = removeGareDePrefix(train.lineDirection);
 
-  const groupedData = trainData.reduce((acc, train) => {
-    const lineRef = train.lineRef;
-    const direction = train.DirectionName || train.DestinationName;
-
-    if (!acc[lineRef]) {
-      acc[lineRef] = {};
+    if (!acc[lineID]) {
+      acc[lineID] = {};
     }
 
-    if (!acc[lineRef][direction]) {
-      acc[lineRef][direction] = [];
+    if (!acc[lineID][lineDirection]) {
+      acc[lineID][lineDirection] = [];
     }
 
-    acc[lineRef][direction].push(train);
-
+    acc[lineID][lineDirection].push(train);
     return acc;
   }, {});
 
-
-  // Display train departures grouped by line direction
+  // Display train departures grouped by lineID and lineDirection
   return (
     <div className="">
-        {/* <div className="grid grid-cols-4 gap-1 mx-auto p-1 rounded-lg border border-gray-300 w-full" role="group">
-          {[...new Set(trainData.map(train => train.lineRef))].map((lineRef, index) => (
-            <TabButton key={index} value={lineRef}> 
-              <img src={process.env.PUBLIC_URL + `/images/${getTransportByLineID(lineRef.replace(/:$/, '').split(':').pop())}.svg`} alt={lineRef.replace(/:$/, '').split(':').pop()} className="h-5 lg:h-10 mr-1" />
-              <img src={process.env.PUBLIC_URL + `/images/${lineRef.replace(/:$/, '').split(':').pop()}.svg`} alt={lineRef.replace(/:$/, '').split(':').pop()} className="h-5 lg:h-10 mr-2 lg:mr-4" />
-                  
-            </TabButton>
-          ))}
-        </div> */}
-        
-      {Object.entries(groupedData).map(([lineRef, directions]) => (
-        <div key={lineRef}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <img src={process.env.PUBLIC_URL + `/images/${getTransportByLineID(lineRef.split("::").pop().split(":")[0])}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportByLineID(lineRef.split("::").pop().split(":")[0])} className="h-5 lg:h-10 mr-1" />
-            <LineLogoByLineID lineID={lineRef.split("::").pop().split(":")[0]} />
-          </div>
-          {Object.entries(directions).map(([direction, trains]) => (
-            <div key={direction}>
-              <h3>{direction}</h3>
+      {Object.entries(groupedTrainData).map(([lineID, lineDirectionData]) => (
+        <div key={lineID}>
+          <h2 className="text-lg font-bold mb-2">{lineID}</h2>
+          {Object.entries(lineDirectionData).map(([lineDirection, trains]) => (
+            <div key={lineDirection}>
+              <h3 className="text-md font-bold mb-2">{lineDirection}</h3>
               {trains.map((train, index) => (
-                <div 
-                  key={index} 
-                  className="flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-700 min-h-[44px] max-h-[72px] p-1 lg:p-4 relative" 
-                  style={{borderBottom: `4px solid #${getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop())}`}} // Replace lineColor with your desired color
+                <div
+                  key={index}
+                  className="flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-700 min-h-[44px] max-h-[72px] p-1 lg:p-4 relative"
+                  style={{ borderBottom: `4px solid #${getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop())}` }} // Replace lineColor with your desired color
                 >
                   <div className='shrink-0'>
+                    {/* <img 
+              src={process.env.PUBLIC_URL + `/images/${train.lineRef.replace(/:$/, '').split(':').pop()}.svg`} 
+              alt={train.lineRef.replace(/:$/, '').split(':').pop()} 
+              className="h-4 lg:h-10 pl-1 lg:pl-0 mr-2 lg:mr-4" 
+            /> */}
                     <LineSVG lineID={train.lineRef.replace(/:$/, '').split(':').pop()} className="h-6 lg:h-10 pl-1 lg:pl-0 mr-2 lg:mr-4" />
                     <h3 className='text-[8px] lg:text-xs justify-center flex mx-auto mt-0.5 pl-0.5 lg:pl-0'>{train.vehicleJourneyName}</h3>
                   </div>
                   <div className="flex-grow overflow-hidden">
-                    <h2 className='font-bold text-[11px] lg:text-lg line-clamp-2 ml-2 lg:ml-4'>{train.destinationName} - {train.aimedArrival} - {train.aimedDepartureTime} - {train.arrivalPlatform}</h2>
+                    <h2 className='font-bold text-[11px] lg:text-lg line-clamp-2 ml-2 lg:ml-4'>{train.destinationName} - {train.aimedArrival} - {train.vehicleAtStop}</h2>
                   </div>
                   <div className="ml-1 lg:ml-5 pr-2 text-right">
-                    <p className="text-sm lg:text-2xl font-bold">{train.vehicleAtStop ? "At Stop" : "In Transit"} {train.departureStatus} {train.arrivalStatus} {train.minutesFromNow}ᵐⁱⁿ</p>
+                    <p className="text-sm lg:text-2xl font-bold">{train.departureStatus} {train.minutesFromNow}ᵐⁱⁿ</p>
                     <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">Arrival: {new Date(train.expectedArrivalTime).toLocaleTimeString()}</p>
                     <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">Departure: {new Date(train.expectedDepartureTime).toLocaleTimeString()}</p>
                   </div>
-                  <div 
+                  <div
                     className="absolute top-0 right-0 bottom-0 left-0 lg:left-0 bg-gradient-to-r from-transparent to-white dark:to-gray-700"
                     style={{
                       backgroundImage: `linear-gradient(to right, transparent, rgba(${parseInt(getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop()).slice(0, 2), 16)}, ${parseInt(getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop()).slice(2, 4), 16)}, ${parseInt(getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop()).slice(4, 6), 16)}, 0.1))`
