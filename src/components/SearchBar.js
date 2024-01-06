@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { convertTransportMode } from '../utils/stringUtils';
+import { LineLogoByLineID } from "../utils/dataHelpers";
 
-const SearchBar = ({ placeholder, type = '', onSelectionChange }) => {
+const SearchBar = ({ label, placeholder, type = '', onSelectionChange }) => {
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState([]);
 
@@ -53,7 +54,6 @@ const SearchBar = ({ placeholder, type = '', onSelectionChange }) => {
     return () => clearTimeout(timeoutId);
   }, [inputValue]);
 
-
   const formatOptionLabel = (option) => (
     <div>
       {option.label}
@@ -80,12 +80,7 @@ const SearchBar = ({ placeholder, type = '', onSelectionChange }) => {
                 className="h-5 lg:h-10 mr-1"
               />
               {mode !== 'BUS' && lines.map(line => (
-                <img
-                  key={line.id}
-                  src={`${process.env.PUBLIC_URL}/images/${line.id.split(":").pop()}.svg`}
-                  alt={`${line.id} (${line.mode})`}
-                  className="h-5 lg:h-10 mr-2 lg:mr-4"
-                />
+                <LineLogoByLineID lineID={line.id.split(":").pop()} className="h-5 lg:h-10 mr-2 lg:mr-4" />
               ))}
             </div>
           ))}
@@ -93,6 +88,11 @@ const SearchBar = ({ placeholder, type = '', onSelectionChange }) => {
     </div>
   );
 
+  // const Control = ({ children, ...props }) => (
+  //   <components.Control {...props} className='text-sm'>
+  //   {label ? <span className="pl-2 font-bold text-sm text-purple-800">{label}</span> : null} {children}
+  //   </components.Control>
+  // );
 
   return (
     <div className="flex items-center w-full">
@@ -104,6 +104,7 @@ const SearchBar = ({ placeholder, type = '', onSelectionChange }) => {
         formatOptionLabel={formatOptionLabel}
         placeholder={placeholder}
         className="flex-1 cursor-pointer"
+        // components={{ Control }}
       />
     </div>
   );

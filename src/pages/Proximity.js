@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import TrainInfo from '../components/Timing4';
+import TrainInfo from '../components/Timing2';
 import tracesDuReseauFerre from '../data/traces-du-reseau-ferre-idf.json';
 import { GeoJSON } from 'react-leaflet';
 import arretsLignes from '../data/arrets-lignes.json';
@@ -30,7 +30,6 @@ const Location = () => {
                         }
                     });
                     const data = await response.json();
-                    console.log(data.stop_areas);
                     setStopAreas(data.stop_areas);
                 };
                 fetchData();

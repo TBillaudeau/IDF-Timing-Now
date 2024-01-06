@@ -85,7 +85,7 @@ function TrainInfo({ lineID, stationName }) {
         <div key={lineRef}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <img src={process.env.PUBLIC_URL + `/images/${getTransportByLineID(lineRef.split("::").pop().split(":")[0])}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportByLineID(lineRef.split("::").pop().split(":")[0])} className="h-5 lg:h-10 mr-1" />
-            <LineLogoByLineID lineID={lineRef.split("::").pop().split(":")[0]} />
+            <LineLogoByLineID lineID={lineRef.split("::").pop().split(":")[0]} className="h-5 lg:h-10"/>
           </div>
           {Object.entries(destinations).sort(([a], [b]) => a.localeCompare(b)).map(([destination, trains]) => (
             <div key={destination} className="flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-700 min-h-[44px] max-h-[72px] p-1 lg:p-4">

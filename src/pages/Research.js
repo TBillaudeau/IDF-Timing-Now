@@ -92,16 +92,30 @@ function Research() {
   })) || [];
 
   return (
-    <div className="grid grid-cols-1 gap-2 my-2 lg:m-0">
+    <div className="grid grid-cols-1 gap-2 lg:m-0">
       <div className="bg-white dark:bg-gray-800 p-4 lg:p-6 grid gap-4">
         <h1 className="text-xl font-bold dark:text-white">Recherche station</h1>
         <SearchBar placeholder="Gare, station, arrêt" type="stop_area" onSelectionChange={setStation} />
       </div>
 
-      <div className="bg-purple-800 p-4 lg:p-6 grid gap-4">
+      <div className="bg-purple-800 p-4 lg:p-6 grid gap-2">
         <h1 className="text-xl font-bold text-white">Recherche itinéraire</h1>
-        <SearchBar placeholder="Partir de..." type="" onSelectionChange={setFromStation} />
-        <SearchBar placeholder="Aller à..." type="" onSelectionChange={setToStation} />
+        <SearchBar label="Départ" placeholder="Partir de..." type="" onSelectionChange={setFromStation} />
+        <SearchBar label="Arrivée" placeholder="Aller à..." type="" onSelectionChange={setToStation} />
+      </div>
+
+      <div className="bg-white dark:text-white dark:bg-gray-800 p-4 lg:p-6">
+        <select 
+        onChange={(e) => window.open(e.target.value, "_blank")}
+        className="bg-gray-50 border border-gray-300 text-gray-900 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option value="">Plan du réseau en Île-de-France</option>
+          {maps.map((map, index) => (
+            <option key={index} value={map.url}>
+              {map.name}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="bg-white dark:bg-gray-800 p-4 lg:p-6 grid gap-4">
@@ -110,19 +124,6 @@ function Research() {
         {selectedLineType && (
           <LineOptionsSelector selectedLine={selectedLineID} onSelect={handleLineSelect} lines={lineOptions} />
         )}
-      </div>
-
-      <div className="bg-white dark:text-white dark:bg-gray-800 p-4 lg:p-6">
-        <h1 className="text-xl font-bold mb-4 lg:pb-6">Plan du réseau en Île-de-France</h1>
-        {maps.map((map, index) => (
-          <div key={index} className="mb-4">
-            <h2 className="font-bold border-1 mr-4">
-              <a href={map.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-300 hover:underline">
-                🗺 {map.name}
-              </a>
-            </h2>
-          </div>
-        ))}
       </div>
 
     </div>

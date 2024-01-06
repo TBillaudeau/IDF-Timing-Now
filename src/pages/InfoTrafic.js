@@ -4,6 +4,7 @@ import { lineTypes, checkDisruptions } from '../components/Trafic'
 import Banner from "../components/banner";
 import Research from "./Research";
 import { useNavigate } from 'react-router-dom';
+import { LineLogoByLineID } from '../utils/dataHelpers';
 
 function InfoTrafic() {
   const [disruptedLines, setDisruptedLines] = useState([]);
@@ -33,7 +34,7 @@ function InfoTrafic() {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 my-2 sm:m-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 sm:m-6">
       {/* <div className="xl:col-span-2">
         <SearchBar />
       </div> */}
@@ -64,13 +65,7 @@ function InfoTrafic() {
                         </svg>
                       </div>
                     ) : (
-                      <img
-                        key={lineId}
-                        src={process.env.PUBLIC_URL + `/images/${lineId.split(':').pop()}.svg`}
-                        alt={lineId}
-                        onClick={() => handleLineClick(lineId)}
-                        className={`h-10 xl:h-12 m-[3px] p-1 border-4 rounded-md ${disruptedLine && disruptedLine.disrupted ? `${disruptedLines.find(line => line.lineId === lineId)?.disruption.severity === 'BLOQUANTE' ? 'outline-red-600' : 'outline-amber-500'} outline outline-4 outline-offset-[-4px] cursor-pointer` : 'outline-green-600 outline outline-2 outline-offset-[-2px] border-[#00000000]'}`}
-                      />
+                      <LineLogoByLineID lineID={lineId.split(':').pop()} className={`h-10 xl:h-12 m-[3px] p-1 border-4 rounded-md ${disruptedLine && disruptedLine.disrupted ? `${disruptedLines.find(line => line.lineId === lineId)?.disruption.severity === 'BLOQUANTE' ? 'outline-red-600' : 'outline-amber-500'} outline outline-4 outline-offset-[-4px] cursor-pointer` : 'outline-green-600 outline outline-2 outline-offset-[-2px] border-[#00000000]'}`} />
                     )}
                   </>
                 );

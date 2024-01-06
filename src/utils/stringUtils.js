@@ -27,6 +27,8 @@ export const convertTransportMode = (mode) => {
             return 'TRAM';
         case 'walking':
             return 'WALKING';
+        case 'TER':
+            return 'TRAIN';
         default:
             return mode;
     }

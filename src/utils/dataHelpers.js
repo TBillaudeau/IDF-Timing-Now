@@ -37,7 +37,7 @@ export const getTransportByLineID = (lineID) => {
 };
 
 // Function to get the line logo
-export const LineLogoByLineID = ({ lineID }) => {
+export const LineLogoByLineID = ({ lineID, className }) => {
     const [hasError, setHasError] = React.useState(false);
 
     const handleError = () => {
@@ -45,9 +45,9 @@ export const LineLogoByLineID = ({ lineID }) => {
     };
 
     if (hasError) {
-        return <LineSVG lineID={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" />;
+        return <LineSVG lineID={lineID} className={className} />;
     } else {
-        return <img src={`${process.env.PUBLIC_URL}/images/${lineID}.svg`} alt={lineID} className="h-5 lg:h-10 mr-2 lg:mr-4" onError={handleError} />;
+        return <img src={`${process.env.PUBLIC_URL}/images/${lineID}.svg`} alt={lineID} className={className} onError={handleError} />;
     }
 };
 

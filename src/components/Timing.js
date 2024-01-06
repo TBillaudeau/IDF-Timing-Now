@@ -5,6 +5,7 @@ import { lineTypes } from '../components/Trafic';
 import relations from '../data/relations.json';
 import zonesDarrets from '../data/zones-d-arrets.json';
 import referentielDesLignes from '../data/referentiel-des-lignes.json';
+import { LineLogoByLineID } from '../utils/dataHelpers';
 
 function TrainInfo({ lineID, stationName }) {
   const stationID = stationName;
@@ -177,7 +178,7 @@ function TrainInfo({ lineID, stationName }) {
               style={{borderBottom: `2px solid #${lineColor}`}}
             >
               <div className='shrink-0'>
-                <img src={process.env.PUBLIC_URL + `/images/${lineID}.svg`} alt={train.shortName} className="h-4 lg:h-10 pl-1 lg:pl-0" />
+                <LineLogoByLineID lineID={lineID} className="h-4 lg:h-10 pl-1 lg:pl-0" />
                 <h3 className='text-[8px] lg:text-xs justify-center flex mx-auto mt-0.5 pl-0.5 lg:pl-0'>{removeGareDePrefix(train.vehicleName)}</h3>
               </div>
               <div className="flex-grow overflow-hidden">
