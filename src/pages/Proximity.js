@@ -82,7 +82,7 @@ const Location = () => {
     return (
         <div style={{ height: 'calc(100vh - 130px)' }}>
             {initialPosition && (
-                <MapContainer className="h-[40%]" whenCreated={setMapInstance => { mapRef.current = setMapInstance; }} center={initialPosition} zoom={13} attributionControl={false}>
+                <MapContainer className="h-[40%]" whenCreated={setMapInstance => { mapRef.current = setMapInstance; }} center={initialPosition} zoom={13} attributionControl={false} zoomControl={false}>
                     <TileLayer url={`https://{s}.tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=${process.env.REACT_APP_JAWG_API_KEY}`} />
                     <CenterMarker />
                     <RecenterControl />

@@ -85,14 +85,14 @@ function TrainInfo({ lineID, stationName }) {
         <div key={lineRef}>
 
           {Object.entries(destinations).sort(([a], [b]) => a.localeCompare(b)).map(([destination, trains]) => (
-            
-            <div key={destination} className="flex flex-col justify-start gap-4 bg-white border-gray-400 dark:text-white dark:bg-gray-700 min-h-[44px] max-h-[72px] p-1 lg:p-4">      
-                    <div className="ml-2 lg:ml-4 text-sm lg:text-base flex flex-row">
+
+            <div key={destination} className="flex flex-col justify-start gap-4 bg-white border-gray-400 dark:text-white dark:bg-gray-700 min-h-[44px] max-h-[72px] p-1 lg:p-4">
+              <div className="ml-2 lg:ml-4 text-sm lg:text-base flex flex-row">
                 <img src={process.env.PUBLIC_URL + `/images/${getTransportByLineID(lineRef.split("::").pop().split(":")[0])}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportByLineID(lineRef.split("::").pop().split(":")[0])} className="h-5 lg:h-10 mr-1" />
-            <LineLogoByLineID lineID={lineRef.split("::").pop().split(":")[0]} className="h-5 lg:h-10" />
-          
-              <p className='ml-2'>{destination}</p>
-            </div>
+                <LineLogoByLineID lineID={lineRef.split("::").pop().split(":")[0]} className="h-5 lg:h-10" />
+
+                <p className='ml-2'>{destination}</p>
+              </div>
               <div className="space-x-2">
                 {trains.map((train, index) => (
                   <>

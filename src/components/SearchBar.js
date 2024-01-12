@@ -49,7 +49,7 @@ const SearchBar = ({ label, placeholder, type = '', onSelectionChange }) => {
           })
           .catch((error) => console.error(error));
       }
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timeoutId);
   }, [inputValue]);
