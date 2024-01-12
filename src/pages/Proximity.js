@@ -24,7 +24,7 @@ const Location = () => {
         useEffect(() => {
             if (position) {
                 const fetchData = async () => {
-                    const response = await fetch(`https://prim.iledefrance-mobilites.fr/marketplace/navitia/coverage/fr-idf/coord/${position.lng};${position.lat}/stop_areas?distance=400`, {
+                    const response = await fetch(`https://prim.iledefrance-mobilites.fr/marketplace/v2/navitia/coord/${position.lng};${position.lat}/stop_areas?distance=400`, {
                         headers: {
                             'apikey': process.env.REACT_APP_IDFM_API_KEY
                         }
@@ -100,14 +100,13 @@ const Location = () => {
             )}
             {stopAreas && (
                 <div className="h-[60%] overflow-y-scroll">
-                    <div className="space-y-4 border">
-                        {stopAreas.map((stopArea, index) => (
-                            <>
-                                <h1 className="inline-block text-white bg-blue-900 p-2">{stopArea.name}</h1>
-                                <TrainInfo key={stopArea.id} line={null} stationName={stopArea.id.split(':').pop()} />
-                            </>
-                        ))}
-                    </div>
+
+                    {stopAreas.map((stopArea, index) => (
+                        <div className="mx-2 my-4">
+                            <h1 className="text-white bg-slate-800 w-full rounded-t-lg p-2">{stopArea.name}</h1>
+                            <TrainInfo key={stopArea.id} line={null} stationName={stopArea.id.split(':').pop()} />
+                        </div>
+                    ))}
                 </div>
             )}
         </div>

@@ -38,7 +38,7 @@ function TrainInfo({ lineID, stationName }) {
             expectedArrivalTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime,
             aimedArrival: journey?.MonitoredVehicleJourney?.MonitoredCall?.AimedArrival,
             expectedDepartureTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime,
-            aimedDepartureTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.aimedDepartureTime,
+            aimedArrivalTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.AimedArrivalTime,
             arrivalStatus: journey?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalStatus,
             departureStatus: journey?.MonitoredVehicleJourney?.MonitoredCall?.DepartureStatus,
             vehicleAtStop: journey?.MonitoredVehicleJourney?.MonitoredCall?.VehicleAtStop,
@@ -99,11 +99,11 @@ function TrainInfo({ lineID, stationName }) {
 
   // Display train departures grouped by line direction
   return (
-    <div className="">
+    <div className="space-y-2 m-2">
       {trainData.map((train, index) => (
         <div
           key={index}
-          className='flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-700 min-h-[44px] max-h-[72px] p-2 lg:p-3 relative'
+          className='flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-700 h-14 lg:h-20 p-2 lg:p-3 relative'
           style={{ borderBottom: `4px solid #${getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop())}` }} // Replace lineColor with your desired color
         >
           <div className="text-sm lg:text-base flex flex-row">
@@ -120,7 +120,7 @@ function TrainInfo({ lineID, stationName }) {
             </h2>
           </div>
           {((train.ArrivalStatus !== 'onTime' || train.departureStatus !== 'onTime') || (train.expectedArrivalTime && !train.expectedDepartureTime)) && 
-            <div className={`px-2 py-1 rounded-full text-xs lg:text-base text-white ${train.ArrivalStatus === 'delayed' || train.departureStatus === 'delayed' ? 'bg-red-500' : 'bg-gray-500'}`}>
+            <div className={`px-2 py-1 rounded-full text-xs lg:text-base text-white`}>
               {train.expectedArrivalTime && !train.expectedDepartureTime ? ' (Terminus)' : ''}
               {train.ArrivalStatus !== 'onTime' ? train.ArrivalStatus : ''} {train.departureStatus !== 'onTime' ? train.departureStatus : ''}
             </div>
@@ -131,9 +131,13 @@ function TrainInfo({ lineID, stationName }) {
           <div className="ml-1 lg:ml-5 pr-2 text-right">
             <p className={`text-sm lg:text-2xl font-bold ${train.expectedArrivalTime && !train.expectedDepartureTime ? 'text-gray-500' : ''}`}>{train.vehicleAtStop ? 'à quai' : train.minutesFromNow + 'ᵐⁱⁿ'}</p>
             <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">
-              {train.expectedArrivalTime ?
-                `${new Date(train.expectedArrivalTime).toLocaleTimeString()}` :
-                `Départ | ${new Date(train.expectedDepartureTime).toLocaleTimeString()}`
+              {
+                train.expectedArrivalTime ?
+                  `${new Date(train.expectedArrivalTime).toLocaleTimeString()}` :
+                  (train.expectedDepartureTime ?
+                    `${new Date(train.expectedDepartureTime).toLocaleTimeString()}` :
+                    `Prévu | ${new Date(train.aimedArrivalTime).toLocaleTimeString()}`
+                  )
               }
             </p>
           </div>

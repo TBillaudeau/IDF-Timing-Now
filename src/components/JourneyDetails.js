@@ -45,6 +45,7 @@ function JourneyDetails({ journeyData }) {
             terminus: section.display_informations?.direction || 'Unknown',
             mode: section.display_informations?.commercial_mode || section.mode,
             stop_date_times: section.stop_date_times ? section.stop_date_times.slice(1, -1) : [],
+            best_boarding_positions: section.best_boarding_positions,
             departure: new Date(section.departure_date_time.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, "$1-$2-$3T$4:$5:$6")).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             arrival: new Date(section.arrival_date_time.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, "$1-$2-$3T$4:$5:$6")).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             duration: Math.floor(section.duration / 60),
@@ -100,6 +101,7 @@ function JourneyDetails({ journeyData }) {
                         ]}
                         zoom={zoom}
                         attributionControl={false}
+                        zoomControl={false}
                     >
                         <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
                         <RecenterControl />
@@ -114,11 +116,11 @@ function JourneyDetails({ journeyData }) {
                                             <Marker
                                                 position={section.coordinates[0]}
                                                 icon={L.divIcon({
-                                                  className: 'my-div-icon',
-                                                  html: ReactDOMServer.renderToString(<LineLogoByLineID lineID={section.lineID.split(":").pop()} className="h-5" />),
-                                                  iconSize: [25,], // size of the icon
-                                                  iconAnchor: [10, 20], // point of the icon which will correspond to marker's location
-                                                  popupAnchor: [0, -40] // point from which the popup should open relative to the iconAnchor
+                                                    className: 'my-div-icon',
+                                                    html: ReactDOMServer.renderToString(<LineLogoByLineID lineID={section.lineID.split(":").pop()} className="h-5" />),
+                                                    iconSize: [25,], // size of the icon
+                                                    iconAnchor: [10, 20], // point of the icon which will correspond to marker's location
+                                                    popupAnchor: [0, -40] // point from which the popup should open relative to the iconAnchor
                                                 })}
                                             />
                                         )}
@@ -171,6 +173,7 @@ function JourneyDetails({ journeyData }) {
                                 )}
                             </div>
                         </div>
+
                         <div className="space-y-6 w-full">
                             {isCorrespondence ? (
                                 <p className='text-sm'>{section.duration} minutes de correspondance</p>
@@ -211,6 +214,18 @@ function JourneyDetails({ journeyData }) {
                                                 })()
                                             }
                                         />
+                                    )}
+                                    {section.best_boarding_positions && (
+                                        <div className="flex w-56 h-10">
+                                            {['back', 'middle', 'front'].map((pos, index) => {
+                                                const isSelected = section.best_boarding_positions.includes(pos);
+                                                const color = isSelected ? `#${getLineColorByLineID(section.lineID.split(':').pop())}` : '#D1D5DB'; // #D1D5DB is equivalent to bg-gray-300 in Tailwind CSS
+                                                return (
+                                                    <div key={index} className="flex-1 p-2 m-1 border-2 rounded" style={{backgroundColor: color}}>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
                                     )}
                                     <div className="flex items-center space-x-2 text-gray-500 text-sm">
                                         <p>{section.stop_date_times.length + 1} arrêts | {section.duration} min</p>

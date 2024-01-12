@@ -16,7 +16,7 @@ function Trip() {
 
     useEffect(() => {
         const fetchLineData = async () => {
-            const response = await fetch(`https://prim.iledefrance-mobilites.fr/marketplace/navitia/coverage/fr-idf/journeys?from=${from}&to=${to}`, {
+            const response = await fetch(`https://prim.iledefrance-mobilites.fr/marketplace/v2/navitia/journeys?from=${from}&to=${to}`, {
                 headers: {
                     'apikey': process.env.REACT_APP_IDFM_API_KEY
                 }
