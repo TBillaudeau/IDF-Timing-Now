@@ -7,7 +7,7 @@ import zonesDarrets from '../data/zones-d-arrets.json';
 import referentielDesLignes from '../data/referentiel-des-lignes.json';
 import { LineLogoByLineID } from '../utils/dataHelpers';
 
-function TrainInfo({ lineID, stationName }) {
+function TrainInfo({ lineID, stationName }) { //to= number=
   const stationID = stationName;
 
   // Fetch train departure every 2 seconds

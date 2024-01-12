@@ -84,18 +84,18 @@ function TrainInfo({ lineID, stationName }) {
       {Object.entries(groupedData).map(([lineRef, destinations]) => (
         <div key={lineRef} className="flex border-b-4 border-slate-800">
           <div className="flex items-start justify-center w-20 lg:w-32 mt-2">
-            
-                        <img src={process.env.PUBLIC_URL + `/images/${getTransportByLineID(lineRef.split("::").pop().split(":")[0])}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportByLineID(lineRef.split("::").pop().split(":")[0])} className="h-6 lg:h-10 mr-1" />
+
+            <img src={process.env.PUBLIC_URL + `/images/${getTransportByLineID(lineRef.split("::").pop().split(":")[0])}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportByLineID(lineRef.split("::").pop().split(":")[0])} className="h-6 lg:h-10 mr-1" />
             <LineLogoByLineID lineID={lineRef.split("::").pop().split(":")[0]} className="h-6 lg:h-10" />
-           </div>
+          </div>
 
           <div className="flex flex-col justify-start w-full">
             {Object.entries(destinations).sort(([a], [b]) => a.localeCompare(b)).map(([destination, trains]) => (
-              <div key={destination} className="flex items-center justify-between bg-white border-gray-400 dark:text-white dark:bg-gray-700 h-11 space-x-2 p-1 lg:p-4">
-                <p>{destination}</p>
-                <div className="flex space-x-2">
+              <div key={destination} className="flex items-center justify-between bg-white border-gray-400 dark:text-white dark:bg-gray-700 h-11 text-sm space-x-2 p-1 lg:p-4">
+                <p className='line-clamp-2'>{destination}</p>
+                <div className="flex space-x-2 w-28 overflow-auto justify-start shrink-0">
                   {trains.map((train, index) => (
-                    <span key={index} className={`w-10 text-center text-sm lg:text-xl font-semibold text-yellow-500 bg-slate-800 rounded p-1 ${train.minutesFromNow === '0' ? 'animate-pulse' : ''}`}>
+                    <span key={index} className={`w-10 shrink-0 text-center text-sm lg:text-xl font-semibold text-yellow-500 bg-slate-800 rounded p-1 ${train.minutesFromNow === '0' ? 'animate-pulse' : ''}`}>
                       {train.minutesFromNow}
                     </span>
                   ))}

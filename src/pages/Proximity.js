@@ -103,7 +103,7 @@ const Location = () => {
 
                     {stopAreas.map((stopArea, index) => (
                         <div className="mx-2 my-4">
-                            <h1 className="text-white bg-slate-800 w-full rounded-t-lg p-2">{stopArea.name}</h1>
+                            <h1 className="text-white text-sm bg-slate-800 w-full rounded-t-lg p-3">{stopArea.name}</h1>
                             <TrainInfo key={stopArea.id} line={null} stationName={stopArea.id.split(':').pop()} />
                         </div>
                     ))}

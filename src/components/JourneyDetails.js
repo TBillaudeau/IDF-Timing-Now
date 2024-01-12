@@ -216,15 +216,23 @@ function JourneyDetails({ journeyData }) {
                                         />
                                     )}
                                     {section.best_boarding_positions && (
-                                        <div className="flex w-56 h-10">
-                                            {['back', 'middle', 'front'].map((pos, index) => {
-                                                const isSelected = section.best_boarding_positions.includes(pos);
-                                                const color = isSelected ? `#${getLineColorByLineID(section.lineID.split(':').pop())}` : '#D1D5DB'; // #D1D5DB is equivalent to bg-gray-300 in Tailwind CSS
-                                                return (
-                                                    <div key={index} className="flex-1 p-2 m-1 border-2 rounded" style={{backgroundColor: color}}>
-                                                    </div>
-                                                );
-                                            })}
+                                        <div>
+                                            <div className="flex items-center text-xs">
+                                                <svg className="w-2 h-2 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                                </svg>
+                                                Positionnement dans la rame 
+                                            </div>
+                                            <div className="flex w-48 h-8">
+                                                {['back', 'middle', 'front'].map((pos, index) => {
+                                                    const isSelected = section.best_boarding_positions.includes(pos);
+                                                    const color = isSelected ? `#${getLineColorByLineID(section.lineID.split(':').pop())}` : '#D1D5DB'; // #D1D5DB is equivalent to bg-gray-300 in Tailwind CSS
+                                                    return (
+                                                        <div key={index} className="flex-1 p-2 m-1 border-2 rounded" style={{ backgroundColor: color }}>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
                                         </div>
                                     )}
                                     <div className="flex items-center space-x-2 text-gray-500 text-sm">
