@@ -69,7 +69,7 @@ const Location = () => {
 
         // Clean up function to stop watching position when component unmounts
         return () => navigator.geolocation.clearWatch(watchId);
-    }, [initialPosition]);
+    });
 
     const RecenterControl = () => {
         const map = useMap();
