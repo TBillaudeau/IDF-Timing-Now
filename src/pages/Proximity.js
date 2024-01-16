@@ -9,34 +9,35 @@ import arretsLignes from '../data/arrets-lignes.json';
 
 const Location = () => {
     const [clientPosition, SetClientPosition] = useState(null);
-    const [initialPosition, SetinitialPosition] = useState(null);
+    const [initialPosition, SetInitialPosition] = useState(null);
     const [stopAreas, setStopAreas] = useState('');
     const mapRef = useRef();
 
+    // Définition de la fonction fetchStopAreas en dehors du composant
+    const fetchStopAreas = async (position) => {
+        const response = await fetch(`https://prim.iledefrance-mobilites.fr/marketplace/v2/navitia/coord/${position.lng};${position.lat}/stop_areas?distance=300`, {
+            headers: {
+                'apikey': process.env.REACT_APP_IDFM_API_KEY
+            }
+        });
+        const data = await response.json();
+        setStopAreas(data.stop_areas);
+    };
+
     const CenterMarker = () => {
         const [position, setPosition] = useState(null);
+
         useMapEvents({
             moveend: (e) => {
                 const newPos = e.target.getCenter();
                 setPosition(newPos);
             }
         });
-        useEffect(() => {
-            if (!initialPosition) {
-            setPosition({ lat: initialPosition[0], lng: initialPosition[1] });
-            }
-        }, [initialPosition]);
 
         useEffect(() => {
             if (position) {
                 const fetchData = async () => {
-                    const response = await fetch(`https://prim.iledefrance-mobilites.fr/marketplace/v2/navitia/coord/${position.lng};${position.lat}/stop_areas?distance=400`, {
-                        headers: {
-                            'apikey': process.env.REACT_APP_IDFM_API_KEY
-                        }
-                    });
-                    const data = await response.json();
-                    setStopAreas(data.stop_areas);
+                    await fetchStopAreas(position);
                 };
                 fetchData();
             }
@@ -54,11 +55,10 @@ const Location = () => {
     useEffect(() => {
         const watchId = navigator.geolocation.watchPosition((position) => {
             const newPosition = [position.coords.latitude, position.coords.longitude];
-            console.log('newPosition', newPosition);
             SetClientPosition(newPosition);
-            if (!initialPosition) {
-                console.log('initialPosition', newPosition);
-                SetinitialPosition(newPosition);
+            if (!initialPosition || (newPosition[0] != initialPosition.lat || newPosition[1] != initialPosition.lng)) {
+                SetInitialPosition({ lat: newPosition[0], lng: newPosition[1] });
+                fetchStopAreas({ lat: newPosition[0], lng: newPosition[1] });
             }
         }, (error) => {
             console.error("Error occurred while getting geolocation: ", error);
@@ -69,7 +69,7 @@ const Location = () => {
 
         // Clean up function to stop watching position when component unmounts
         return () => navigator.geolocation.clearWatch(watchId);
-    }, []);
+    }, [initialPosition]);
 
     const RecenterControl = () => {
         const map = useMap();
@@ -96,7 +96,7 @@ const Location = () => {
     return (
         <div style={{ height: 'calc(100vh - 130px)' }}>
             {clientPosition && (
-                <MapContainer className="h-[40%]" whenCreated={setMapInstance => { mapRef.current = setMapInstance; }} center={clientPosition} zoom={13} attributionControl={false} zoomControl={false}>
+                <MapContainer className="h-[35%]" whenCreated={setMapInstance => { mapRef.current = setMapInstance; }} center={clientPosition} zoom={13} attributionControl={false} zoomControl={false}>
                     <TileLayer url={`https://{s}.tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=${process.env.REACT_APP_JAWG_API_KEY}`} />
                     <CenterMarker />
                     <RecenterControl />
@@ -113,7 +113,7 @@ const Location = () => {
                 </MapContainer>
             )}
             {stopAreas && (
-                <div className="h-[60%] overflow-y-scroll">
+                <div className="h-[65%] overflow-y-scroll">
 
                     {stopAreas.map((stopArea, index) => (
                         <div className="mx-0 my-4">

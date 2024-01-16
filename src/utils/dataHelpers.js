@@ -31,9 +31,11 @@ export const getTransportByLineID = (lineID) => {
     let transportLogo = station.fields.transportmode;
     if (transportLogo === 'rail') {
         const networkName = station.fields.networkname;
-        transportLogo = networkName === 'RER' ? 'rer' : networkName === 'Transilien' ? 'train' : 'cable';
+        transportLogo = networkName === 'RER' ? 'RER' : networkName === 'Transilien' ? 'TRAIN' : null;
+        return transportLogo;
+    } else {
+        return transportLogo.toUpperCase();
     }
-    return transportLogo.toUpperCase();
 };
 
 // Function to get the line logo
@@ -52,7 +54,7 @@ export const LineLogoByLineID = ({ lineID, className }) => {
 };
 
 // Function to get the line color
-export const getLineColorByLineID = (lineID, gradient=false) => {
+export const getLineColorByLineID = (lineID, gradient = false) => {
     var lineColor = referentielDesLignes.find(line => line.fields.id_line == lineID)?.fields.colourweb_hexa;
 
     function gradientColor(color, blendWith, alpha) {

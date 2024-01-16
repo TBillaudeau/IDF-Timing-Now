@@ -54,7 +54,6 @@ function TrainInfo({ lineID, stationName }) {
             }));
 
           setData(departures.sort((a, b) => a.minutesFromNow - b.minutesFromNow));
-          setStatus(data.nextDepartures.errorMessage);
         })
         .catch(error => console.error(error));
     };
@@ -71,55 +70,63 @@ function TrainInfo({ lineID, stationName }) {
   // Display train departures grouped by line direction
   return (
     <div className="space-y-2 m-2">
-      {trainData.map((train, index) => (
-        <div
-          key={index}
-          className='flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-700 h-14 lg:h-20 p-2 lg:p-3 relative'
-          style={{ borderBottom: `4px solid #${getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop())}` }} // Replace lineColor with your desired color
-        >
-          <div className="text-sm lg:text-base flex flex-row">
-            <img src={process.env.PUBLIC_URL + `/images/${getTransportByLineID(train.lineRef.replace(/:$/, '').split(':').pop())}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportByLineID(train.lineRef.replace(/:$/, '').split(':').pop())} className="h-5 lg:h-10 mr-1" />
-            <LineLogoByLineID lineID={train.lineRef.replace(/:$/, '').split(':').pop()} className="h-5 lg:h-10" />
-          </div>
-          <div className="text-[8px] lg:text-xs flex flex-col items-center justify-center w-12 lg:w-20">
-            <h3>{train.vehicleJourneyNote}</h3>
-            <h3>{train.vehicleJourneyName}</h3>
-          </div>
-          <div className="flex-grow overflow-hidden">
-            <h2 className={`font-bold text-[11px] lg:text-lg line-clamp-2 ${train.expectedArrivalTime && !train.expectedDepartureTime ? 'text-gray-500' : ''}`}>
-              {train.destinationName}
-            </h2>
-          </div>
-          {((train.ArrivalStatus !== 'onTime' || train.departureStatus !== 'onTime') || (train.expectedArrivalTime && !train.expectedDepartureTime)) && 
-            <div className={`px-2 py-1 rounded-full text-xs lg:text-base text-white`}>
-              {train.expectedArrivalTime && !train.expectedDepartureTime ? ' (Terminus)' : ''}
-              {train.ArrivalStatus !== 'onTime' ? train.ArrivalStatus : ''} {train.departureStatus !== 'onTime' ? train.departureStatus : ''}
-            </div>
-          }
-          <div className="text-xs lg:text-base">
-            {train.arrivalPlatform ? `Voie ${train.arrivalPlatform}` : ''}
-            </div>
-          <div className="ml-1 lg:ml-5 pr-2 text-right">
-            <p className={`text-sm lg:text-2xl font-bold ${train.expectedArrivalTime && !train.expectedDepartureTime ? 'text-gray-500' : ''}`}>{train.vehicleAtStop ? 'à quai' : train.minutesFromNow + 'ᵐⁱⁿ'}</p>
-            <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">
-              {
-                train.expectedArrivalTime ?
-                  `${new Date(train.expectedArrivalTime).toLocaleTimeString()}` :
-                  (train.expectedDepartureTime ?
-                    `${new Date(train.expectedDepartureTime).toLocaleTimeString()}` :
-                    `Prévu | ${new Date(train.aimedArrivalTime).toLocaleTimeString()}`
-                  )
-              }
-            </p>
-          </div>
+      {trainData.map((train, index) => {
+        const transport = getTransportByLineID(train.lineRef.split("::").pop().split(":")[0]);
+        return (
           <div
-            className="absolute top-0 right-0 bottom-0 left-0 lg:left-0 bg-gradient-to-r from-transparent to-white dark:to-gray-700"
-            style={{
-              backgroundImage: `linear-gradient(to right, transparent, rgba(${parseInt(getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop()).slice(0, 2), 16)}, ${parseInt(getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop()).slice(2, 4), 16)}, ${parseInt(getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop()).slice(4, 6), 16)}, 0.1))`
-            }}
-          />
-        </div>
-      ))}
+            key={index}
+            className='flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-700 h-14 lg:h-16 p-2 lg:p-3 relative'
+            style={{ borderBottom: `4px solid #${getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop())}` }} // Replace lineColor with your desired color
+          >
+            <div className="lg:w-20 text-sm lg:text-base flex flex-row">
+              {transport &&
+                <img src={process.env.PUBLIC_URL + `/images/${transport}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportByLineID(train.lineRef.replace(/:$/, '').split(':').pop())} className="h-5 lg:h-10 mr-1" />
+              }
+              <LineLogoByLineID lineID={train.lineRef.replace(/:$/, '').split(':').pop()} className="h-5 lg:h-10" />
+            </div>
+            <div className="text-[8px] lg:text-xs flex flex-col items-center justify-center w-12 lg:w-20">
+              <h3>{train.vehicleJourneyNote}</h3>
+              <h3>{train.vehicleJourneyName}</h3>
+            </div>
+            <div className="flex-grow overflow-hidden">
+              <h2 className={`font-bold text-[11px] lg:text-lg line-clamp-2 ${train.expectedArrivalTime && !train.expectedDepartureTime ? 'text-gray-500' : ''}`}>
+                {train.destinationName}
+              </h2>
+            </div>
+            {((train.ArrivalStatus !== 'onTime' || train.departureStatus !== 'onTime') || (train.expectedArrivalTime && !train.expectedDepartureTime)) &&
+              <div className={`px-2 py-1 rounded-full text-xs lg:text-base text-white`}>
+                {train.expectedArrivalTime && !train.expectedDepartureTime ? ' (Terminus)' : ''}
+                {train.ArrivalStatus !== 'onTime' ? train.ArrivalStatus : ''} {train.departureStatus !== 'onTime' ? train.departureStatus : ''}
+              </div>
+            }
+            {train.arrivalPlatform &&
+              <div className="w-6 lg:w-10 flex justify-center items-center text-xs lg:text-base bg-white border font-bold border-blue-800 rounded-md z-10">
+                {train.arrivalPlatform ? `${train.arrivalPlatform}` : ''}
+              </div>
+            }
+
+            <div className="w-16 lg:w-20 ml-1 lg:ml-5 pr-2 text-right">
+              <p className={`text-sm lg:text-2xl font-bold ${train.expectedArrivalTime && !train.expectedDepartureTime ? 'text-gray-500' : ''}`}>{train.vehicleAtStop ? 'à quai' : (isNaN(train.minutesFromNow) ? '' : train.minutesFromNow + 'ᵐⁱⁿ')}</p>
+              <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">
+                {
+                  train.expectedArrivalTime ?
+                    `${new Date(train.expectedArrivalTime).toLocaleTimeString()}` :
+                    (train.expectedDepartureTime ?
+                      `${new Date(train.expectedDepartureTime).toLocaleTimeString()}` :
+                      `${new Date(train.aimedArrivalTime).toLocaleTimeString()}`
+                    )
+                }
+              </p>
+            </div>
+            <div
+              className="absolute top-0 right-0 bottom-0 left-0 lg:left-0 bg-gradient-to-r from-transparent to-white dark:to-gray-700"
+              style={{
+                backgroundImage: `linear-gradient(to right, transparent, rgba(${parseInt(getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop()).slice(0, 2), 16)}, ${parseInt(getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop()).slice(2, 4), 16)}, ${parseInt(getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop()).slice(4, 6), 16)}, 0.1))`
+              }}
+            />
+          </div>
+        )
+      })}
 
     </div>
   );

@@ -3,7 +3,12 @@ export const removeAccents = (str) => {
 };
 
 export const removeGareDePrefix = (lineDirection) => {
+    const excludedStations = ["Gare de Lyon", "Gare du Nord", "Gare Saint-Lazare", "Gare Montparnasse", "Gare d'Austerlitz"];
+
     try {
+        if (excludedStations.some(station => lineDirection.includes(station))) {
+            return lineDirection;
+        }
         const withoutGarePrefix = lineDirection.replace('Gare des', 'Les').replace(/^(Gare de |Gare D'|Gare )/i, ''); // Removes "Gare de" or "Gare " or "Gare D'"  (case-insensitive) & replace "Gare des" with "Les" 
         return withoutGarePrefix.charAt(0).toUpperCase() + withoutGarePrefix.slice(1); // Capitalize first letter
     } catch (error) {
