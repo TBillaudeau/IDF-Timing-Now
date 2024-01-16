@@ -18,14 +18,6 @@ function JourneyDetails({ journeyData }) {
         setShowStops(prevState => ({ ...prevState, [sectionId]: !prevState[sectionId] }));
     };
 
-    // Helper function to format date and time
-    const formatDateTime = (dateTime) => {
-        const date = new Date(dateTime);
-        if (!isNaN(date.getTime())) {
-            return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-        }
-        return 'Unavailable';
-    };
 
     // Extract coordinates and create markers for each section
     const sectionDetails = journeyData.sections.map((section, index) => {
@@ -51,13 +43,6 @@ function JourneyDetails({ journeyData }) {
             duration: Math.floor(section.duration / 60),
         };
     });
-
-    // Helper function to format the total duration
-    const formatDuration = (seconds) => {
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        return hours === 0 ? `${minutes} min` : `${hours} h ${minutes} min`;
-    };
 
     const dx = sectionDetails[0].coordinates[0][0] - ((sectionDetails[0].coordinates[0][0] + sectionDetails[sectionDetails.length - 1].coordinates[0][0]) / 2);
     const dy = sectionDetails[0].coordinates[0][1] - ((sectionDetails[0].coordinates[0][1] + sectionDetails[sectionDetails.length - 1].coordinates[0][1]) / 2);
@@ -213,6 +198,7 @@ function JourneyDetails({ journeyData }) {
                                                     }
                                                 })()
                                             }
+                                            limit={5}
                                         />
                                     )}
                                     {section.best_boarding_positions && (

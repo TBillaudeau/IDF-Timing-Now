@@ -69,7 +69,7 @@ export default function Navbar({ fixed }) {
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900 shadow-md z-10">
 
-        <div className="flex flex-wrap items-center justify-between mx-auto p-2 lg:p-4">
+        <div className="flex flex-wrap items-center justify-between mx-auto p-2">
           <Link to="/" onClick={() => setNavbarOpen(false)}>
             <Clock />
           </Link>

@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import { removeGareDePrefix } from '../utils/stringUtils';
 import { lineTypes } from '../components/Trafic';
 import relations from '../data/relations.json';
-import zonesDarrets from '../data/zones-d-arrets.json';
-import referentielDesLignes from '../data/referentiel-des-lignes.json';
-import { LineLogoByLineID } from '../utils/dataHelpers';
+import { LineLogoByLineID, getLineColorByLineID, getStationNameByStationID  } from '../utils/dataHelpers';
 
-function TrainInfo({ lineID, stationName }) { //to= number=
+function TrainInfo({ lineID, stationName, limit }) { //to= number=
   const stationID = stationName;
 
   // Fetch train departure every 2 seconds
@@ -38,15 +36,6 @@ function TrainInfo({ lineID, stationName }) { //to= number=
             }
           });
 
-
-          function getStationName(zoneArea) {
-            var stations = stationID !== undefined ? zonesDarrets.filter(station => station.fields.zdcid === zoneArea) : [];
-            return stations.find(station => station.fields.zdatype === 'railStation')?.fields.zdaname
-                || stations.find(station => station.fields.zdatype === 'metroStation')?.fields.zdaname  
-                || stations.find(station => station.fields.zdatype === 'onstreetTram')?.fields.zdaname
-                || stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdaname + ' (' + stations.find(station => station.fields.zdatype === 'onstreetBus')?.fields.zdatown + ')'
-          }
-
           if (zoneAreas.length > 0) {
             const fetchPromises = zoneAreas.map(zoneArea => {
               const newURL = `https://api-iv.iledefrance-mobilites.fr/lines/line:IDFM:${lineID}/stops/stop_area:IDFM:${stationID}/to/stop_area:IDFM:${zoneArea}/realTime`;
@@ -58,7 +47,7 @@ function TrainInfo({ lineID, stationName }) { //to= number=
             let combinedNextDepartures = results.reduce((combined, result, index) => {
               if (result && result.nextDepartures && result.nextDepartures.data) {
                 const zoneArea = zoneAreas[index];
-                const stationName = getStationName(zoneArea);
+                const stationName = getStationNameByStationID(zoneArea);
                 result.nextDepartures.data.forEach(train => {
                   if (!train.lineDirection) {
                     train.lineDirection = stationName;
@@ -146,20 +135,6 @@ function TrainInfo({ lineID, stationName }) { //to= number=
     groupedTrains[sens].push(train);
   });
 
-  var lineColor = referentielDesLignes.find(line => line.fields.id_line == lineID)?.fields.colourweb_hexa;
-  function blendColor(color, blendWith, alpha) {
-    const [r1, g1, b1] = [parseInt(color.slice(0, 2), 16), parseInt(color.slice(2, 4), 16), parseInt(color.slice(4, 6), 16)];
-    const [r2, g2, b2] = [parseInt(blendWith.slice(0, 2), 16), parseInt(blendWith.slice(2, 4), 16), parseInt(blendWith.slice(4, 6), 16)];
-
-    const r = Math.round(r1 * (1 - alpha) + r2 * alpha);
-    const g = Math.round(g1 * (1 - alpha) + g2 * alpha);
-    const b = Math.round(b1 * (1 - alpha) + b2 * alpha);
-
-    return ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
-  }
-  var lighterColor = blendColor(lineColor, 'ffffff', 0.5);
-
-
   return (
     <div className="overflow-y-auto max-h-[27rem]">
       {Object.keys(groupedTrains).map((sens) => (
@@ -175,7 +150,7 @@ function TrainInfo({ lineID, stationName }) { //to= number=
             <div 
               key={train.time + index} 
               className="flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-800 min-h-[44px] max-h-[72px] p-1 lg:p-4 relative" 
-              style={{borderBottom: `2px solid #${lineColor}`}}
+              style={{borderBottom: `2px solid #${getLineColorByLineID(lineID)}`}}
             >
               <div className='shrink-0'>
                 <LineLogoByLineID lineID={lineID} className="h-4 lg:h-10 pl-1 lg:pl-0" />
@@ -197,7 +172,7 @@ function TrainInfo({ lineID, stationName }) { //to= number=
               <div 
                 className="absolute top-0 right-0 bottom-0 left-0 lg:left-0 bg-gradient-to-r from-transparent to-white dark:to-gray-800" 
                 style={{
-                  backgroundImage: `linear-gradient(to right, transparent, rgba(${parseInt(lighterColor.slice(0, 2), 16)}, ${parseInt(lighterColor.slice(2, 4), 16)}, ${parseInt(lighterColor.slice(4, 6), 16)}, 0.1))`
+                  backgroundImage: `linear-gradient(to right, transparent, rgba(${parseInt(getLineColorByLineID(lineID).slice(0, 2), 16)}, ${parseInt(getLineColorByLineID(lineID).slice(2, 4), 16)}, ${parseInt(getLineColorByLineID(lineID).slice(4, 6), 16)}, 0.1))`
                 }}
               />
             </div>

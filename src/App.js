@@ -23,6 +23,7 @@ const Fosses = lazyWithPreload(() => import('./pages/Fosses'));
 const About = lazyWithPreload(() => import('./pages/About'));
 const NotFound = lazyWithPreload(() => import('./pages/NotFound'));
 const Settings = lazyWithPreload(() => import('./pages/Settings'));
+const Dashboard = lazyWithPreload(() => import('./pages/Dashboard'));
 
 function lazyWithPreload(factory) {
   const Component = React.lazy(factory);
@@ -48,7 +49,8 @@ function App() {
         Fosses.preload(),
         About.preload(),
         NotFound.preload(),
-        Settings.preload()
+        Settings.preload(),
+        Dashboard.preload()
       ]);
     }, 1000);
   }, []);
@@ -71,6 +73,7 @@ function App() {
                 <Route path="/poles" element={<Poles />} />
                 <Route path="/a-proximite" element={<Location />} />
                 <Route path="/itineraire" element={<Trip />} />
+                <Route path="/dashboard/:stationID" element={<Dashboard />} />
 
                 <Route exact path="/infos-trafic" element={<InfoTrafic />} />
                 <Route path="/chatelet" element={<Chatelet />} />

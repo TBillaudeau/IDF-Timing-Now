@@ -19,10 +19,9 @@ function Poles() {
 
         {URLs.map((pole, index) => (
           <div key={index} className="bg-white dark:bg-gray-800 py-2 lg:py-4">
-            <Link to={pole.url} className="w-full border-2 rounded-xl border-violet-200 hover:bg-violet-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-5 py-2.5 inline-flex items-center dark:text-white">
+            <Link to={pole.url} className="w-full border-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-5 py-2.5 inline-flex items-center dark:text-white">
               <div>
                 {pole.label}
-                
               </div>
               <svg className="rtl:rotate-180 w-3.5 h-3.5 ml-auto float-right" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>

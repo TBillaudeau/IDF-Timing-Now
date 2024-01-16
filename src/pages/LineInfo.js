@@ -68,7 +68,7 @@ function LineInfo() {
   );
 
   return (
-    <div className="grid grid-cols-1 gap-2 my-2">
+    <div className="grid grid-cols-1 gap-2">
       <Breadcrumb lineID={lineID} />
       <div className="bg-white dark:bg-gray-800 p-4">
         <SearchBar />

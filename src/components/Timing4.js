@@ -25,26 +25,34 @@ function TrainInfo({ lineID, stationName }) {
       })
         .then(response => response.status === 404 ? null : response.json())
         .then(data => {
-          const departures = data?.Siri?.ServiceDelivery?.StopMonitoringDelivery[0]?.MonitoredStopVisit?.map(journey => ({
-            lineRef: journey?.MonitoredVehicleJourney?.LineRef?.value,
-            operatorRef: journey?.MonitoredVehicleJourney?.OperatorRef?.value,
-            stopPointName: journey?.MonitoredVehicleJourney?.MonitoredCall?.StopPointName[0]?.value,
-            directionName: journey?.MonitoredVehicleJourney?.DirectionName[0]?.value,
-            destinationName: journey?.MonitoredVehicleJourney?.DestinationName[0]?.value,
-            vehicleJourneyName: journey?.MonitoredVehicleJourney?.JourneyNote[0]?.value,
-            expectedArrivalTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime,
-            aimedArrival: journey?.MonitoredVehicleJourney?.MonitoredCall?.AimedArrival,
-            expectedDepartureTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime,
-            aimedDepartureTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.aimedDepartureTime,
-            arrivalStatus: journey?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalStatus,
-            departureStatus: journey?.MonitoredVehicleJourney?.MonitoredCall?.DepartureStatus,
-            vehicleAtStop: journey?.MonitoredVehicleJourney?.MonitoredCall?.VehicleAtStop,
-            arrivalPlatform: journey?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalPlatformName?.value,
-            trainNumber: journey?.MonitoredVehicleJourney?.TrainNumber?.TrainNumberRef[0]?.value,
-            minutesFromNow: calculateMinutesFromNow(journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime || journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime),
-          }));
+          const departures = data?.Siri?.ServiceDelivery?.StopMonitoringDelivery[0]?.MonitoredStopVisit
+            ?.filter(journey => {
+              const expectedDepartureTime = journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime;
+              const vehicleAtStop = journey?.MonitoredVehicleJourney?.MonitoredCall?.VehicleAtStop;
+              return !(vehicleAtStop && new Date(expectedDepartureTime) < new Date());
+            })
+            ?.map(journey => ({
+              lineRef: journey?.MonitoredVehicleJourney?.LineRef?.value,
+              operatorRef: journey?.MonitoredVehicleJourney?.OperatorRef?.value,
+              stopPointName: journey?.MonitoredVehicleJourney?.MonitoredCall?.StopPointName[0]?.value,
+              directionName: journey?.MonitoredVehicleJourney?.DirectionName[0]?.value,
+              destinationName: journey?.MonitoredVehicleJourney?.DestinationName[0]?.value,
+              vehicleJourneyNote: journey?.MonitoredVehicleJourney?.JourneyNote[0]?.value,
+              vehicleJourneyName: journey?.MonitoredVehicleJourney?.VehicleJourneyName[0]?.value || journey?.MonitoredVehicleJourney?.TrainNumbers?.TrainNumberRef[0]?.value,
+              expectedArrivalTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime,
+              aimedArrival: journey?.MonitoredVehicleJourney?.MonitoredCall?.AimedArrival,
+              expectedDepartureTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime,
+              aimedArrivalTime: journey?.MonitoredVehicleJourney?.MonitoredCall?.AimedArrivalTime,
+              arrivalStatus: journey?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalStatus,
+              departureStatus: journey?.MonitoredVehicleJourney?.MonitoredCall?.DepartureStatus,
+              vehicleAtStop: journey?.MonitoredVehicleJourney?.MonitoredCall?.VehicleAtStop,
+              arrivalPlatform: journey?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalPlatformName?.value,
+              trainNumber: journey?.MonitoredVehicleJourney?.TrainNumber?.TrainNumberRef[0]?.value,
+              minutesFromNow: calculateMinutesFromNow(journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime || journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime),
+            }));
 
           setData(departures.sort((a, b) => a.minutesFromNow - b.minutesFromNow));
+          // setStatus(data.nextDepartures.errorMessage);
         })
         .catch(error => console.error(error));
     };
@@ -83,19 +91,18 @@ function TrainInfo({ lineID, stationName }) {
     <div className="">
       {Object.entries(groupedData).map(([lineRef, destinations]) => (
         <div key={lineRef} className="flex border-b-4 border-slate-800">
-          <div className="flex items-start justify-center w-20 lg:w-32 mt-2">
-
-            <img src={process.env.PUBLIC_URL + `/images/${getTransportByLineID(lineRef.split("::").pop().split(":")[0])}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportByLineID(lineRef.split("::").pop().split(":")[0])} className="h-6 lg:h-10 mr-1" />
-            <LineLogoByLineID lineID={lineRef.split("::").pop().split(":")[0]} className="h-6 lg:h-10" />
+          <div className="flex items-start justify-center w-20 lg:w-32 mt-2 lg:mt-1.5">
+            <img src={process.env.PUBLIC_URL + `/images/${getTransportByLineID(lineRef.split("::").pop().split(":")[0])}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportByLineID(lineRef.split("::").pop().split(":")[0])} className="h-6 lg:h-8 mr-1" />
+            <LineLogoByLineID lineID={lineRef.split("::").pop().split(":")[0]} className="h-6 lg:h-8" />
           </div>
 
           <div className="flex flex-col justify-start w-full">
-            {Object.entries(destinations).sort(([a], [b]) => a.localeCompare(b)).map(([destination, trains]) => (
-              <div key={destination} className="flex items-center justify-between bg-white border-gray-400 dark:text-white dark:bg-gray-700 h-11 text-sm space-x-2 p-1 lg:p-4">
+            {Object.entries(destinations).sort(([a], [b]) => a.localeCompare(b)).map(([destination, trains], index, array) => (
+              <div key={destination} className={`flex items-center justify-between bg-white border-gray-400 dark:text-white dark:bg-gray-700 h-11 text-sm space-x-2 p-1 lg:p-4 ${index < array.length - 1 ? 'border-b' : ''}`}>
                 <p className='line-clamp-2'>{destination}</p>
-                <div className="flex space-x-2 w-28 overflow-auto justify-start shrink-0">
+                <div className="flex space-x-2 w-36 lg:w-48 overflow-auto justify-start shrink-0">
                   {trains.map((train, index) => (
-                    <span key={index} className={`w-10 shrink-0 text-center text-sm lg:text-xl font-semibold text-yellow-500 bg-slate-800 rounded p-1 ${train.minutesFromNow === '0' ? 'animate-pulse' : ''}`}>
+                    <span key={index} className={`w-10 shrink-0 text-center text-sm lg:text-base font-semibold text-yellow-500 bg-slate-800 rounded p-1 ${train.minutesFromNow === '0' ? 'animate-pulse' : ''}`}>
                       {train.minutesFromNow}
                     </span>
                   ))}
