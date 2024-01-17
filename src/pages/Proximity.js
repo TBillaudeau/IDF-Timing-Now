@@ -24,8 +24,8 @@ const Location = () => {
         setStopAreas(data.stop_areas);
     };
 
-    const CenterMarker = (newPosition) => {
-        const [position, setPosition] = useState(newPosition);
+    const CenterMarker = () => {
+        const [position, setPosition] = useState(null);
 
         useMapEvents({
             moveend: (e) => {
@@ -55,10 +55,11 @@ const Location = () => {
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
             const newPosition = [position.coords.latitude, position.coords.longitude];
-            console.log("New position: ", newPosition);
             SetClientPosition(newPosition);
-            SetInitialPosition({ lat: newPosition[0], lng: newPosition[1] });
-            CenterMarker(newPosition);
+            if (!initialPosition) {
+                fetchStopAreas({ lat: newPosition[0], lng: newPosition[1] });
+                SetInitialPosition({ lat: newPosition[0], lng: newPosition[1] });
+            }
         }, (error) => {
             console.error("Error occurred while getting geolocation: ", error);
             if (!clientPosition) {
