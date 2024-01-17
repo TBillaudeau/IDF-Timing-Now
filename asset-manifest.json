@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/IDF-Timing-Now/static/css/main.1b727181.css",
-    "main.js": "/IDF-Timing-Now/static/js/main.a3f54a8a.js",
+    "main.js": "/IDF-Timing-Now/static/js/main.b2608f6a.js",
     "static/js/155.c9e92a9c.chunk.js": "/IDF-Timing-Now/static/js/155.c9e92a9c.chunk.js",
     "static/js/970.57e33cb4.chunk.js": "/IDF-Timing-Now/static/js/970.57e33cb4.chunk.js",
     "static/js/717.65015f07.chunk.js": "/IDF-Timing-Now/static/js/717.65015f07.chunk.js",
@@ -11,7 +11,7 @@
     "static/js/689.abf5b863.chunk.js": "/IDF-Timing-Now/static/js/689.abf5b863.chunk.js",
     "static/js/799.48e32459.chunk.js": "/IDF-Timing-Now/static/js/799.48e32459.chunk.js",
     "static/css/46.2ea61ecc.chunk.css": "/IDF-Timing-Now/static/css/46.2ea61ecc.chunk.css",
-    "static/js/46.adef2b3e.chunk.js": "/IDF-Timing-Now/static/js/46.adef2b3e.chunk.js",
+    "static/js/46.3538b65d.chunk.js": "/IDF-Timing-Now/static/js/46.3538b65d.chunk.js",
     "static/css/173.2ea61ecc.chunk.css": "/IDF-Timing-Now/static/css/173.2ea61ecc.chunk.css",
     "static/js/173.0df25b58.chunk.js": "/IDF-Timing-Now/static/js/173.0df25b58.chunk.js",
     "static/js/801.806e0ede.chunk.js": "/IDF-Timing-Now/static/js/801.806e0ede.chunk.js",
@@ -24,12 +24,12 @@
     "static/js/62.c1c06083.chunk.js": "/IDF-Timing-Now/static/js/62.c1c06083.chunk.js",
     "static/js/242.b6f2c651.chunk.js": "/IDF-Timing-Now/static/js/242.b6f2c651.chunk.js",
     "static/js/562.b1319cd8.chunk.js": "/IDF-Timing-Now/static/js/562.b1319cd8.chunk.js",
-    "static/js/211.feaf3d56.chunk.js": "/IDF-Timing-Now/static/js/211.feaf3d56.chunk.js",
-    "static/js/171.7b5fffa1.chunk.js": "/IDF-Timing-Now/static/js/171.7b5fffa1.chunk.js",
+    "static/js/211.33920d6d.chunk.js": "/IDF-Timing-Now/static/js/211.33920d6d.chunk.js",
+    "static/js/171.41978a4b.chunk.js": "/IDF-Timing-Now/static/js/171.41978a4b.chunk.js",
     "static/media/pdf.worker.min.js": "/IDF-Timing-Now/static/media/pdf.worker.min.0afc7dab3b347942526c.js",
     "index.html": "/IDF-Timing-Now/index.html",
     "main.1b727181.css.map": "/IDF-Timing-Now/static/css/main.1b727181.css.map",
-    "main.a3f54a8a.js.map": "/IDF-Timing-Now/static/js/main.a3f54a8a.js.map",
+    "main.b2608f6a.js.map": "/IDF-Timing-Now/static/js/main.b2608f6a.js.map",
     "155.c9e92a9c.chunk.js.map": "/IDF-Timing-Now/static/js/155.c9e92a9c.chunk.js.map",
     "970.57e33cb4.chunk.js.map": "/IDF-Timing-Now/static/js/970.57e33cb4.chunk.js.map",
     "717.65015f07.chunk.js.map": "/IDF-Timing-Now/static/js/717.65015f07.chunk.js.map",
@@ -39,7 +39,7 @@
     "689.abf5b863.chunk.js.map": "/IDF-Timing-Now/static/js/689.abf5b863.chunk.js.map",
     "799.48e32459.chunk.js.map": "/IDF-Timing-Now/static/js/799.48e32459.chunk.js.map",
     "46.2ea61ecc.chunk.css.map": "/IDF-Timing-Now/static/css/46.2ea61ecc.chunk.css.map",
-    "46.adef2b3e.chunk.js.map": "/IDF-Timing-Now/static/js/46.adef2b3e.chunk.js.map",
+    "46.3538b65d.chunk.js.map": "/IDF-Timing-Now/static/js/46.3538b65d.chunk.js.map",
     "173.2ea61ecc.chunk.css.map": "/IDF-Timing-Now/static/css/173.2ea61ecc.chunk.css.map",
     "173.0df25b58.chunk.js.map": "/IDF-Timing-Now/static/js/173.0df25b58.chunk.js.map",
     "801.806e0ede.chunk.js.map": "/IDF-Timing-Now/static/js/801.806e0ede.chunk.js.map",
@@ -54,6 +54,6 @@
   },
   "entrypoints": [
     "static/css/main.1b727181.css",
-    "static/js/main.a3f54a8a.js"
+    "static/js/main.b2608f6a.js"
   ]
 }
