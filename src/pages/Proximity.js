@@ -24,8 +24,8 @@ const Location = () => {
         setStopAreas(data.stop_areas);
     };
 
-    const CenterMarker = () => {
-        const [position, setPosition] = useState(null);
+    const CenterMarker = (newPosition) => {
+        const [position, setPosition] = useState(newPosition);
 
         useMapEvents({
             moveend: (e) => {
@@ -55,10 +55,11 @@ const Location = () => {
     useEffect(() => {
         const watchId = navigator.geolocation.watchPosition((position) => {
             const newPosition = [position.coords.latitude, position.coords.longitude];
-            SetClientPosition(newPosition);
-            if (!initialPosition || (newPosition[0] != initialPosition.lat || newPosition[1] != initialPosition.lng)) {
+            console.log("New position: ", newPosition);
+            if (!initialPosition || (Math.abs(newPosition[0] - initialPosition.lat) > 0.001 || Math.abs(newPosition[1] - initialPosition.lng) > 0.001)) {
+                SetClientPosition(newPosition);
                 SetInitialPosition({ lat: newPosition[0], lng: newPosition[1] });
-                fetchStopAreas({ lat: newPosition[0], lng: newPosition[1] });
+                CenterMarker(newPosition);
             }
         }, (error) => {
             console.error("Error occurred while getting geolocation: ", error);
@@ -69,7 +70,7 @@ const Location = () => {
 
         // Clean up function to stop watching position when component unmounts
         return () => navigator.geolocation.clearWatch(watchId);
-    });
+    }, []);
 
     const RecenterControl = () => {
         const map = useMap();
