@@ -47,7 +47,7 @@ function JourneyDetails({ journeyData }) {
     const dx = sectionDetails[0].coordinates[0][0] - ((sectionDetails[0].coordinates[0][0] + sectionDetails[sectionDetails.length - 1].coordinates[0][0]) / 2);
     const dy = sectionDetails[0].coordinates[0][1] - ((sectionDetails[0].coordinates[0][1] + sectionDetails[sectionDetails.length - 1].coordinates[0][1]) / 2);
     const distance = Math.sqrt(dx * dx + dy * dy);
-    const zoom = Math.floor(8 - Math.log(distance) / Math.log(2));
+    const zoom = Math.floor(9 - Math.log(distance) / Math.log(2));
 
     const RecenterControl = () => {
         const map = useMap();

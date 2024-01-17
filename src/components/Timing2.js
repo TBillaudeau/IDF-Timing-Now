@@ -50,7 +50,11 @@ function TrainInfo({ lineID, stationName }) {
               vehicleAtStop: journey?.MonitoredVehicleJourney?.MonitoredCall?.VehicleAtStop,
               arrivalPlatform: journey?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalPlatformName?.value,
               trainNumber: journey?.MonitoredVehicleJourney?.TrainNumber?.TrainNumberRef[0]?.value,
-              minutesFromNow: calculateMinutesFromNow(journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime || journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime),
+              minutesFromNow: calculateMinutesFromNow(
+                journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime || 
+                journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime ||
+                journey?.MonitoredVehicleJourney?.MonitoredCall?.AimedArrivalTime
+              ),
             }));
 
           setData(departures.sort((a, b) => a.minutesFromNow - b.minutesFromNow));
@@ -75,39 +79,42 @@ function TrainInfo({ lineID, stationName }) {
         return (
           <div
             key={index}
-            className='flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-700 h-14 lg:h-16 p-2 lg:p-3 relative'
+            className={`flex items-center bg-white border-gray-400 dark:text-white dark:bg-gray-700 h-14 lg:h-16 p-2 lg:p-3 relative gap-2 ${!train.expectedArrivalTime && !train.expectedDepartureTime && train.aimedArrivalTime ? 'line-through text-gray-500' : ''} ${train.expectedArrivalTime && !train.expectedDepartureTime ? 'text-gray-500' : ''}`}
             style={{ borderBottom: `4px solid #${getLineColorByLineID(train.lineRef.replace(/:$/, '').split(':').pop())}` }} // Replace lineColor with your desired color
           >
-            <div className="lg:w-20 text-sm lg:text-base flex flex-row">
+            <div className="lg:w-20 text-sm lg:text-base flex flex-row shrink-0">
               {transport &&
                 <img src={process.env.PUBLIC_URL + `/images/${transport}${localStorage.theme === 'dark' ? '_LIGHT' : ''}.svg`} alt={getTransportByLineID(train.lineRef.replace(/:$/, '').split(':').pop())} className="h-5 lg:h-10 mr-1" />
               }
               <LineLogoByLineID lineID={train.lineRef.replace(/:$/, '').split(':').pop()} className="h-5 lg:h-10" />
             </div>
-            <div className="text-[8px] lg:text-xs flex flex-col items-center justify-center w-12 lg:w-20">
-              <h3>{train.vehicleJourneyNote}</h3>
-              <h3>{train.vehicleJourneyName}</h3>
-            </div>
-            <div className="flex-grow overflow-hidden">
-              <h2 className={`font-bold text-[11px] lg:text-lg line-clamp-2 ${train.expectedArrivalTime && !train.expectedDepartureTime ? 'text-gray-500' : ''}`}>
-                {train.destinationName}
-              </h2>
+            <div className="lg:flex w-full">
+              <div className="text-[8px] lg:text-xs flex flex-row lg:flex-col items-center justify-center w-12 lg:w-20">
+                <div className="flex flex-row lg:flex-col items-center justify-start w-12 lg:w-20 gap-2">
+                  <h3>{train.vehicleJourneyNote}</h3>
+                  <h3>{train.vehicleJourneyName}</h3>
+                </div>
+              </div>
+              <div className="flex-grow overflow-hidden lg:ml-4">
+                <h2 className='font-bold text-[11px] lg:text-lg line-clamp-2'>
+                  {train.destinationName}
+                </h2>
+              </div>
             </div>
             {((train.ArrivalStatus !== 'onTime' || train.departureStatus !== 'onTime') || (train.expectedArrivalTime && !train.expectedDepartureTime)) &&
-              <div className={`px-2 py-1 rounded-full text-xs lg:text-base text-white`}>
+              <div className={`px-2 py-1 rounded-full text-xs lg:text-baseshrink-0`}>
                 {train.expectedArrivalTime && !train.expectedDepartureTime ? ' (Terminus)' : ''}
                 {train.ArrivalStatus !== 'onTime' ? train.ArrivalStatus : ''} {train.departureStatus !== 'onTime' ? train.departureStatus : ''}
               </div>
             }
             {train.arrivalPlatform &&
-              <div className="w-6 lg:w-10 flex justify-center items-center text-xs lg:text-base bg-white border font-bold border-blue-800 rounded-md z-10">
+              <div className="w-6 lg:w-10 flex justify-center items-center text-xs lg:text-base bg-white border font-bold border-slate-800 rounded-md z-10 shrink-0">
                 {train.arrivalPlatform ? `${train.arrivalPlatform}` : ''}
               </div>
             }
 
-            <div className="w-16 lg:w-20 ml-1 lg:ml-5 pr-2 text-right">
-              <p className={`text-sm lg:text-2xl font-bold ${train.expectedArrivalTime && !train.expectedDepartureTime ? 'text-gray-500' : ''}`}>{train.vehicleAtStop ? 'à quai' : (isNaN(train.minutesFromNow) ? '' : train.minutesFromNow + 'ᵐⁱⁿ')}</p>
-              <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">
+            <div className="w-16 lg:w-20 pr-2 text-right shrink-0">
+              <p className={`text-sm lg:text-2xl font-bold ${train.expectedArrivalTime && !train.expectedDepartureTime ? 'text-gray-500' : ''} ${train.minutesFromNow <= 0 ? 'animate-pulse text-green-500' : ''}`}>{train.vehicleAtStop ? 'à quai' : (isNaN(train.minutesFromNow) ? '' : train.minutesFromNow + 'ᵐⁱⁿ')}</p>              <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">
                 {
                   train.expectedArrivalTime ?
                     `${new Date(train.expectedArrivalTime).toLocaleTimeString()}` :

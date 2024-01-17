@@ -49,7 +49,11 @@ function TrainInfo({ lineID, stationName }) {
               vehicleAtStop: journey?.MonitoredVehicleJourney?.MonitoredCall?.VehicleAtStop,
               arrivalPlatform: journey?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalPlatformName?.value,
               trainNumber: journey?.MonitoredVehicleJourney?.TrainNumber?.TrainNumberRef[0]?.value,
-              minutesFromNow: calculateMinutesFromNow(journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime || journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime),
+              minutesFromNow: calculateMinutesFromNow(
+                journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime ||
+                journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime ||
+                journey?.MonitoredVehicleJourney?.MonitoredCall?.AimedArrivalTime
+              ),
             }));
 
           setData(departures.sort((a, b) => a.minutesFromNow - b.minutesFromNow));
@@ -89,37 +93,37 @@ function TrainInfo({ lineID, stationName }) {
 
   // Afficher les départs de train groupés par ligne et destination
   return (
-      <div className="">
-        {Object.entries(groupedData).map(([lineRef, destinations]) => {
-          const transport = getTransportByLineID(lineRef.split("::").pop().split(":")[0]);
-          return (
-            <div key={lineRef} className="flex border-b-4 border-slate-800 border-x">
-              <div className="flex items-start justify-center w-20 lg:w-32 pt-2 lg:pt-1.5 bg-white border-r">
-                {transport && 
-                  <img src={process.env.PUBLIC_URL + `/images/${transport}.svg`} alt={transport} className="h-6 lg:h-8 mr-1" />
-                }
-                <LineLogoByLineID lineID={lineRef.split("::").pop().split(":")[0]} className="h-6 lg:h-8" />
-              </div>
-
-              <div className="flex flex-col justify-start w-full">
-                {Object.entries(destinations).sort(([a], [b]) => a.localeCompare(b)).map(([destination, trains], index, array) => (
-                  <div key={destination} className={`flex items-center justify-between border-gray-400 dark:text-white dark:bg-gray-700 h-10 text-sm space-x-2 p-1 lg:p-4 ${index < array.length - 1 ? 'border-b' : ''}`}>
-                    <p className='line-clamp-1'>{removeGareDePrefix(destination)}</p>
-                    <div className="flex space-x-2 w-40 lg:w-48 overflow-auto justify-start shrink-0">
-                      {trains.map((train, index) => (
-                        <span key={index} className={`w-10 shrink-0 text-center text-sm font-bold text-yellow-500 bg-slate-800 rounded p-1 lg:py-1`}>
-                          <span className={`${train.minutesFromNow <= 0 ? 'animate-pulse' : ''}`}>{train.minutesFromNow}</span>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
+    <div className="">
+      {Object.entries(groupedData).map(([lineRef, destinations]) => {
+        const transport = getTransportByLineID(lineRef.split("::").pop().split(":")[0]);
+        return (
+          <div key={lineRef} className="flex border-b-4 border-slate-800 border-x">
+            <div className="flex items-start justify-center w-20 lg:w-32 pt-2 lg:pt-1.5 bg-white border-r">
+              {transport &&
+                <img src={process.env.PUBLIC_URL + `/images/${transport}.svg`} alt={transport} className="h-6 lg:h-8 mr-1" />
+              }
+              <LineLogoByLineID lineID={lineRef.split("::").pop().split(":")[0]} className="h-6 lg:h-8" />
             </div>
-          )
-        })}
-      </div>
-    );
+
+            <div className="flex flex-col justify-start w-full">
+              {Object.entries(destinations).sort(([a], [b]) => a.localeCompare(b)).map(([destination, trains], index, array) => (
+                <div key={destination} className={`flex items-center justify-between border-gray-400 dark:text-white dark:bg-gray-700 h-10 text-sm space-x-2 p-1 lg:p-4 ${index < array.length - 1 ? 'border-b' : ''}`}>
+                  <p className='line-clamp-1'>{removeGareDePrefix(destination)}</p>
+                  <div className="flex space-x-2 w-40 lg:w-48 overflow-auto justify-start shrink-0">
+                    {trains.map((train, index) => (
+                      <span key={index} className={`w-10 shrink-0 text-center text-sm font-bold text-yellow-500 bg-slate-800 rounded p-1 lg:py-1`}>
+                        <span className={`${train.minutesFromNow <= 0 ? 'animate-pulse' : ''}`}>{train.minutesFromNow}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  );
 }
 
 export default TrainInfo;

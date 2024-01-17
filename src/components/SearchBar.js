@@ -1,8 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import Select, { components } from 'react-select';
-import { useNavigate } from 'react-router-dom';
 import { convertTransportMode } from '../utils/stringUtils';
 import { LineLogoByLineID } from "../utils/dataHelpers";
+
+// Create a context for the label
+const LabelContext = createContext();
+
+// Custom Control component that consumes the context
+const Control = (props) => {
+  const label = useContext(LabelContext);
+  return (
+    <components.Control {...props} className='text-sm'>
+      {label ? <span className="pl-2 font-bold text-sm text-purple-800">{label}</span> : null}
+      {props.children}
+    </components.Control>
+  );
+};
 
 const SearchBar = ({ label, placeholder, type = '', onSelectionChange }) => {
   const [inputValue, setInputValue] = useState('');
@@ -20,7 +33,7 @@ const SearchBar = ({ label, placeholder, type = '', onSelectionChange }) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (inputValue !== '') {
-        let apiUrl = `https://prim.iledefrance-mobilites.fr/marketplace/navitia/coverage/fr-idf/places?q=${inputValue}`;
+        let apiUrl = `https://prim.iledefrance-mobilites.fr/marketplace/v2/navitia/places?q=${inputValue}`;
 
         if (type) {
           apiUrl += `&type[]=${type}`;
@@ -74,13 +87,13 @@ const SearchBar = ({ label, placeholder, type = '', onSelectionChange }) => {
             return order.indexOf(a) - order.indexOf(b);
           })
           .map(([mode, lines], index) => (
-            <div key={index} className="flex items-center mr-2 lg:mr-4">
+            <div key={index} className="flex items-center mr-2">
               <img
                 src={`${process.env.PUBLIC_URL}/images/${mode}.svg`}
-                className="h-5 lg:h-10 mr-1"
+                className="h-5 mr-1"
               />
               {mode !== 'BUS' && lines.map(line => (
-                <LineLogoByLineID lineID={line.id.split(":").pop()} className="h-5 lg:h-10 mr-2 lg:mr-4" />
+                <LineLogoByLineID lineID={line.id.split(":").pop()} className="h-5 mr-1" />
               ))}
             </div>
           ))}
@@ -88,25 +101,22 @@ const SearchBar = ({ label, placeholder, type = '', onSelectionChange }) => {
     </div>
   );
 
-  // const Control = ({ children, ...props }) => (
-  //   <components.Control {...props} className='text-sm'>
-  //   {label ? <span className="pl-2 font-bold text-sm text-purple-800">{label}</span> : null} {children}
-  //   </components.Control>
-  // );
-
   return (
-    <div className="flex items-center w-full">
-      <Select
-        options={options}
-        onInputChange={handleInputChange}
-        onChange={handleChange}
-        inputValue={inputValue}
-        formatOptionLabel={formatOptionLabel}
-        placeholder={placeholder}
-        className="flex-1 cursor-pointer"
-        // components={{ Control }}
-      />
-    </div>
+    <LabelContext.Provider value={label}>
+      <div className="flex items-center w-full">
+        <Select
+          options={options}
+          onInputChange={handleInputChange}
+          onChange={handleChange}
+          inputValue={inputValue}
+          formatOptionLabel={formatOptionLabel}
+          placeholder={placeholder}
+          className="flex-1 cursor-pointer"
+          components={{ Control }}
+          selectProps={{ label: 'Your Label' }}
+        />
+      </div>
+    </LabelContext.Provider>
   );
 };
 
