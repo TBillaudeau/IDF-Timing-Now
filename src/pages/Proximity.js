@@ -53,23 +53,18 @@ const Location = () => {
     };
 
     useEffect(() => {
-        const watchId = navigator.geolocation.watchPosition((position) => {
+        navigator.geolocation.getCurrentPosition((position) => {
             const newPosition = [position.coords.latitude, position.coords.longitude];
             console.log("New position: ", newPosition);
-            if (!initialPosition || (Math.abs(newPosition[0] - initialPosition.lat) > 0.001 || Math.abs(newPosition[1] - initialPosition.lng) > 0.001)) {
-                SetClientPosition(newPosition);
-                SetInitialPosition({ lat: newPosition[0], lng: newPosition[1] });
-                CenterMarker(newPosition);
-            }
+            SetClientPosition(newPosition);
+            SetInitialPosition({ lat: newPosition[0], lng: newPosition[1] });
+            CenterMarker(newPosition);
         }, (error) => {
             console.error("Error occurred while getting geolocation: ", error);
             if (!clientPosition) {
                 SetClientPosition([48.8598, 2.3470]);
             }
         });
-
-        // Clean up function to stop watching position when component unmounts
-        return () => navigator.geolocation.clearWatch(watchId);
     }, []);
 
     const RecenterControl = () => {
