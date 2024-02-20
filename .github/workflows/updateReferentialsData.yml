@@ -2,9 +2,9 @@ name: update-data-files
 
 on:
   schedule:
-    # Runs at 03:00 UTC every day
-    - cron: '0 3 * * *'
-
+    - cron: '0 3 * * *'   # Runs at 03:00 UTC every day
+  workflow_dispatch:      # Allows manual execution
+      
 jobs:
   update-data:
     runs-on: ubuntu-latest
@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         token: ${{ secrets.GH_PAT }}
 
