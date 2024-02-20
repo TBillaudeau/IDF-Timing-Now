@@ -15,7 +15,7 @@ function Clock() {
 
   return (
     <div className="w-full py-1 px-2 bg-purple-900 rounded-lg">
-      <h2 className="self-center text-xl font-bold whitespace-nowrap text-white">{time.toLocaleTimeString()}</h2>
+      <h2 style={{ fontFamily: "'Roboto Mono', monospace" }} className="self-center text-xl font-bold whitespace-nowrap text-white">{time.toLocaleTimeString()}</h2>
     </div>
   );
 }

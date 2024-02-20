@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import HashLoader from "react-spinners/HashLoader";
@@ -8,52 +8,30 @@ import Footer from './components/layout/Footer';
 import BottomNavbar from './components/layout/BottomNavbar';
 import InfoTrafic from './pages/InfoTrafic';
 
-const Search = lazyWithPreload(() => import('./pages/SearchResult'));
-const Research = lazyWithPreload(() => import('./pages/Research'));
-const LineInfo = lazyWithPreload(() => import('./pages/LineInfo'));
-const StationInfo = lazyWithPreload(() => import('./pages/StationInfo'));
-const StopInfo = lazyWithPreload(() => import('./pages/StopInfo'));
-const Login = lazyWithPreload(() => import('./pages/login'));
-const Favorites = lazyWithPreload(() => import('./pages/Favorites'));
-const Poles = lazyWithPreload(() => import('./pages/Poles'));
-const Location = lazyWithPreload(() => import('./pages/Proximity'));
-const Trip = lazyWithPreload(() => import('./pages/Itineraire'));
-const Chatelet = lazyWithPreload(() => import('./pages/Chatelet'));
-const Fosses = lazyWithPreload(() => import('./pages/Fosses'));
-const About = lazyWithPreload(() => import('./pages/About'));
-const NotFound = lazyWithPreload(() => import('./pages/NotFound'));
-const Settings = lazyWithPreload(() => import('./pages/Settings'));
-const Dashboard = lazyWithPreload(() => import('./pages/Dashboard'));
+const Search = lazy(() => import('./pages/SearchResult'));
+const Research = lazy(() => import('./pages/Research'));
+const LineInfo = lazy(() => import('./pages/LineInfo'));
+const StationInfo = lazy(() => import('./pages/StationInfo'));
+const StopInfo = lazy(() => import('./pages/StopInfo'));
+const Login = lazy(() => import('./pages/login'));
+const Favorites = lazy(() => import('./pages/Favorites'));
+const Poles = lazy(() => import('./pages/Poles'));
+const Location = lazy(() => import('./pages/Proximity'));
+const Trip = lazy(() => import('./pages/Itineraire'));
+const Chatelet = lazy(() => import('./pages/Chatelet'));
+const Fosses = lazy(() => import('./pages/Fosses'));
+const About = lazy(() => import('./pages/About'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+const Settings = lazy(() => import('./pages/Settings'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Image = lazy(() => import('./pages/Image'));
 
-function lazyWithPreload(factory) {
-  const Component = React.lazy(factory);
-  Component.preload = factory;
-  return Component;
+const isPWA = () => {
+  return true;
+  return (window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone) || document.referrer.includes('android-app://');
 }
 
 function App() {
-  useEffect(() => {
-    setTimeout(() => {
-      Promise.all([
-        Search.preload(),
-        Research.preload(),
-        LineInfo.preload(),
-        StationInfo.preload(),
-        StopInfo.preload(),
-        Login.preload(),
-        Favorites.preload(),
-        Poles.preload(),
-        Location.preload(),
-        Trip.preload(),
-        Chatelet.preload(),
-        Fosses.preload(),
-        About.preload(),
-        NotFound.preload(),
-        Settings.preload(),
-        Dashboard.preload()
-      ]);
-    }, 1000);
-  }, []);
 
   return (
     <>
@@ -74,6 +52,7 @@ function App() {
                 <Route path="/a-proximite" element={<Location />} />
                 <Route path="/itineraire" element={<Trip />} />
                 <Route path="/dashboard/:stationID" element={<Dashboard />} />
+                <Route path="/image" element={<Image />} />
 
                 <Route exact path="/infos-trafic" element={<InfoTrafic />} />
                 <Route path="/chatelet" element={<Chatelet />} />
@@ -88,7 +67,7 @@ function App() {
             </Suspense>
           </section>
         </main>
-        <BottomNavbar />
+        {isPWA() && <BottomNavbar />}
         {/* <Footer className='flex-shrink-0' /> */}
       </div>
     </>

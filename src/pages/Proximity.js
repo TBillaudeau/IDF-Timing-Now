@@ -78,7 +78,7 @@ const Location = () => {
                 const button = L.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
                 button.innerHTML = '<svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 20"><path d="M7 0a7 7 0 0 0-1 13.92V19a1 1 0 1 0 2 0v-5.08A7 7 0 0 0 7 0Zm0 5.5A1.5 1.5 0 0 0 5.5 7a1 1 0 0 1-2 0A3.5 3.5 0 0 1 7 3.5a1 1 0 0 1 0 2Z"/></svg>';
                 button.style.cssText = 'background-color: white; padding: 6px; cursor: pointer;';
-                button.onclick = () => clientPosition && map.flyTo(clientPosition, 13);
+                button.onclick = () => clientPosition && map.flyTo(clientPosition, 14);
                 return button;
             };
 
@@ -93,7 +93,7 @@ const Location = () => {
     return (
         <div style={{ height: 'calc(100vh - 130px)' }}>
             {clientPosition && (
-                <MapContainer className="h-[35%]" whenCreated={setMapInstance => { mapRef.current = setMapInstance; }} center={clientPosition} zoom={13} attributionControl={false} zoomControl={false}>
+                <MapContainer className="h-[35%]" whenCreated={setMapInstance => { mapRef.current = setMapInstance; }} center={clientPosition} zoom={14} attributionControl={false} zoomControl={false}>
                     <TileLayer url={`https://{s}.tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=${process.env.REACT_APP_JAWG_API_KEY}`} />
                     <CenterMarker />
                     <RecenterControl />

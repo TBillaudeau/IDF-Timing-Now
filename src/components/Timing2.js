@@ -51,8 +51,8 @@ function TrainInfo({ lineID, stationName }) {
               arrivalPlatform: journey?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalPlatformName?.value,
               trainNumber: journey?.MonitoredVehicleJourney?.TrainNumber?.TrainNumberRef[0]?.value,
               minutesFromNow: calculateMinutesFromNow(
-                journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime || 
-                journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime ||
+                journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime || 
+                journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime ||
                 journey?.MonitoredVehicleJourney?.MonitoredCall?.AimedArrivalTime
               ),
             }));
@@ -114,7 +114,8 @@ function TrainInfo({ lineID, stationName }) {
             }
 
             <div className="w-16 lg:w-20 pr-2 text-right shrink-0">
-              <p className={`text-sm lg:text-2xl font-bold ${train.expectedArrivalTime && !train.expectedDepartureTime ? 'text-gray-500' : ''} ${train.minutesFromNow <= 0 ? 'animate-pulse text-green-500' : ''}`}>{train.vehicleAtStop ? 'à quai' : (isNaN(train.minutesFromNow) ? '' : train.minutesFromNow + 'ᵐⁱⁿ')}</p>              <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">
+              <p className={`text-sm lg:text-2xl font-bold ${train.expectedArrivalTime && !train.expectedDepartureTime ? 'text-gray-500' : ''} ${train.minutesFromNow <= 0 ? 'animate-pulse text-green-500' : ''}`}>{train.vehicleAtStop ? 'à quai' : (isNaN(train.minutesFromNow) ? '' : train.minutesFromNow + 'ᵐⁱⁿ')}</p>            
+                <p className="text-xs lg:text-sm text-right text-gray-400 dark:text-white">
                 {
                   train.expectedArrivalTime ?
                     `${new Date(train.expectedArrivalTime).toLocaleTimeString()}` :

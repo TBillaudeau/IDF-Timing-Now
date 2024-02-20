@@ -9,7 +9,7 @@ function LineSVG({ lineID, className }) {
         const item = referentielDesLignes.find(item => item.fields.id_line === lineID);
 
         if (item) {
-            const name = item.fields.name_line;
+            const name = item.fields.shortname_line;
             const color = "#" + item.fields.colourweb_hexa;
             const text_color = "#" + item.fields.textcolourweb_hexa;
 

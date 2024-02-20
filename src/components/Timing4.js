@@ -50,8 +50,8 @@ function TrainInfo({ lineID, stationName }) {
               arrivalPlatform: journey?.MonitoredVehicleJourney?.MonitoredCall?.ArrivalPlatformName?.value,
               trainNumber: journey?.MonitoredVehicleJourney?.TrainNumber?.TrainNumberRef[0]?.value,
               minutesFromNow: calculateMinutesFromNow(
-                journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime ||
                 journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedArrivalTime ||
+                journey?.MonitoredVehicleJourney?.MonitoredCall?.ExpectedDepartureTime ||
                 journey?.MonitoredVehicleJourney?.MonitoredCall?.AimedArrivalTime
               ),
             }));

@@ -1,45 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="theme-color" content="#581c87" />
-    <meta
-      name="description"
-      content="Displays the next public transport departures in Ile-de-France"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>RailTime IDF</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <style id="loading-screen">
-      @keyframes updown {
-        0%, 100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-20px);
-        }
-      }
-    </style>
 
-    <div id="loading-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #5b21b6; display: flex; justify-content: center; align-items: center; z-index: 9999;">
-      <img src="%PUBLIC_URL%/logo512.png" alt="Logo" style="width: 100px; height: 100px; animation: updown 2s infinite; border-radius: 20%;">
-    </div>
-    <div id="root"></div>
-    <script id="remove-loading-script">
-      window.addEventListener('load', () => {
-        document.body.removeChild(document.getElementById('loading-screen'));
-        document.body.removeChild(document.getElementById('loading-screen'));
-        // document.getElementById('loading-screen').parentNode.removeChild(document.getElementById('loading-screen'));
-        // document.head.removeChild(document.getElementById('remove-loading-script'));
-        document.getElementById('remove-loading-script').parentNode.removeChild(document.getElementById('remove-loading-script'));
-      });
-    </script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <!-- <meta name="viewport" content="width=device-width,initial-scale=1"/> -->
+  <meta name="viewport" content="initial-scale=1, viewport-fit=cover, width=device-width">
+  </meta>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  </meta>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  </meta>
+  <!-- <meta name="theme-color" content="#581c87" /> -->
+  <meta name="description" content="Displays the next public transport departures in Ile-de-France" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <title>RailTime IDF</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <style id="loading-screen">
+    @keyframes updown {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+  </style>
+
+  <div id="loading-screen"
+    style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #5b21b6; display: flex; justify-content: center; align-items: center; z-index: 9999;">
+    <img src="%PUBLIC_URL%/logo512.png" alt="Logo"
+      style="width: 100px; height: 100px; animation: updown 2s infinite; border-radius: 20%;">
+  </div>
+  <div id="root"></div>
+  <script id="remove-loading-script">
+    window.addEventListener('load', () => {
+      document.body.removeChild(document.getElementById('loading-screen'));
+      document.body.removeChild(document.getElementById('loading-screen'));
+      // document.getElementById('loading-screen').parentNode.removeChild(document.getElementById('loading-screen'));
+      // document.head.removeChild(document.getElementById('remove-loading-script'));
+      document.getElementById('remove-loading-script').parentNode.removeChild(document.getElementById('remove-loading-script'));
+    });
+  </script>
+</body>
+
 </html>
 
 
